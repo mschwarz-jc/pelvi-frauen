@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beckenboden-Checkup für Frauen · BodyHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; background: #F0F0F0; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ── LP / Hero ── */
+    .lp { display: block; min-height: 100dvh; }
+    .hero { min-height: 100dvh; }
+
+
+
+
+    /* ── THEME VARIABLES ── */
+    .w {
+      --bg: #FAFAF8; --bg2: #F5F0EA; --card: #FFFFFF;
+      --tx: #2A2520; --txl: #7A726B;
+      --ac: #C4956A; --ach: #B8845A; --acl: #F0E4D4; --acxl: #FAF5EE;
+      --sc: #7A9E8E; --scl: #E8F2EE;
+      --br: #E8E0D6; --sh: rgba(196,149,106,0.09); --shl: rgba(196,149,106,0.2);
+      --hbg: linear-gradient(135deg, #F5EDE2 0%, #EEE7D9 50%, #E5EEEA 100%);
+      background: var(--bg); color: var(--tx);
+    }
+    .m {
+      --bg: #F4F6F9; --bg2: #E8EFF5; --card: #FFFFFF;
+      --tx: #1A2535; --txl: #5A6A80;
+      --ac: #1E5F8E; --ach: #175380; --acl: #D4E8F5; --acxl: #EDF5FB;
+      --sc: #3D8B7A; --scl: #DFF0EC;
+      --br: #D4DCE8; --sh: rgba(30,95,142,0.08); --shl: rgba(30,95,142,0.18);
+      --hbg: linear-gradient(135deg, #E8EFF5 0%, #ECF2F9 50%, #DDF0EC 100%);
+      background: var(--bg); color: var(--tx);
+    }
+    .r {
+      --bg: #09090B; --bg2: #111115; --card: #1A1A22;
+      --tx: #E2E2E8; --txl: #80808E;
+      --ac: #A08B6E; --ach: #8C7860; --acl: #252018; --acxl: #1A1610;
+      --sc: #4A7A8C; --scl: #101820;
+      --br: #28282E; --sh: rgba(160,139,110,0.10); --shl: rgba(160,139,110,0.20);
+      --hbg: #09090B;
+      background: var(--bg); color: var(--tx);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--hbg);
+      display: flex; align-items: center; justify-content: center;
+      padding: 36px 24px 0;
+      min-height: 100dvh;
+      position: relative; overflow: hidden;
+    }
+    .hero-in {
+      width: 100%;
+      display: flex; flex-direction: column;
+      padding-bottom: 52px;
+      position: relative; z-index: 2;
+    }
+
+    /* ── DEVICE IMAGES ── */
+    .hero-device {
+      position: absolute;
+      bottom: 0; right: -4%;
+      width: 66%; max-width: 260px;
+      display: block; pointer-events: none; user-select: none;
+      z-index: 1;
+    }
+    /* PelviPower: radial mask fades grey edges to transparent — no colour shift */
+    .lp-w .hero-device,
+    .lp-m .hero-device {
+      -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
+    }
+
+    /* ── RELOUNGE HERO: BASE (Bild unten) ── */
+    .lp-r .hero {
+      background: #09090B;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 52px 24px 0;
+    }
+    .lp-r .hero-in {
+      padding-bottom: 0;
+      position: relative; z-index: 2;
+      width: 100%;
+    }
+    .lp-r .hero-device {
+      position: absolute;
+      bottom: 0; top: auto;
+      left: 50%; right: auto;
+      transform: translateX(-50%);
+      width: 100%; max-width: 100%;
+      height: 64vh;
+      object-fit: cover;
+      object-position: center 30%;
+      z-index: 0;
+    }
+    /* Bild unten: gradient top→down schützt den Text oben */
+    .lp-r .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom,
+        #09090B 14%,
+        rgba(9,9,11,0.86) 38%,
+        rgba(9,9,11,0.32) 62%,
+        transparent 100%
+      );
+      pointer-events: none; z-index: 1;
+    }
+
+    /* ── RELOUNGE: Bild oben ── */
+    .lp-r[data-layout="top"] .hero {
+      padding: 0 24px 0;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    .lp-r[data-layout="top"] .hero-device {
+      top: 0; bottom: auto;
+      height: 54vh;
+    }
+    /* Text startet bei 82% der Bildhöhe → nur leichte Überlappung */
+    .lp-r[data-layout="top"] .hero-in {
+      margin-top: calc(54vh * 0.82);
+      padding-bottom: 48px;
+    }
+    /* Gradient bottom→up schützt den Text über der Liege */
+    .lp-r[data-layout="top"] .hero::after {
+      background: linear-gradient(to top,
+        #09090B 14%,
+        rgba(9,9,11,0.86) 38%,
+        rgba(9,9,11,0.30) 60%,
+        transparent 100%
+      );
+    }
+
+    .h-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+      background: var(--acl); color: var(--ac); margin-bottom: 20px;
+    }
+    .h-badge::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; flex-shrink:0; }
+    .h1 {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 30px; font-weight: 500;
+      line-height: 1.22; color: var(--tx); margin-bottom: 14px;
+    }
+    .h-sub {
+      font-size: 15px; line-height: 1.74; color: var(--txl);
+      margin-bottom: 28px;
+    }
+    .btn-p {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; padding: 16px 28px; border-radius: 100px; border: none; cursor: pointer;
+      font-size: 15px; font-family: inherit; font-weight: 600;
+      background: var(--ac); color: #fff; transition: background 0.22s;
+    }
+    .btn-p:hover { background: var(--ach); }
+    .btn-p svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .trust-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .tpill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 13px; border-radius: 100px;
+      background: var(--card); border: 1px solid var(--br);
+      font-size: 12px; color: var(--txl);
+    }
+    .tpill svg { width: 13px; height: 13px; color: var(--sc); flex-shrink: 0; }
+
+    /* ── MODAL OVERLAY ── */
+    .overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(5px);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .overlay.on { opacity: 1; pointer-events: all; }
+
+    /* ── QUIZ MODAL – immer zentriert ── */
+    .q-modal {
+      position: fixed; inset: 0; z-index: 2100;
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px;
+      pointer-events: none;
+    }
+    .q-modal.on { pointer-events: all; }
+    .q-wrap {
+      width: 100%; max-width: 620px;
+      max-height: calc(100dvh - 40px);
+      display: flex; flex-direction: column;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.1);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .q-modal.on .q-wrap { opacity: 1; transform: none; }
+
+    /* Modal uses theme class on .q-wrap */
+    .q-wrap { background: var(--bg, #FAFAF8); }
+
+    .q-head {
+      padding: 18px 24px 14px; flex-shrink: 0;
+      border-bottom: 1px solid var(--br, #E8E0D6);
+    }
+    .q-track { width: 100%; height: 3px; background: var(--br, #E8E0D6); border-radius: 2px; margin-bottom: 11px; overflow: hidden; }
+    .q-bar { height: 100%; background: var(--ac, #C4956A); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+    .q-head-row { display: flex; align-items: center; justify-content: space-between; }
+    .q-lbl { font-size: 12px; color: var(--txl, #7A726B); letter-spacing: 0.4px; }
+    .q-close {
+      width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--br, #E8E0D6);
+      background: transparent; cursor: pointer; font-size: 17px; color: var(--txl, #7A726B);
+      display: flex; align-items: center; justify-content: center; transition: all 0.18s; line-height: 1;
+    }
+    .q-close:hover { background: var(--bg2, #F5F0EA); color: var(--tx, #2A2520); }
+
+    .q-body { flex: 1; overflow-y: auto; padding: 24px 20px 16px; -webkit-overflow-scrolling: touch; }
+
+    .q-foot {
+      padding: 12px 20px 28px; flex-shrink: 0;
+      border-top: 1px solid var(--br, #E8E0D6);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .q-foot.hide { display: none; }
+    .btn-back {
+      padding: 9px 18px; border-radius: 8px; border: 1px solid var(--br, #E8E0D6);
+      background: transparent; color: var(--txl, #7A726B); cursor: pointer;
+      font-size: 14px; font-family: inherit; font-weight: 500; transition: all 0.18s;
+    }
+    .btn-back:hover { background: var(--bg2); color: var(--tx); }
+    .btn-back:disabled { opacity: 0.3; pointer-events: none; }
+    .btn-nxt {
+      padding: 9px 22px; border-radius: 8px; border: none;
+      background: var(--ac, #C4956A); color: #fff; cursor: pointer;
+      font-size: 14px; font-family: inherit; font-weight: 600; transition: background 0.18s;
+    }
+    .btn-nxt:hover { background: var(--ach); }
+
+    /* ── QUESTION CARD ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .step-card { animation: fadeUp 0.24s ease; }
+    .q-num {
+      font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--ac); margin-bottom: 10px;
+    }
+    .q-text {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 17px; font-weight: 500; line-height: 1.42;
+      color: var(--tx); margin-bottom: 22px;
+    }
+    .q-opts { display: flex; flex-direction: column; gap: 9px; }
+    .q-opt {
+      padding: 13px 17px; border-radius: 10px;
+      border: 1.5px solid var(--br); background: var(--card);
+      cursor: pointer; font-size: 14.5px; color: var(--tx);
+      font-family: inherit; text-align: left;
+      transition: border-color 0.18s, background 0.18s; line-height: 1.45;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .q-opt:hover { border-color: var(--ac); background: var(--acxl); }
+    .q-opt.sel { border-color: var(--ac); background: var(--acl); }
+    .q-opt .opt-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--br); flex-shrink: 0; transition: all 0.18s; background: transparent; }
+    .q-opt.sel .opt-check { background: var(--ac); border-color: var(--ac); display: flex; align-items: center; justify-content: center; }
+    .q-opt.sel .opt-check::after { content:''; width:5px; height:5px; border-radius:50%; background:#fff; }
+
+    /* ── FEEDBACK CARD ── */
+    .fb-icon { font-size: 28px; margin-bottom: 16px; }
+    .fb-lbl {
+      font-size: 11px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase;
+      color: var(--sc); margin-bottom: 8px;
+    }
+    .fb-hl {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 20px; font-weight: 500; line-height: 1.35;
+      color: var(--tx); margin-bottom: 14px;
+    }
+    .fb-body { font-size: 15px; color: var(--txl); line-height: 1.72; }
+
+    /* ── WARNING BANNER ── */
+    .warn-banner {
+      margin-top: 20px; padding: 13px 17px; border-radius: 10px;
+      background: #FFFBEB; border: 1px solid #F5C842;
+      font-size: 13.5px; color: #7A5F00; line-height: 1.55; display: none;
+    }
+    .warn-banner.on { display: block; }
+    .warn-banner strong { font-weight: 600; }
+
+    /* ── RESULTS ── */
+    .res-tag {
+      display: inline-block; background: var(--acl); color: var(--ac);
+      font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 10px;
+    }
+    .res-hl {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 21px; font-weight: 500; color: var(--tx); line-height: 1.3;
+      margin-bottom: 24px;
+    }
+    .res-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+    .res-card {
+      border-radius: 12px; padding: 17px 18px;
+      border: 1.5px solid var(--br); background: var(--bg2);
+      transition: border-color 0.18s;
+    }
+    .res-card.hl { border-color: var(--ac); background: var(--acxl); }
+    .res-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .res-card-icon { font-size: 18px; }
+    .res-card-title { font-size: 14px; font-weight: 600; color: var(--tx); }
+    .res-card-lbl { font-size: 11px; font-weight: 600; color: var(--ac); text-transform: uppercase; letter-spacing: 0.8px; }
+    .res-card-body { font-size: 13.5px; color: var(--txl); line-height: 1.62; }
+    .btn-res-cta {
+      width: 100%; padding: 15px; border-radius: 12px; border: none;
+      background: var(--ac); color: #fff; cursor: pointer;
+      font-size: 15px; font-family: inherit; font-weight: 600;
+      transition: background 0.18s;
+    }
+    .btn-res-cta:hover { background: var(--ach); }
+
+    /* ── SCORE RESULT (Rücken) ── */
+    .score-wrap { margin-bottom: 22px; }
+    .score-level-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 20px; border-radius: 12px;
+      border: 2px solid var(--ac); background: var(--acxl); margin-bottom: 16px;
+    }
+    .score-lvl-name { font-size: 20px; font-weight: 700; color: var(--ac); }
+    .score-lvl-sub { font-size: 13px; color: var(--txl); }
+    .score-rec {
+      background: var(--bg2); border-radius: 12px; padding: 16px 18px;
+      border: 1px solid var(--br); margin-bottom: 12px;
+    }
+    .score-rec-lbl { font-size: 11px; font-weight: 600; color: var(--txl); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .score-rec-txt { font-size: 15px; font-weight: 600; color: var(--tx); line-height: 1.45; }
+    .score-desc { font-size: 14px; color: var(--txl); line-height: 1.68; margin-bottom: 22px; }
+
+    /* ── MULTI-SELECT HINT ── */
+    .q-multi-hint { font-size: 11px; color: var(--txl); margin: 2px 0 10px; font-style: italic; }
+
+    /* ── CONTACT FORM ── */
+    .contact-card { text-align: center; }
+    .contact-card .fb-icon { font-size: 32px; margin-bottom: 8px; }
+    .contact-form { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; text-align: left; }
+    .contact-input {
+      padding: 13px 14px; border: 1.5px solid var(--br); border-radius: 10px;
+      background: var(--bg2); color: var(--tx); font-size: 15px; font-family: inherit;
+      outline: none; transition: border-color 0.2s;
+    }
+    .contact-input:focus { border-color: var(--ac); }
+    .contact-input::placeholder { color: var(--txl); }
+    .contact-input.err { border-color: #C44; }
+
+    /* ── LOADING ANIMATION ── */
+    .loading-card { display: flex; flex-direction: column; align-items: center; padding: 48px 20px; gap: 22px; }
+    .loading-dots { display: flex; gap: 9px; }
+    .loading-dots span {
+      width: 11px; height: 11px; border-radius: 50%; background: var(--ac);
+      animation: ldp 1.2s ease-in-out infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes ldp { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+    .loading-text { font-size: 16px; color: var(--txl); text-align: center; line-height: 1.65; }
+
+    /* ── SCALE BUTTONS (1–10) ── */
+    .q-scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 14px; }
+    .q-scale-btn {
+      padding: 13px 4px; border: 1.5px solid var(--br); border-radius: 8px;
+      background: transparent; color: var(--txl); font-size: 16px; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: all 0.18s;
+    }
+    .q-scale-btn:hover { border-color: var(--ac); color: var(--ac); }
+    .q-scale-btn.sel { background: var(--ac); border-color: var(--ac); color: #fff; }
+    .q-scale-desc { display: flex; justify-content: space-between; font-size: 11px; color: var(--txl); margin-top: 6px; }
+
+    /* ── RESULT ADDITIONS ── */
+    .res-sub { font-size: 13px; color: var(--txl); margin-bottom: 16px; line-height: 1.55; }
+    .res-card-intro { font-size: 13px; color: var(--ac); margin-bottom: 7px; font-style: italic; line-height: 1.5; font-weight: 500; }
+    .res-scale { background: var(--bg2); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; border: 1px solid var(--br); }
+    .res-scale-lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--txl); margin-bottom: 8px; }
+    .res-scale-bar-wrap { height: 6px; background: var(--br); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+    .res-scale-bar { height: 100%; border-radius: 3px; }
+    .res-scale-val { font-size: 13px; font-weight: 600; }
+    .res-disclaimer { font-size: 11px; color: var(--txl); margin-top: 14px; text-align: center; font-style: italic; line-height: 1.55; padding: 0 4px; }
+
+    /* ── NUDGE KARTE ── */
+    .nudge-card { background: var(--acxl); border: 1.5px solid var(--acl); border-radius: 16px; padding: 28px 22px; text-align: center; cursor: pointer; animation: fadeUp 0.24s ease; }
+    .nudge-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+    .nudge-text { font-size: 15px; color: var(--tx); line-height: 1.65; font-weight: 500; }
+    .nudge-hint { font-size: 11px; color: var(--txl); margin-top: 14px; }
+
+    /* ── SECTION TRANSITION KARTE ── */
+    .section-card { background: var(--bg2); border: 1.5px solid var(--br); border-radius: 16px; padding: 28px 22px; text-align: center; animation: fadeUp 0.24s ease; }
+    .section-badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--ac); background: var(--acxl); border: 1px solid var(--acl); border-radius: 100px; padding: 4px 12px; margin-bottom: 14px; }
+    .section-title { font-size: 20px; font-weight: 600; color: var(--tx); margin-bottom: 10px; line-height: 1.3; }
+    .section-body { font-size: 14px; color: var(--txl); line-height: 1.65; }
+
+    /* ── KONTEXT-SATZ ── */
+    .q-context { font-size: 12px; color: var(--ac); font-style: italic; line-height: 1.5; margin: -2px 0 10px; opacity: 0.85; }
+
+    /* ── Q0-RECAP: bereits behandelte Themen ── */
+    .q-opt.done { pointer-events: none; background: var(--scl); border-color: var(--sc); opacity: 0.72; }
+    .q-opt.done .opt-check { background: var(--sc); border-color: var(--sc); display: flex; align-items: center; justify-content: center; }
+    .q-opt.done .opt-check::after { content:''; width:5px; height:5px; border-radius:50%; background:#fff; }
+
+    /* ── BILDER AUSBLENDEN bei kleinem Screen (mobil) ── */
+    @media (max-width: 899px) and (max-height: 680px),
+           (max-width: 899px) and (max-width: 340px) {
+      .hero-device { display: none !important; }
+    }
+
+
+    /* ── BREAKPOINTS (min-width = mobile first) ── */
+    @media (min-width: 560px) {
+      .btn-p { width: auto; display: inline-flex; }
+    }
+    @media (min-width: 640px) {
+      .q-body { padding: 28px 30px 22px; }
+      .q-foot { padding: 14px 30px 22px; }
+      .q-text { font-size: 19px; }
+    }
+
+    /* ── Desktop ── */
+    @media (min-width: 900px) {
+      body { display: flex; flex-direction: column; min-height: 100dvh; }
+      .lp { flex: 1; display: flex; flex-direction: column; }
+      .hero { flex: 1; padding: 60px 8% 0; }
+      .hero-in { max-width: 560px; }
+      .btn-p { width: auto; display: inline-flex; }
+    }
+      .hero-in { max-width: 560px; }
+    }
+
+  </style>
+</head>
+<body class="w">
+
+<div class="lp">
+  <section class="hero">
+    <img class="hero-device" src="./Pelvi frauen dummy.png" alt="">
+    <div class="hero-in">
+      <div class="hero-content">
+        <span class="h-badge">Beckenboden-Checkup für Frauen</span>
+        <h1 class="h1">Wie geht es<br>Ihrem Beckenboden?</h1>
+        <p class="h-sub">Ein kurzer, geführter Checkup – diskret, unverbindlich und ohne medizinische Diagnose. Für ein erstes Gefühl, welche Themen für Sie persönlich relevant sein könnten.</p>
+        <div class="trust-pills">
+          <span class="tpill"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M5.5 8.5l2 2 3-4"/></svg>5 Minuten</span>
+          <span class="tpill"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="10" height="8" rx="1"/><path d="M5 5V4a3 3 0 016 0v1"/></svg>Anonym</span>
+          <span class="tpill"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>Sofortige Einschätzung</span>
+        </div>
+        <button class="btn-p" onclick="BB.open('w')" style="margin-top:20px">
+          Checkup starten
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="q-modal" id="bb-modal">
+  <div class="q-wrap" id="bb-wrap">
+    <div class="q-head">
+      <div class="q-track"><div class="q-bar" id="bb-bar"></div></div>
+      <div class="q-head-row">
+        <span class="q-lbl" id="bb-lbl"></span>
+        <button class="q-close" onclick="BB.close()" aria-label="Schließen">×</button>
+      </div>
+    </div>
+    <div class="q-body" id="bb-body"></div>
+    <div class="q-foot hide" id="bb-foot">
+      <button class="btn-back" id="bb-back" onclick="BB.back()">← Zurück</button>
+      <button class="btn-nxt" id="bb-nxt" onclick="BB.next()">Weiter →</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="overlay" onclick="BB.close()"></div>
+
+<script>
+
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+
+const BB_QS = {
+  w: [
+    // Q0 – Soft Intro (topic selector, multi-select)
+    { text: 'Der Beckenboden beeinflusst viele unserer Körperfunktionen – wo bemerken Sie Veränderungen?',
+      opts: ['Häufiger und/oder dringender Harndrang', 'Harnverlust (ungewollter Urinverlust)', 'Rückenschmerzen', 'Veränderte Sexualität', 'Druckgefühl nach unten / Organsenkung', 'Noch keine Beschwerden – ich möchte vorsorgen'], multi: true },
+    // Q1–2 Harndrang-Unterfragen
+    { text: 'Wann tritt der Harndrang typischerweise auf?',
+      context: 'Der Auslöser verrät uns viel über die Ursache – und hilft, das richtige Training zu empfehlen.',
+      opts: ['Bei Stress oder Aufregung', 'Bei Kälte oder wenn Wasser läuft', 'Oft ohne erkennbaren Auslöser', 'Auch nachts – ich wache davon auf'], multi: true },
+    { text: 'Wie stark ist das Dranggefühl in der Regel?',
+      opts: ['Manchmal dringend, aber noch kontrollierbar', 'Oft kaum aufschiebbar – muss sofort reagieren', 'Ich verliere dabei manchmal Urin'], multi: true },
+    // Q3–4 Harnverlust-Unterfragen
+    { text: 'In welchen Situationen kommt es zu Harnverlust?',
+      opts: ['Springen, Laufen oder Heben (körperliche Belastung)', 'Husten, Niesen oder Lachen', 'Bei dringendem oder starkem Harndrang'], multi: true },
+    { text: 'Wie häufig passiert das?',
+      opts: ['Selten – wenige Male im Monat', 'Regelmäßig – mehrmals pro Woche', 'Fast täglich'], multi: true },
+    // Q5–6 Rücken-Unterfragen
+    { text: 'Wo sitzen die Rückenschmerzen hauptsächlich?',
+      opts: ['Unterer Rücken oder Lendenwirbelsäule', 'Steißbein oder Beckenregion', 'Diffus – schwer zu lokalisieren'], multi: true },
+    { text: 'Seit wann haben Sie diese Beschwerden?',
+      opts: ['Erst seit Kurzem – wenige Monate', 'Schon länger als ein Jahr', 'Schon sehr lange – oder schon immer'], multi: true },
+    // Q7–8 Sexualität-Unterfragen
+    { text: 'Was genau hat sich verändert?',
+      context: 'Diese Frage fällt vielen schwer. Jede Antwort hilft uns, den richtigen und einfühlsamen Ansatz zu finden.',
+      opts: ['Weniger Empfindung oder Intensität', 'Schmerzen beim Intimverkehr', 'Innere Anspannung oder Unsicherheit'], multi: true },
+    { text: 'Wie sehr belastet Sie das?',
+      opts: ['Ich bemerke es, es stört mich aber kaum', 'Es beschäftigt mich – ich spreche nicht offen darüber', 'Es belastet mich stark und beeinflusst meine Beziehung'], multi: true },
+    // Q9–10 Organsenkung-Unterfragen
+    { text: 'Wie würden Sie das Gefühl beschreiben?',
+      opts: ['Gelegentlicher Druck oder Schwere nach einem langen Tag', 'Regelmäßiges Fremdkörpergefühl', 'Eine Senkung wurde bereits ärztlich festgestellt'], multi: true },
+    { text: 'Hat das Gefühl sich verändert?',
+      opts: ['Gleichbleibend', 'In letzter Zeit eher schlimmer', 'Schwankend – mal besser, mal schlechter'], multi: true },
+    // Q11 Vorsorge-Unterfrage (nur 1)
+    { text: 'Was motiviert Sie zu diesem Checkup?',
+      opts: ['Langfristig gesund und beschwerdefrei bleiben', 'Nach einer Schwangerschaft gezielt vorsorgen', 'Ich möchte einfach wissen, wo ich stehe'], multi: true },
+    // Q12 Allgemein – Geburt
+    { text: 'Haben Sie Kinder geboren?',
+      opts: ['Keine Kinder oder Kaiserschnitt', 'Vaginalgeburt – kaum spürbare Veränderungen', 'Vaginalgeburt – mit merklichen Veränderungen danach'], multi: true },
+    // Q13 Allgemein – Maßnahmen
+    { text: 'Haben Sie bereits etwas gegen Ihre Beschwerden unternommen?',
+      opts: ['Noch nichts probiert', 'Gezielte Übungen oder Physiotherapie', 'Mehreres versucht – bisher wenig dauerhafter Erfolg'], multi: true },
+    // Q14 Emotional – Wunsch
+    { text: 'Was würde sich für Sie am meisten verändern, wenn das Thema gelöst wäre?',
+      opts: ['Dann wäre ich viel entspannter und unbekümmerter', 'Keine Angst mehr vor weiterer Verschlimmerung', 'Ich würde mich wieder wohl und sicher in meinem Körper fühlen', 'Mehr Freude und Sicherheit in meiner Beziehung und Intimität'], multi: true },
+    // Q15 Skala 1–10
+    { text: 'Auf einer Skala von 1–10: Wie sehr belastet Sie die Situation gerade?', special: 'scale' },
+    // Q16 Bereich 2 – Darmfunktion
+    { text: 'Wie ist Ihre Verdauung und Darmkontrolle?',
+      context: 'Darm und Beckenboden teilen dieselben Muskeln und Nerven – beides hängt enger zusammen als die meisten denken.',
+      opts: ['Keine Probleme', 'Häufige Verstopfung oder starkes Pressen', 'Manchmal plötzlicher, kaum aufschiebbarer Stuhldrang', 'Gelegentlicher unkontrollierter Stuhlverlust'], multi: true },
+    // Q17 Bereich 2 – Schmerzen
+    { text: 'Haben Sie Schmerzen oder Druckgefühle im Becken- oder Unterbauchbereich?',
+      context: 'Schmerzen im Beckenbereich haben häufig eine muskuläre Ursache – und sind gut angehbar.',
+      opts: ['Keine', 'Beim langen Sitzen oder Stehen', 'Nach Sport oder körperlicher Belastung', 'Im Alltag ohne klaren Auslöser', 'Beim Intimverkehr oder bei gynäkologischen Untersuchungen'], multi: true },
+    // Q18 Bereich 2 – Alltagseinschränkung
+    { text: 'Was schränkt Sie durch Ihre Beschwerden ein?',
+      opts: ['Sport und körperliche Aktivitäten', 'Spontane soziale Situationen', 'Reisen oder längere Unternehmungen', 'Intimität und Partnerschaft', 'Ich lasse mich (noch) nicht einschränken'], multi: true },
+    // Q19 Bereich 2 – Schlaf & Wohlbefinden
+    { text: 'Wie wirken sich Ihre Beschwerden auf Schlaf und Wohlbefinden aus?',
+      opts: ['Kaum – ich schlafe gut und erhole mich', 'Manchmal schlechter Schlaf durch Harndrang nachts', 'Stress und Anspannung verstärken die Beschwerden', 'Erschöpfung und Energieverlust durch die Gesamtsituation'], multi: true },
+    // Q20 Bereich 3 – Lebensphase
+    { text: 'In welcher Lebensphase befinden Sie sich gerade?',
+      context: 'Hormonstatus und Lebensphase beeinflussen den Beckenboden stark – diese Information ist entscheidend für eine wirklich persönliche Einschätzung.',
+      opts: ['Reproduktionsphase (Menstruation, Verhütung)', 'Schwanger oder bis 1 Jahr nach der Geburt', 'Perimenopause (40+, Zyklusveränderungen spürbar)', 'Postmenopause'], multi: true },
+    // Q21 Bereich 3 – OPs / Erkrankungen
+    { text: 'Gab es Operationen im Beckenbereich oder relevante Vorerkrankungen?',
+      opts: ['Keine', 'Gebärmutter-OP (Hysterektomie o.ä.)', 'Blasen- oder Nieren-OP', 'Endometriose', 'Chronische Erkrankung (Fibromyalgie, Rheuma, Autoimmun)'], multi: true }
+  ],
+  m: [
+    // Q0 – Soft Intro (topic selector, multi-select)
+    { text: 'Der Beckenboden ist auch bei Männern ein zentrales Thema – nur wird seltener darüber gesprochen. Was beschäftigt Sie?',
+      opts: ['Harnverlust oder Nachtröpfeln nach dem Wasserlassen', 'Häufiger oder kaum aufschiebbarer Harndrang', 'Prostata – Beschwerden, Vorsorge oder nach einem Eingriff', 'Sexualität und Erektion', 'Rückenschmerzen oder fehlende Stabilität', 'Noch keine Beschwerden – ich möchte vorsorgen'], multi: true },
+    // Q1–2 Harnverlust-Unterfragen
+    { text: 'In welchen Situationen kommt es zu Harnverlust?',
+      opts: ['Bei körperlicher Belastung – Heben, Sport, Husten oder Niesen', 'Bei starkem Harndrang – kaum Zeit bis zur Toilette', 'Nachtröpfeln direkt nach dem Wasserlassen', 'Kombiniert – mehrere Situationen treffen zu'], multi: true },
+    { text: 'Wie häufig passiert das?',
+      opts: ['Selten – wenige Male im Monat', 'Regelmäßig – mehrmals pro Woche', 'Fast täglich'], multi: true },
+    // Q3–4 Harndrang-Unterfragen
+    { text: 'Wie würden Sie den Harndrang beschreiben?',
+      opts: ['Öfter als früher, aber noch gut kontrollierbar', 'Oft dringend und kaum aufschiebbar', 'Auch nachts – ich wache davon auf'], multi: true },
+    { text: 'Können Sie den Harndrang in der Regel noch rechtzeitig aufschieben?',
+      opts: ['Ja – ich komme immer rechtzeitig', 'Manchmal knappe Situationen', 'Nein – ich verliere dabei manchmal auch Urin'], multi: true },
+    // Q5–6 Prostata-Unterfragen
+    { text: 'Was ist Ihr Prostatathema?',
+      opts: ['Vorsorge – ich bin über 45 und möchte vorsorgen', 'Beschwerden wie schwacher Strahl, häufiges Wasserlassen oder Restgefühl', 'Nach einem Prostataeingriff – Kontinenz oder Erektionsfähigkeit wiederherstellen', 'Erhöhter PSA-Wert oder beobachtete Prostataveränderung'], multi: true },
+    { text: 'Hat Ihr Arzt oder Urologe bereits etwas festgestellt?',
+      context: 'Diese Information hilft uns, Ihre Situation richtig einzuordnen.',
+      opts: ['Noch nicht beim Urologen gewesen', 'Regelmäßige Kontrolle – alles im Beobachtungsbereich', 'Prostatavergrößerung (BPH) bekannt', 'Prostataerkrankung oder Eingriff in der Vorgeschichte'], multi: true },
+    // Q7–8 Sexualität-Unterfragen
+    { text: 'Was genau hat sich verändert?',
+      context: 'Viele Männer erleben das, was Sie beschreiben – kaum jemand spricht darüber. Jede Antwort hilft uns, den richtigen Ansatz zu finden.',
+      opts: ['Erektion schwieriger aufzubauen oder zu halten', 'Weniger Empfindung oder veränderter Orgasmus', 'Vorzeitige Ejakulation', 'Verminderte Lust oder allgemein veränderte Sexualität'], multi: true },
+    { text: 'Wie erleben Sie das?',
+      opts: ['Ich bemerke es, stört mich aber noch nicht sehr', 'Ich denke häufig daran – spreche aber nicht darüber', 'Es belastet mich und beeinflusst meine Beziehung'], multi: true },
+    // Q9–10 Rücken-Unterfragen
+    { text: 'Wo sitzen die Rückenschmerzen hauptsächlich?',
+      opts: ['Unterer Rücken oder Lendenwirbelsäule', 'Becken, Steißbein oder Gesäß', 'Ausstrahlend in ein Bein oder Kribbeln'], multi: true },
+    { text: 'Seit wann haben Sie diese Beschwerden?',
+      opts: ['Erst seit Kurzem – wenige Monate', 'Schon länger als ein Jahr', 'Schon sehr lange – oder nach einer körperlichen Belastung oder OP'], multi: true },
+    // Q11 Vorsorge-Unterfrage
+    { text: 'Was motiviert Sie zu diesem Checkup?',
+      opts: ['Proaktiv vorsorgen – der Beckenboden gehört langfristig trainiert', 'Mein Arzt hat Beckenboden oder Prostata angesprochen', 'Ich spüre erste Veränderungen und möchte früh handeln'], multi: true },
+    // Q12 Allgemein – Körperliche Belastung (Bereich 3)
+    { text: 'Wie sieht Ihr Berufsalltag und Ihre körperliche Belastung aus?',
+      context: 'Langes Sitzen, Stehen oder schweres Heben beeinflusst den Beckenboden – manchmal mehr als gedacht.',
+      opts: ['Vorwiegend sitzend – viel Büro oder Auto', 'Gemischt – teils sitzend, teils aktiv', 'Körperlich aktiv – viel Stehen, Gehen oder Heben'], multi: true },
+    // Q13 Allgemein – Maßnahmen (Bereich 3)
+    { text: 'Haben Sie bereits etwas gegen Ihre Beschwerden unternommen?',
+      opts: ['Noch nichts probiert', 'Gezielte Übungen oder Physiotherapie', 'Mehreres versucht – bisher wenig dauerhafter Erfolg'], multi: true },
+    // Q14 Emotional – Wunsch
+    { text: 'Was würde sich für Sie am meisten verändern, wenn das Thema gelöst wäre?',
+      opts: ['Wieder unbeschwert aktiv sein – ohne Gedanken an Blase oder Kontrolle', 'Mehr Kraft, Stabilität und Vitalität im Körper', 'Mehr Zuversicht und Freude in Partnerschaft und Sexualität', 'Kontinenz und Vitalität nach einem Eingriff zurückgewinnen'], multi: true },
+    // Q15 Skala 1–10
+    { text: 'Auf einer Skala von 1–10: Wie sehr belastet Sie die Situation gerade?', special: 'scale' },
+    // Q16 Bereich 2 – Darmfunktion
+    { text: 'Wie ist Ihre Darmfunktion und Darmkontrolle?',
+      context: 'Darm und Beckenboden teilen dieselben Muskeln und Nerven – beides hängt enger zusammen als die meisten denken.',
+      opts: ['Keine Probleme', 'Häufige Verstopfung oder starkes Pressen beim Stuhlgang', 'Manchmal unerwarteter, kaum aufschiebbarer Stuhldrang', 'Gelegentlicher unkontrollierter Stuhlverlust'], multi: true },
+    // Q17 Bereich 2 – Schmerzen
+    { text: 'Haben Sie Schmerzen oder Druckgefühle im Becken-, Dammbereich oder Unterbauch?',
+      context: 'Schmerzen im Beckenbereich haben häufig eine muskuläre Ursache – und sind gut angehbar.',
+      opts: ['Keine', 'Beim langen Sitzen (Büro, Auto, Fahrrad)', 'Nach Sport oder körperlicher Belastung', 'Im Alltag ohne klaren Auslöser', 'Beim Geschlechtsverkehr oder Orgasmus'], multi: true },
+    // Q18 Bereich 2 – Alltagseinschränkung
+    { text: 'Was schränkt Sie durch Ihre Beschwerden ein?',
+      opts: ['Sport und körperliche Aktivitäten', 'Spontane soziale Situationen', 'Reisen oder längere Unternehmungen', 'Intimität und Partnerschaft', 'Ich lasse mich (noch) nicht einschränken'], multi: true },
+    // Q19 Bereich 2 – Schlaf & Wohlbefinden
+    { text: 'Wie wirken sich Ihre Beschwerden auf Schlaf und Wohlbefinden aus?',
+      opts: ['Kaum – ich schlafe gut und erhole mich', 'Schlechter Schlaf – muss nachts auf die Toilette', 'Stress und Anspannung verstärken die Beschwerden', 'Erschöpfung und Energieverlust durch die Gesamtsituation'], multi: true },
+    // Q20 Bereich 3 – Lebensphase
+    { text: 'In welchem Lebensabschnitt befinden Sie sich gerade?',
+      context: 'Alter und Lebensphase beeinflussen den Beckenboden – besonders in Verbindung mit der Prostata.',
+      opts: ['Unter 45 Jahre – aktiv und vorsorgebewusst', '45–60 Jahre – Prostatacheck-Phase, erste Veränderungen spürbar', 'Über 60 Jahre'], multi: true },
+    // Q21 Bereich 3 – OPs / Erkrankungen
+    { text: 'Gab es Operationen im Becken- oder Bauchbereich oder relevante Vorerkrankungen?',
+      opts: ['Keine', 'Prostata-OP (Prostatektomie oder TURP)', 'Andere OP im Becken- oder Bauchraum', 'Diabetes oder neurologische Erkrankung', 'Chronische Erkrankung (Herz-Kreislauf, Übergewicht, Rheuma)'], multi: true }
+  ],
+  rl: [
+    // Q0 – Schmerzlokalisation (topic selector, multi-select)
+    { text: 'Wo in Ihrem Rücken oder Körper haben Sie Beschwerden?',
+      opts: ['Lendenwirbelsäule – unterer Rücken', 'Halswirbelsäule – Nacken', 'Brustwirbelsäule – mittlerer Rücken', 'Hüfte, Gesäß oder Ausstrahlung ins Bein', 'Schultern', 'Ganzer Rücken oder mehrere Bereiche gleichzeitig'],
+      pts: [1, 1, 1, 2, 1, 5], multi: true },
+    // Q1–Q2 LWS-Unterfragen
+    { text: 'Wie zeigt sich der Schmerz im unteren Rücken?',
+      opts: ['Stechend oder scharf beim Bewegen', 'Dumpf und drückend – vor allem bei Belastung', 'Verspannung oder Steifheit – besonders morgens', 'Ausstrahlend in Gesäß oder Bein'],
+      pts: [2, 2, 2, 4], multi: true },
+    { text: 'In welchen Situationen tritt er besonders auf?',
+      opts: ['Beim Heben oder Bücken', 'Nach langem Sitzen – z.B. im Büro oder Auto', 'Beim Aufstehen oder bei den ersten Schritten morgens', 'Ohne klaren Auslöser – er ist einfach ständig da'],
+      pts: [2, 3, 2, 5], multi: true },
+    // Q3–Q4 HWS-Unterfragen
+    { text: 'Was begleitet die Nackenbeschwerden?',
+      opts: ['Kopfschmerzen oder Spannungskopfschmerzen', 'Kribbeln oder Taubheit in Arm oder Hand', 'Schulterblockade oder eingeschränkte Drehbewegung', 'Nur Steifheit und Verspannung – nichts weiter'],
+      pts: [2, 3, 2, 1], multi: true },
+    { text: 'Wann sind die Nackenbeschwerden am stärksten?',
+      opts: ['Bei Bildschirmarbeit oder langem Sitzen', 'Morgens nach dem Aufwachen', 'Bei Stress und innerer Anspannung', 'Nahezu ständig – kaum beschwerdefreie Phasen'],
+      pts: [3, 2, 3, 5], multi: true },
+    // Q5–Q6 BWS-Unterfragen
+    { text: 'Wie würden Sie die Schmerzen in der Rückenmitte beschreiben?',
+      opts: ['Ziehend oder drückend', 'Stechend bei bestimmten Bewegungen', 'Taubheitsgefühl oder Kribbeln', 'Verspannung über einen größeren Bereich'],
+      pts: [2, 2, 3, 2], multi: true },
+    { text: 'Wann treten sie hauptsächlich auf?',
+      opts: ['Beim Drehen oder Seitbeugen', 'Nach langem Sitzen oder Stehen', 'Beim tiefen Einatmen oder Husten', 'Dauerhaft – ohne klaren Auslöser'],
+      pts: [2, 3, 2, 5], multi: true },
+    // Q7–Q8 Hüfte/Gesäß/Bein-Unterfragen
+    { text: 'Wie äußert sich die Ausstrahlung in Hüfte, Gesäß oder Bein?',
+      opts: ['Ziehender Schmerz im Gesäß oder der Hüfte', 'Stechender Schmerz, der ins Bein ausstrahlt', 'Kribbeln oder Taubheitsgefühl im Bein oder Fuß', 'Schwäche- oder Schweregefühl im Bein'],
+      pts: [2, 3, 3, 3], multi: true },
+    { text: 'Wann tritt sie auf?',
+      context: 'Das hilft uns, die Schwere der Nervenbeteiligung besser einzuordnen.',
+      opts: ['Vor allem beim langen Sitzen', 'Beim Gehen oder Stehen', 'Auch in Ruhe oder nachts – unabhängig von Bewegung', 'Beim Husten oder Niesen verstärkt'],
+      pts: [3, 2, 5, 3], multi: true },
+    // Q9–Q10 Schulter-Unterfragen
+    { text: 'Wie beschreiben Sie die Schulterbeschwerden?',
+      opts: ['Verspannung und Steifheit', 'Eingeschränkte Beweglichkeit beim Heben des Arms', 'Schmerzen bei bestimmten Armbewegungen', 'Kribbeln oder Taubheit im Arm oder in den Fingern'],
+      pts: [2, 2, 2, 3], multi: true },
+    { text: 'Womit sind die Schulterprobleme verbunden?',
+      opts: ['Lange Bildschirmarbeit oder Bürotätigkeit', 'Stress und innere Anspannung', 'Körperliche Arbeit oder Sport', 'Unklarer Ursprung – kommt und geht'],
+      pts: [3, 3, 2, 2], multi: true },
+    // Q11 Ganzer Rücken (1 Unterfrage)
+    { text: 'Welche Bereiche sind besonders belastend?',
+      opts: ['Oben und Mitte – vor allem Verspannung', 'Unten – vor allem Schmerzen und Steifheit', 'Alles – kein spezifischer Fokus, überall Beschwerden'],
+      pts: [2, 3, 5], multi: true },
+    // Q12 Häufigkeit (Bereich 2)
+    { text: 'Wie oft haben Sie Rückenschmerzen?',
+      opts: ['Nur 1–2 Mal pro Monat', '1–2 Mal pro Woche', '3–4 Mal pro Woche', 'Täglich oder fast täglich', 'Ich habe dauerhaft Schmerzen – keine beschwerdefreien Tage'],
+      pts: [1, 2, 3, 5, 10], multi: true },
+    // Q13 Was ausprobiert (Bereich 3)
+    { text: 'Haben Sie bereits etwas gegen Ihre Rückenschmerzen unternommen?',
+      opts: ['Noch nichts probiert', 'Massage oder Wärme', 'Physiotherapie oder Krankengymnastik', 'Gezielte Rückenübungen, Pilates oder Yoga', 'Mehreres versucht – bisher keine dauerhafte Verbesserung'],
+      pts: [1, 1, 1, 1, 2], multi: true },
+    // Q14 Wunsch
+    { text: 'Was würde sich für Sie am meisten verändern, wenn der Rücken wieder frei wäre?',
+      opts: ['Wieder unbeschwert durch den Alltag – ohne Rückengedanken', 'Sport und Bewegung ohne Einschränkungen genießen', 'Besser schlafen und ausgeruht aufwachen', 'Arbeit und Alltag ohne Schmerzmittel bewältigen'],
+      multi: true },
+    // Q15 Skala 1–10
+    { text: 'Auf einer Skala von 1–10: Wie stark schränkt Sie der Rücken gerade ein?', special: 'scale' },
+    // Q16 Bereich 2 – Einschränkungen
+    { text: 'Was schränkt Sie durch Ihre Beschwerden ein?',
+      context: 'Rückenschmerzen zeigen sich überall im Alltag – diese Antworten helfen uns, das vollständige Bild zu verstehen.',
+      opts: ['Sport oder körperliche Freizeitaktivitäten', 'Lange Büro- oder Schreibtischarbeit', 'Haushaltsarbeiten oder Gartenarbeit', 'Reisen oder längere Unternehmungen', 'Fast alles – ich meide vieles vorsorglich', 'Ich lasse mich (noch) nicht einschränken'],
+      pts: [2, 3, 2, 2, 10, 0], multi: true },
+    // Q17 Bereich 2 – Verschlechterung
+    { text: 'Was verschlechtert Ihre Beschwerden erfahrungsgemäß?',
+      opts: ['Langes Sitzen (Büro, Auto)', 'Langes Stehen oder Gehen', 'Körperliche Arbeit oder schweres Heben', 'Gartenarbeit oder Haushaltsarbeiten', 'Stress oder emotionale Belastung', 'Langes Liegen oder schlechter Schlaf'],
+      pts: [3, 3, 3, 3, 3, 3], multi: true },
+    // Q18 Bereich 2 – Alltagsprofil
+    { text: 'Wie sieht Ihr Berufsalltag und Ihre körperliche Aktivität aus?',
+      opts: ['Vorwiegend sitzend – viel Büro oder Auto', 'Viel Stehen oder Gehen', 'Körperlich belastend – schweres Heben regelmäßig', 'Tägliche Spaziergänge oder leichte Bewegung', 'Regelmäßiges Training (3× oder mehr pro Woche)'],
+      pts: [1, 1, 1, 0, 0], multi: true },
+    // Q19 Bereich 2 – Schlaf/Nacht
+    { text: 'Wachen Sie nachts durch Rückenschmerzen auf?',
+      opts: ['Nein – ich schlafe gut durch', 'Ab und zu – einmal im Monat oder seltener', 'Manchmal – ein- bis zweimal pro Woche', 'Ja, regelmäßig – fast jede Nacht'],
+      pts: [0, 1, 2, 10], multi: true },
+    // Q20 Bereich 3 – Dauer
+    { text: 'Wie lange bestehen Ihre Rückenbeschwerden schon?',
+      context: 'Wie lange Beschwerden bestehen, beeinflusst direkt, wie intensiv die Behandlung sein sollte.',
+      opts: ['Weniger als 3 Monate', 'Mehr als 3 Monate', 'Mehr als 1 Jahr', 'Mehrere Jahre'],
+      pts: [1, 2, 3, 10], multi: true },
+    // Q21 Bereich 3 – Diagnose
+    { text: 'Gibt es eine ärztliche Diagnose oder bekannte Vorerkrankung?',
+      opts: ['Keine Diagnose', 'Bandscheibenvorfall oder Bandscheibenprobleme', 'Arthrose oder Verschleiß (Spondylarthrose)', 'Osteoporose oder Knochenschwund', 'Skoliose oder ausgeprägte Fehlhaltung', 'Andere Diagnose (Ischias, Spinalstenose, etc.)'],
+      pts: [0, 2, 2, 2, 1, 2], multi: true }
+  ]
+};
+
+// BB_MAP: Legacy-Fallback (nicht mehr aktiv genutzt)
+const BB_MAP = [];
+
+// Männer: Thema → Sub-Fragen-Indizes
+const M_TOPIC_QS = {
+  0: [1, 2],   // Harnverlust
+  1: [3, 4],   // Harndrang
+  2: [5, 6],   // Prostata
+  3: [7, 8],   // Sexualität
+  4: [9, 10],  // Rücken
+  5: [11],     // Vorsorge
+};
+
+const M_NUDGE_MAP = { 0:'m_hv', 1:'m_hd', 2:'m_pr', 3:'m_sx', 4:'m_ru', 5:'m_vs' };
+
+const M_NUDGES = {
+  m_hv: { icon:'💧', text:'Harnverlust bei Männern ist häufiger als gedacht – kein Zeichen von Schwäche, sondern ein Muskel, der gezielte Unterstützung braucht. In den meisten Fällen ohne Operation deutlich verbesserbar.' },
+  m_hd: { icon:'⏱️', text:'Ein überaktiver Blasenmuskel reagiert schneller als nötig – das ist ein gut regulierbares Muster. Mit dem richtigen Training lässt sich die Kontrolle spürbar zurückgewinnen.' },
+  m_pr: { icon:'💪', text:'Prostata und Beckenboden sind direkt verbunden. Gezieltes Training unterstützt die Blasenfunktion – unabhängig davon, ob ein Eingriff stattgefunden hat oder nicht.' },
+  m_sx: { icon:'🔵', text:'Das ist nicht selbstverständlich – danke für Ihre Offenheit. Viele Männer erleben genau das, sprechen aber nicht darüber. Erektion und Beckenboden hängen enger zusammen als die meisten wissen.' },
+  m_ru: { icon:'🌿', text:'Rücken und Beckenboden teilen dieselbe tiefe Muskelgruppe. Was für den Beckenboden gut ist, stärkt fast immer auch den Rücken – beides lässt sich gemeinsam angehen.' },
+  m_vs: { icon:'✨', text:'Wer vorsorgt, bevor Beschwerden entstehen, hat die allerbesten Voraussetzungen. Bei Männern wird das oft unterschätzt – Sie gehören zur klugen Ausnahme.' },
+  m_b2a: { icon:'🌿', text:'Darm, Blase und Beckenboden teilen sich dieselben Muskeln und Nerven. Kein Zufall, dass sie sich gegenseitig beeinflussen – und kein Zufall, dass man alle drei gemeinsam angehen kann.' },
+  m_b2b: { icon:'💙', text:'Was Sie beschreiben, ergibt ein klares, bekanntes Muster. Wir haben das schon bei vielen Männern begleitet – gleich sehen Sie, was das für Sie bedeutet.' },
+  m_b3a: { icon:'🔍', text:'Kein Beckenboden ist gleich. Ihre Vorgeschichte – Beruf, Lebensphase, Vorerkrankungen – macht den Unterschied für eine wirklich persönliche Einschätzung.' },
+};
+
+const M_SECTIONS = {
+  2: { n:'Abschnitt 2 von 3', title:'Ihr Alltag', body:'Beschwerden zeigen sich immer auch im Alltag. Diese Fragen helfen uns, die Auswirkungen auf Ihr tägliches Leben und Wohlbefinden besser einzuordnen.' },
+  3: { n:'Abschnitt 3 von 3', title:'Ihre Vorgeschichte', body:'Beruf, Lebensphase und Vorerkrankungen prägen den Beckenboden stark. Diese Informationen machen den Unterschied für eine wirklich persönliche Einschätzung.' },
+};
+
+// Frauen: Thema → Sub-Fragen-Indizes
+const W_TOPIC_QS = {
+  0: [1, 2],   // Harndrang
+  1: [3, 4],   // Harnverlust
+  2: [5, 6],   // Rücken
+  3: [7, 8],   // Sexualität
+  4: [9, 10],  // Organsenkung
+  5: [11],     // Vorsorge (nur 1 Frage)
+};
+
+// Nudge nach jedem Thema-Block
+const W_NUDGE_MAP = { 0:'hd', 1:'hv', 2:'ru', 3:'sx', 4:'og', 5:'vs' };
+
+const W_NUDGES = {
+  hd: { icon:'💧', text:'Harndrang-Beschwerden betreffen viele Frauen – aber kaum jemand spricht darüber. Mit dem richtigen Training lässt sich das Thema in den meisten Fällen deutlich verbessern.' },
+  hv: { icon:'💦', text:'Harnverlust ist das häufigste Beckenboden-Thema bei Frauen überhaupt. Und: In den meisten Fällen lässt er sich ohne Operation deutlich verbessern oder ganz beheben.' },
+  ru: { icon:'🌿', text:'Rücken und Beckenboden teilen dieselbe tiefe Muskelgruppe. Was für den Beckenboden gut ist, hilft fast immer auch dem Rücken – beides lässt sich gemeinsam angehen.' },
+  sx: { icon:'🌸', text:'Das ist nicht selbstverständlich – danke für Ihre Offenheit. Viele Frauen berichten von genau diesen Veränderungen, sprechen aber nicht darüber. Sie sind damit nicht allein.' },
+  og: { icon:'💪', text:'Organsenkung klingt beängstigend – ist es aber nicht. Gezieltes Beckenbodentraining ist hier eine der wirksamsten Maßnahmen, die es gibt. Viele Frauen spüren Verbesserungen schon nach wenigen Wochen.' },
+  vs: { icon:'✨', text:'Wer vorsorgt, bevor Beschwerden entstehen, hat die allerbesten Voraussetzungen. Das machen wenige – Sie gehören dazu.' },
+  b2a: { icon:'🌿', text:'Darm, Blase und Beckenboden teilen sich dieselben Muskeln und Nerven. Kein Zufall, dass sie sich gegenseitig beeinflussen – und kein Zufall, dass man alle drei gemeinsam angehen kann.' },
+  b2b: { icon:'💙', text:'Wir haben schon viele Frauen in einer sehr ähnlichen Situation begleitet. Was Sie beschreiben, ergibt ein klares, gut bekanntes Muster – gleich sehen Sie, was das für Sie bedeutet.' },
+  b3a: { icon:'🔍', text:'Kein Beckenboden ist gleich. Ihre Geschichte – Geburten, Lebensphase, Vorerkrankungen – macht den Unterschied zwischen einer allgemeinen und einer wirklich persönlichen Einschätzung.' },
+};
+
+const W_SECTIONS = {
+  2: { n:'Abschnitt 2 von 3', title:'Ihr Alltag', body:'Beschwerden zeigen sich immer auch im Alltag. Diese Fragen helfen uns, die Auswirkungen auf Ihr tägliches Leben und Wohlbefinden besser einzuordnen.' },
+  3: { n:'Abschnitt 3 von 3', title:'Ihre Geschichte', body:'Geburten, Lebensphase und Vorerkrankungen prägen den Beckenboden stark. Diese Informationen machen den Unterschied für eine wirklich persönliche Einschätzung.' },
+};
+
+// reLounge: Thema → Sub-Fragen-Indizes
+const RL_TOPIC_QS = {
+  0: [1, 2],   // LWS
+  1: [3, 4],   // HWS/Nacken
+  2: [5, 6],   // BWS/Mitte
+  3: [7, 8],   // Hüfte/Gesäß/Bein
+  4: [9, 10],  // Schultern
+  5: [11],     // Ganzer Rücken
+};
+
+const RL_NUDGE_MAP = { 0:'rl_lws', 1:'rl_hws', 2:'rl_bws', 3:'rl_hue', 4:'rl_shu', 5:'rl_gan' };
+
+const RL_NUDGES = {
+  rl_lws: { icon:'🌿', text:'Der untere Rücken ist die häufigste Schmerzregion – und gleichzeitig die, auf die die reLounge am direktesten einwirken kann. Mit gezielten Impulsen genau dort, wo der Alltag die meiste Last hinterlässt.' },
+  rl_hws: { icon:'🌿', text:'Nacken und Schultern sind oft das erste, was die Last des Alltags spürt. Was Sie beschreiben, ist ein bekanntes Muster – und gut regulierbar, wenn man tief genug ansetzt.' },
+  rl_bws: { icon:'🌿', text:'Die mittlere Wirbelsäule ist das Bindeglied zwischen oben und unten – wird aber oft übersehen. Was sich hier festsetzt, beeinflusst fast alles andere.' },
+  rl_hue: { icon:'⚡', text:'Wenn Schmerzen in Hüfte, Gesäß oder Bein ausstrahlen, hat das seinen Ursprung fast immer in der Wirbelsäule. Die reLounge kann genau hier ansetzen – von innen heraus.' },
+  rl_shu: { icon:'🌿', text:'Schulterverspannungen haben fast immer eine tiefere Ursache in der Wirbelsäule. Wer dort ansetzt, löst oft das, was oben zu spüren ist.' },
+  rl_gan: { icon:'🔍', text:'Wenn der gesamte Rücken betroffen ist, braucht es einen Ansatz, der von unten nach oben arbeitet – genau das, wofür die reLounge entwickelt wurde.' },
+  rl_a2a: { icon:'🌿', text:'Alltag und Rücken hängen direkt zusammen. Nicht immer ist es ein einzelnes Ereignis – oft ist es das Muster aus Sitzen, Stehen und Stress, das sich irgendwann bemerkbar macht.' },
+  rl_a2b: { icon:'💙', text:'Was Sie beschreiben, ergibt ein klares Bild. Viele Menschen in einer sehr ähnlichen Situation konnten mit der richtigen Begleitung deutliche Verbesserungen erzielen.' },
+  rl_a3a: { icon:'🔍', text:'Ihre Vorgeschichte – wie lange, was Sie schon versucht haben, welche Diagnosen vorliegen – macht den Unterschied zwischen einer allgemeinen und einer wirklich persönlichen Einschätzung.' },
+};
+
+const RL_SECTIONS = {
+  2: { n:'Abschnitt 2 von 3', title:'Ihr Alltag', body:'Rückenschmerzen zeigen sich immer auch im Alltag. Diese Fragen helfen uns, die Auswirkungen auf Ihr tägliches Leben und Wohlbefinden besser einzuordnen.' },
+  3: { n:'Abschnitt 3 von 3', title:'Ihre Vorgeschichte', body:'Wie lange Beschwerden bestehen, was Sie schon ausprobiert haben und welche Diagnosen vorliegen – das macht den Unterschied für eine wirklich persönliche Programm-Empfehlung.' },
+};
+
+function buildRLFlow(topics, extraTopics = []) {
+  const steps = [{t:'q', qi:0}];
+  (topics || []).forEach(t => {
+    (RL_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (RL_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: RL_NUDGE_MAP[t]});
+  });
+  steps.push({t:'fb', fi:1});
+  steps.push({t:'q0recap'});
+  (extraTopics || []).forEach(t => {
+    (RL_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (RL_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: RL_NUDGE_MAP[t]});
+  });
+  steps.push({t:'section', n:2});
+  steps.push({t:'q',qi:16},{t:'q',qi:12},{t:'nudge',id:'rl_a2a'},{t:'q',qi:17},{t:'q',qi:18},{t:'nudge',id:'rl_a2b'},{t:'q',qi:19});
+  steps.push({t:'fb', fi:2});
+  steps.push({t:'section', n:3});
+  steps.push({t:'q',qi:20},{t:'nudge',id:'rl_a3a'},{t:'q',qi:21},{t:'q',qi:13});
+  steps.push({t:'fb', fi:3});
+  steps.push({t:'q',qi:15},{t:'q',qi:14});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'});
+  return steps;
+}
+
+function buildMFlow(topics, extraTopics = []) {
+  const steps = [{t:'q', qi:0}];
+  (topics || []).forEach(t => {
+    (M_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (M_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: M_NUDGE_MAP[t]});
+  });
+  steps.push({t:'fb', fi:1});
+  steps.push({t:'q0recap'});
+  (extraTopics || []).forEach(t => {
+    (M_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (M_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: M_NUDGE_MAP[t]});
+  });
+  steps.push({t:'section', n:2});
+  steps.push({t:'q',qi:16},{t:'nudge',id:'m_b2a'},{t:'q',qi:17},{t:'q',qi:18},{t:'nudge',id:'m_b2b'},{t:'q',qi:19});
+  steps.push({t:'fb', fi:2});
+  steps.push({t:'section', n:3});
+  steps.push({t:'q',qi:12},{t:'q',qi:20},{t:'nudge',id:'m_b3a'},{t:'q',qi:21},{t:'q',qi:13});
+  steps.push({t:'fb', fi:3});
+  steps.push({t:'q',qi:15},{t:'q',qi:14});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'});
+  return steps;
+}
+
+function buildWFlow(topics, extraTopics = []) {
+  const steps = [{t:'q', qi:0}];
+  // Bereich 1: Themen-Unterfragen + Nudge je Thema
+  (topics || []).forEach(t => {
+    (W_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
+  });
+  steps.push({t:'fb', fi:1});
+  // Q0-Recap: Ergänzung möglich
+  steps.push({t:'q0recap'});
+  // Extra-Themen aus Recap (leer wenn nichts ergänzt)
+  (extraTopics || []).forEach(t => {
+    (W_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
+  });
+  // Bereich 2
+  steps.push({t:'section', n:2});
+  steps.push({t:'q',qi:16},{t:'nudge',id:'b2a'},{t:'q',qi:17},{t:'q',qi:18},{t:'nudge',id:'b2b'},{t:'q',qi:19});
+  steps.push({t:'fb', fi:2});
+  // Bereich 3
+  steps.push({t:'section', n:3});
+  steps.push({t:'q',qi:12},{t:'q',qi:20},{t:'nudge',id:'b3a'},{t:'q',qi:21},{t:'q',qi:13});
+  steps.push({t:'fb', fi:3});
+  // Abschluss
+  steps.push({t:'q',qi:15},{t:'q',qi:14});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'});
+  return steps;
+}
+
+const BB_FEED = {
+  w: {
+    1: function(a) {
+      const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+      const q3 = a[3] ? [...a[3]] : [];
+      // Harnverlust hat Vorrang
+      if (topics.includes(1)) {
+        if (q3.includes(0) || q3.includes(1))
+          return { icon:'💧', lbl:'Erste Einschätzung', hl:'Das klingt nach einer Belastungsinkontinenz.', body:'Was Sie beschreiben, ist das häufigste Beckenbodenmuster bei Frauen – besonders nach Schwangerschaften oder in den Wechseljahren. Der Beckenbodenmuskel gibt kurz nach, wenn der Druck von außen kommt. Das ist sehr gut trainierbar. Wir sind auf einem guten Weg.' };
+        if (q3.includes(2))
+          return { icon:'💧', lbl:'Erste Einschätzung', hl:'Das hört sich nach einem überaktiven Blasenmuskel an.', body:'Der Drang, sofort reagieren zu müssen, und dabei auch etwas zu verlieren – das ist belastend und schränkt ein. Die gute Nachricht: Der Blasenmuskel lässt sich trainieren und beruhigen. Mit dem richtigen Ansatz merken viele Frauen schon nach wenigen Wochen eine Veränderung.' };
+        return { icon:'💧', lbl:'Erste Einschätzung', hl:'Harnverlust ist häufiger als gedacht – und gut behandelbar.', body:'Was Sie beschreiben, betrifft viele Frauen. Gezieltes Beckenbodentraining zeigt hier in den meisten Fällen schnelle Wirkung – oft innerhalb weniger Wochen sichtbare Verbesserungen.' };
+      }
+      if (topics.includes(0))
+        return { icon:'💧', lbl:'Erste Einschätzung', hl:'Das deutet auf einen überaktiven Blasenmuskel hin.', body:'Häufiger oder kaum kontrollierbarer Harndrang entsteht, wenn der Blasenmuskel überreagiert. Das ist häufiger als gedacht – und mit gezieltem Training gut regulierbar. Noch ein paar Fragen, dann haben wir ein vollständiges Bild.' };
+      if (topics.includes(4))
+        return { icon:'🔴', lbl:'Erste Einschätzung', hl:'Das klingt nach einem Senkungsgefühl.', body:'Das, was Sie beschreiben, kennen wir gut. Gezieltes Beckenbodentraining ist eine der wirksamsten Maßnahmen bei Organsenkungen – konservativ, ohne Operation, und je früher begonnen, desto besser. Sie sind auf dem richtigen Weg.' };
+      if (topics.includes(3))
+        return { icon:'🌸', lbl:'Danke für Ihre Offenheit', hl:'Veränderungen in der Sexualität sind häufiger als gedacht – und selten offen besprochen.', body:'Viele Frauen erleben das, was Sie gerade beschrieben haben – aber die wenigsten sprechen darüber. Der Beckenboden spielt in diesem Bereich eine zentrale Rolle. Mit dem richtigen, einfühlsamen Ansatz lässt sich hier viel verändern.' };
+      if (topics.includes(2))
+        return { icon:'🌿', lbl:'Erste Einschätzung', hl:'Rücken und Beckenboden hängen direkt zusammen.', body:'Die tiefe Rumpfmuskulatur verbindet beides. Oft ist der Rücken gar nicht das eigentliche Problem – sondern ein Zeichen, dass der Beckenboden mehr Unterstützung braucht. Wenn wir das angehen, verbessert sich meistens beides.' };
+      return { icon:'✨', lbl:'Sehr gut', hl:'Vorsorge zum richtigen Zeitpunkt – das ist die wirksamste Maßnahme.', body:'Gerade bevor Beschwerden entstehen, ist das Training am effektivsten. Viele Frauen warten zu lange. Sie nicht – das ist klug und macht einen echten Unterschied.' };
+    },
+    2: function(a) {
+      const q17 = a[17] ? [...a[17]] : [];
+      const q16 = a[16] ? [...a[16]] : [];
+      const q18 = a[18] ? [...a[18]] : [];
+      const q18noRestrict = q18.filter(i => i !== 4);
+      if (q17.includes(4) || q17.includes(3))
+        return { icon:'⚡', lbl:'Wichtige Einordnung', hl:'Beckenbodenschmerzen haben fast immer eine muskuläre Ursache.', body:'Das klingt herausfordernd – und es ist wichtig, dass Sie es beschrieben haben. Schmerzen im Becken- oder Intimbereich entstehen häufig durch eine erhöhte Spannung der Beckenbodenmuskulatur. Das lässt sich gezielt und behutsam angehen. Sie sind nicht die Einzige mit diesem Thema.' };
+      if (q16.includes(2) || q16.includes(3))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Darm und Beckenboden werden oft getrennt behandelt – gehören aber zusammen.', body:'Was Sie beschreiben, ist ein deutlicher Hinweis, dass das gesamte Beckenbodensystem unter Druck steht. Viele Frauen wissen nicht, dass Darm- und Blasenprobleme dieselbe Wurzel haben können. Das ist gut behandelbar – und wir schauen beides an.' };
+      if (q18noRestrict.length >= 3)
+        return { icon:'🌸', lbl:'Wir hören Sie', hl:'Wir verstehen, wie einschränkend das ist. Das muss nicht so bleiben.', body:'Wenn Beschwerden so viele Lebensbereiche berühren, ist das belastend – körperlich und emotional. Das ist eine echte Last. Und gleichzeitig: Je klarer das Bild, das wir haben, desto gezielter können wir helfen. Gleich sind wir fast fertig.' };
+      return { icon:'💙', lbl:'Gut gemacht', hl:'Jetzt haben wir ein vollständiges Bild, wie sich das Thema in Ihrem Alltag zeigt.', body:'Das hilft uns, Ihre persönliche Einschätzung wirklich passend zu machen – nicht allgemein, sondern auf Sie zugeschnitten. Noch ein letzter Abschnitt.' };
+    },
+    3: function(a) {
+      const q21 = a[21] ? [...a[21]] : [];
+      const q20 = a[20] ? [...a[20]] : [];
+      const q12 = a[12] ? [...a[12]] : [];
+      if (q21.includes(3))
+        return { icon:'🔍', lbl:'Wichtige Einordnung', hl:'Endometriose und Beckenboden hängen eng zusammen.', body:'Endometriose beeinflusst nicht nur den Zyklus – sie verändert das gesamte Becken-Milieu, oft auch die Muskulatur. Das erfordert einen besonders behutsamen, spezialisierten Ansatz. Wir nehmen das mit in Ihre persönliche Einschätzung auf.' };
+      if (q20.includes(2) || q20.includes(3))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'In der Menopause verändert sich das Bindegewebe – das erklärt viele der Symptome.', body:'Durch den veränderten Hormonstatus wird das Bindegewebe weniger elastisch, der Beckenboden verliert an Stabilität. Das ist ein natürlicher Prozess – aber kein unabänderlicher. Gezieltes Training kann diesen Effekt deutlich abmildern. Es ist nie zu spät.' };
+      if (q12.includes(2))
+        return { icon:'💧', lbl:'Wichtige Einordnung', hl:'Nach einer Vaginalgeburt verändert sich das gesamte Beckenbodengefüge.', body:'Das ist der häufigste Auslöser für Beckenbodenbeschwerden – und gleichzeitig der, bei dem Training am besten anschlägt. Viele Frauen warten Jahre, bevor sie etwas unternehmen. Gut, dass Sie jetzt hinschauen.' };
+      return { icon:'✨', lbl:'Fast fertig', hl:'Sie haben uns jetzt ein vollständiges Bild gegeben.', body:'Symptome, Alltag, Geschichte – wir haben alles, was wir für eine wirklich persönliche Einschätzung brauchen. Gleich erhalten Sie Ihre Analyse – direkt hier auf Ihrem Bildschirm.' };
+    }
+  },
+  m: {
+    1: function(a) {
+      const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+      const q1 = a[1] ? [...a[1]] : [];
+      const q6 = a[6] ? [...a[6]] : [];
+      if (topics.includes(2)) {
+        if (q6.includes(3))
+          return { icon:'💪', lbl:'Erste Einschätzung', hl:'Nach einem Prostataeingriff ist der Beckenboden der zentrale Ansatzpunkt.', body:'Kontinenz und Erektionsfähigkeit nach einer Prostata-OP hängen direkt von der Beckenbodenmuskulatur ab. Gezieltes Training ist hier einer der wirksamsten Ansätze – je früher begonnen, desto besser.' };
+        return { icon:'💪', lbl:'Erste Einschätzung', hl:'Prostata und Beckenboden sind direkt verbunden.', body:'Was Sie beschreiben, ist ein gut bekanntes Muster. Gezieltes Beckenbodentraining unterstützt die Blasenfunktion und kann prostatab­edingte Beschwerden spürbar lindern.' };
+      }
+      if (topics.includes(0)) {
+        if (q1.includes(2))
+          return { icon:'💧', lbl:'Erste Einschätzung', hl:'Nachtröpfeln ist das häufigste Harnverlust-Muster bei Männern.', body:'Nach dem Wasserlassen verbleibt noch etwas Urin in der Harnröhre – gezieltes Training der Beckenboden- und Schließmuskulatur kann das in den meisten Fällen deutlich verbessern.' };
+        return { icon:'💧', lbl:'Erste Einschätzung', hl:'Harnverlust ist häufiger als gedacht – und gut behandelbar.', body:'Was Sie beschreiben, betrifft viele Männer – besonders nach dem 50. Lebensjahr oder nach Prostatabehandlungen. Mit dem richtigen Training sind deutliche Verbesserungen sehr realistisch.' };
+      }
+      if (topics.includes(1))
+        return { icon:'⏱️', lbl:'Erste Einschätzung', hl:'Ein häufiger oder dringender Harndrang ist gut regulierbar.', body:'Wenn der Blasenmuskel überaktiv reagiert, entsteht ein Dranggefühl, das sich nicht immer gut aufschieben lässt. Mit gezieltem Training lässt sich die Blasenaktivität nachhaltig beruhigen.' };
+      if (topics.includes(3))
+        return { icon:'🔵', lbl:'Danke für Ihre Offenheit', hl:'Erektionsfähigkeit und Beckenboden hängen enger zusammen als die meisten wissen.', body:'Der Beckenboden ist direkt an der Erektion beteiligt. Viele Männer erleben, was Sie beschreiben – aber kaum jemand spricht darüber. Mit dem richtigen Ansatz lässt sich hier in vielen Fällen etwas verändern.' };
+      if (topics.includes(4))
+        return { icon:'🌿', lbl:'Erste Einschätzung', hl:'Rücken und Beckenboden hängen direkt zusammen.', body:'Die tiefe Rumpfmuskulatur verbindet beides. Oft ist der Rücken gar nicht das eigentliche Problem – sondern ein Zeichen, dass der Beckenboden mehr Unterstützung braucht. Wenn wir das angehen, verbessert sich meistens beides.' };
+      return { icon:'✨', lbl:'Sehr gut', hl:'Vorsorge zum richtigen Zeitpunkt – das ist die wirksamste Maßnahme.', body:'Gerade bevor Beschwerden entstehen, ist das Training am effektivsten. Bei Männern wird der Beckenboden oft vernachlässigt. Sie nicht – das ist klug und macht einen echten Unterschied.' };
+    },
+    2: function(a) {
+      const q17 = a[17] ? [...a[17]] : [];
+      const q16 = a[16] ? [...a[16]] : [];
+      const q18 = a[18] ? [...a[18]] : [];
+      const q18noRestrict = q18.filter(i => i !== 4);
+      if (q17.includes(4))
+        return { icon:'⚡', lbl:'Wichtige Einordnung', hl:'Schmerzen beim Geschlechtsverkehr haben fast immer eine muskuläre Ursache.', body:'Eine erhöhte Spannung der Beckenbodenmuskulatur ist bei Männern häufiger als gedacht – und oft unerkannt. Das lässt sich gezielt und behutsam angehen. Sie sind damit nicht allein.' };
+      if (q17.includes(3))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Schmerzen ohne klaren Auslöser sind ein Hinweis auf muskuläre Dauerbelastung.', body:'Ein dauerhaft erhöhter Beckenboden-Tonus zeigt sich oft als diffuser Schmerz. Das ist gut behandelbar – wenn man gezielt ansetzt.' };
+      if (q16.includes(2) || q16.includes(3))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Darm und Beckenboden werden oft getrennt behandelt – gehören aber zusammen.', body:'Was Sie beschreiben, kann ein deutlicher Hinweis sein, dass das gesamte Beckenbodensystem unter Druck steht. Beides lässt sich gemeinsam angehen.' };
+      if (q18noRestrict.length >= 2)
+        return { icon:'💙', lbl:'Wir hören Sie', hl:'Das muss nicht so bleiben.', body:'Wenn Beschwerden mehrere Lebensbereiche berühren, ist das eine echte Last – körperlich und emotional. Gleich sehen Sie, was das für Sie bedeutet.' };
+      return { icon:'💙', lbl:'Gut gemacht', hl:'Jetzt haben wir ein vollständiges Bild, wie sich das Thema in Ihrem Alltag zeigt.', body:'Das hilft uns, Ihre persönliche Einschätzung wirklich passend zu machen – nicht allgemein, sondern auf Sie zugeschnitten. Noch ein letzter Abschnitt.' };
+    },
+    3: function(a) {
+      const q21 = a[21] ? [...a[21]] : [];
+      const q20 = a[20] ? [...a[20]] : [];
+      if (q21.includes(1))
+        return { icon:'💪', lbl:'Wichtige Einordnung', hl:'Nach einer Prostata-OP ist gezieltes Training entscheidend.', body:'Beckenboden- und Blasenfunktion sind nach einem Eingriff oft beeinträchtigt. Strukturiertes Training ist hier eine der wirksamsten Maßnahmen – je früher begonnen, desto besser.' };
+      if (q21.includes(3))
+        return { icon:'🔍', lbl:'Wichtige Einordnung', hl:'Diabetes und Neurologie beeinflussen den Beckenboden direkt.', body:'Nervenfunktion und Blasenkontrolle hängen eng zusammen. Ein besonders abgestimmter, behutsamer Ansatz berücksichtigt das – und ist trotzdem sehr wirksam.' };
+      if (q20.includes(2))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Über 60: der richtige Zeitpunkt, gezielt zu handeln.', body:'Mit zunehmendem Alter verändert sich die Beckenbodenmuskulatur. Gezieltes Training kann diesen Prozess deutlich abfedern – es ist nie zu spät.' };
+      if (q20.includes(1))
+        return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Die 45–60-Phase ist ein wichtiger Zeitpunkt für den Beckenboden.', body:'Prostata und Beckenboden verändern sich in dieser Phase. Wer jetzt gezielt vorsorgt, schafft eine starke Basis für die kommenden Jahrzehnte.' };
+      return { icon:'✨', lbl:'Fast fertig', hl:'Sie haben uns ein vollständiges Bild gegeben.', body:'Symptome, Alltag, Vorgeschichte – wir haben alles, was wir für eine wirklich persönliche Einschätzung brauchen. Gleich erhalten Sie Ihre Analyse.' };
+    }
+  }
+};
+
+// ── reLounge Feedback ──
+Object.assign(BB_FEED, { rl: {
+  1: function(a) {
+    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+    if (topics.includes(3)) {
+      const q8 = a[8] ? [...a[8]] : [];
+      if (q8.includes(2) || q8.includes(3))
+        return { icon:'⚡', lbl:'Erste Einordnung', hl:'Das Kribbeln oder die Ausstrahlung braucht besondere Aufmerksamkeit.', body:'Was Sie beschreiben, kann auf eine Nervenbeteiligung hinweisen. Die reLounge kann hier direkt ansetzen – von unten nach oben, tief in der Muskulatur, und so die Drucksituation auf die Nerven entlasten.' };
+      return { icon:'⚡', lbl:'Erste Einordnung', hl:'Ausstrahlung ist ein klares Signal, dass die Wirbelsäule mehr Unterstützung braucht.', body:'Was in Hüfte oder Bein spürbar ist, hat seinen Ursprung fast immer in der Wirbelsäule selbst. Dort setzt die reLounge an – gezielt und tief.' };
+    }
+    if (topics.includes(5)) return { icon:'🔍', lbl:'Erste Einordnung', hl:'Schmerzen im ganzen Rücken – das ist ein weit verbreitetes Muster.', body:'Wenn mehrere Bereiche betroffen sind, steht das gesamte Muskelsystem des Rückens unter Spannung. Die reLounge arbeitet von unten nach oben und adressiert genau dieses Muster.' };
+    if (topics.includes(0)) {
+      const q2 = a[2] ? [...a[2]] : [];
+      if (q2.includes(3)) return { icon:'🌿', lbl:'Erste Einordnung', hl:'Schmerzen ohne klaren Auslöser zeigen: die Muskulatur steht dauerhaft unter Spannung.', body:'Das ist ein klassisches Zeichen muskulärer Dysbalance – und genau das, wofür die reLounge entwickelt wurde. Mit gezielten Impulsen tief in der Lendenmuskulatur.' };
+      return { icon:'🌿', lbl:'Erste Einordnung', hl:'Der untere Rücken ist die häufigste Problemzone – und am besten erreichbar.', body:'Was Sie beschreiben, begegnet uns täglich. Die reLounge setzt genau dort an, wo Muskeln dauerhaft verspannt sind – tiefer, als Dehnen oder Massage allein erreichen können.' };
+    }
+    if (topics.includes(1)) {
+      const q4 = a[4] ? [...a[4]] : [];
+      if (q4.includes(3)) return { icon:'🌿', lbl:'Erste Einordnung', hl:'Kaum beschwerdefreie Phasen – das zeigt, wie sehr der Alltag belastet.', body:'Nackenspannung, die nicht nachlässt, hat fast immer eine tiefere Ursache in der Wirbelsäule. Die reLounge löst systematisch – und schafft echte Entlastung.' };
+      return { icon:'🌿', lbl:'Erste Einordnung', hl:'Nacken und Schultern – häufig das erste Zeichen einer tieferliegenden Dysbalance.', body:'Was sich oben zeigt, hat seinen Ursprung oft viel weiter unten. Die reLounge arbeitet systematisch von der Lendenwirbelsäule aufwärts.' };
+    }
+    return { icon:'🌿', lbl:'Erste Einordnung', hl:'Gut, dass Sie früh hinschauen.', body:'In dieser Phase – bevor Beschwerden sich chronisch festigen – ist die Wirkung gezielter Maßnahmen am stärksten. Noch ein paar Fragen, dann haben wir ein vollständiges Bild.' };
+  },
+  2: function(a) {
+    const q17 = a[17] ? [...a[17]] : [];
+    const q16 = a[16] ? [...a[16]] : [];
+    const q19 = a[19] ? [...a[19]] : [];
+    if (q19.includes(3)) return { icon:'⚡', lbl:'Wichtige Einordnung', hl:'Wenn der Rücken auch den Schlaf raubt, ist das ein klares Signal.', body:'Nächtliche Schmerzen zeigen, dass der Körper keine wirkliche Erholungspause mehr bekommt. Das muss nicht so bleiben – mit dem richtigen Ansatz reguliert sich auch das.' };
+    if (q17.includes(4)) return { icon:'🔍', lbl:'Wichtige Einordnung', hl:'Stress als Verstärker – häufiger als gedacht.', body:'Wenn Stress die Beschwerden direkt beeinflusst, ist das ein Zeichen, dass das Nervensystem mitbeteiligt ist. Die reLounge kann hier besonders wirksam ansetzen.' };
+    if (q16.includes(4)) return { icon:'💙', lbl:'Wir hören Sie', hl:'Wenn Sie vieles vorsorglich meiden – das muss nicht so bleiben.', body:'Einschränkungen über viele Lebensbereiche hinweg zeigen, wie belastend die Situation ist. Das ist genau der Moment, wo gezielte Therapie den größten Unterschied machen kann.' };
+    return { icon:'💙', lbl:'Gut gemacht', hl:'Jetzt haben wir ein vollständiges Bild, wie sich das Thema in Ihrem Alltag zeigt.', body:'Das hilft uns, Ihre persönliche Empfehlung wirklich passend zu machen. Noch ein letzter Abschnitt.' };
+  },
+  3: function(a) {
+    const q20 = a[20] ? [...a[20]] : [];
+    const q21 = a[21] ? [...a[21]] : [];
+    const q13 = a[13] ? [...a[13]] : [];
+    if (q21.includes(1)) return { icon:'🔍', lbl:'Wichtige Einordnung', hl:'Bei bekannten Bandscheibenproblemen ist der richtige Ansatz entscheidend.', body:'Die reLounge hat für dieses Bild ein spezielles Protokoll. Die Behandlung wird von Anfang an genau auf Ihre Situation abgestimmt.' };
+    if (q20.includes(3)) return { icon:'🎯', lbl:'Wichtige Einordnung', hl:'Mehrjährige Beschwerden haben sich gefestigt – das erfordert Konsequenz.', body:'Das bedeutet nicht, dass sich nichts verändern kann – im Gegenteil. Mit einem strukturierten Programm sind auch bei langjährigen Beschwerden deutliche Verbesserungen sehr realistisch.' };
+    if (q13.includes(4)) return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Gut, dass Sie schon aktiv waren – jetzt fehlt der richtige Ansatz.', body:'Wer vieles versucht hat und noch keine dauerhafte Lösung gefunden hat, braucht oft nicht mehr Maßnahmen – sondern die richtige. Gleich sehen Sie, was das für Sie bedeutet.' };
+    return { icon:'✨', lbl:'Fast fertig', hl:'Sie haben uns ein vollständiges Bild gegeben.', body:'Häufigkeit, Alltag, Vorgeschichte – wir haben alles, was wir für eine wirklich persönliche Programm-Empfehlung brauchen. Gleich erhalten Sie Ihre Analyse.' };
+  }
+}});
+
+const R_QS = [
+  { text: 'Wo genau haben Sie Rückenschmerzen?',
+    opts: ['Nacken, Schultern oder ein einzelner Bereich', 'Lendenwirbelsäule oder Hüfte / Beine', 'Ganzer Rücken oder mehrere Bereiche'],
+    pts: [1,2,5] },
+  { text: 'Wie oft haben Sie Schmerzen?',
+    opts: ['Selten – 1–2× im Monat oder weniger', 'Mehrmals pro Woche', 'Täglich, nachts oder dauerhaft'],
+    pts: [1,3,8] },
+  { text: 'Wie fühlt sich der Schmerz an?',
+    opts: ['Dumpf oder Verspannung', 'Stechend oder ziehend', 'Taubheitsgefühl oder Ausstrahlung in Bein / Arm'],
+    pts: [2,2,4] },
+  { text: 'Wie stark sind die Schmerzen?',
+    opts: ['Leicht – kaum einschränkend (1–3 von 10)', 'Mittel – spürbar belastend (4–6 von 10)', 'Stark – deutliche Einschränkung (7–10 von 10)'],
+    pts: [2,5,8] },
+  { text: 'Wie lange bestehen die Beschwerden schon?',
+    opts: ['Weniger als 3 Monate', '3 Monate bis 1 Jahr', 'Länger als 1 Jahr'],
+    pts: [1,2,8] },
+  { text: 'Wie sehr schränken die Beschwerden Ihren Alltag ein?',
+    opts: ['Kaum – ich kann alles machen', 'Manchmal – bestimmte Aktivitäten meide ich', 'Stark – vieles ist nicht mehr möglich'],
+    pts: [1,3,8] },
+  { text: 'Wann werden die Schmerzen schlimmer?',
+    opts: ['Bei Sport oder körperlicher Aktivität', 'Bei langem Sitzen oder Stehen', 'Auch in Ruhe oder nachts'],
+    pts: [3,3,5] },
+  { text: 'Was haben Sie bisher dagegen unternommen?',
+    opts: ['Noch nichts oder gelegentlich Schmerzmittel', 'Einzelne Maßnahmen wie Massage oder Physio – mäßiger Erfolg', 'Vieles versucht – keine dauerhafte Lösung'],
+    pts: [1,2,5] }
+];
+
+const R_MAP = [
+  {t:'q',qi:0},{t:'q',qi:1},{t:'q',qi:2},
+  {t:'fb',fi:1},
+  {t:'q',qi:3},{t:'q',qi:4},{t:'q',qi:5},
+  {t:'fb',fi:2},
+  {t:'q',qi:6},{t:'q',qi:7},
+  {t:'res'}
+];
+
+const R_FEED = {
+  1: function(a) {
+    if (a[2] === 2) return { icon:'⚡', lbl:'Erste Einordnung', hl:'Das Kribbeln oder die Ausstrahlung sollte fachlich eingeordnet werden.', body:'Was Sie beschreiben, kann auf eine Beteiligung von Nerven hindeuten – das lässt sich mit dem richtigen Ansatz gezielt begleiten. Wir schauen gemeinsam, was hier sinnvoll ist.' };
+    if (a[0] === 2) return { icon:'🔍', lbl:'Erste Einordnung', hl:'Schmerzen im ganzen Rücken – das ist ein weit verbreitetes Muster.', body:'Wenn mehrere Bereiche betroffen sind, ist meist das gesamte Muskelsystem des Rückens involviert. Ganzheitliches Training ist hier besonders wirkungsvoll.' };
+    return { icon:'🌿', lbl:'Erste Einordnung', hl:'Gut, dass Sie früh hinschauen.', body:'In dieser Phase – bevor Beschwerden sich festigen – ist die Wirkung gezielter Maßnahmen am stärksten. Noch ein paar Fragen, dann sehen wir ein vollständiges Bild.' };
+  },
+  2: function(a) {
+    const subScore = (a[3]||0) + (a[4]||0) + (a[5]||0);
+    const pts3 = [2,5,8], pts4 = [1,2,8], pts5 = [1,3,8];
+    const sc = (pts3[a[3]]||0) + (pts4[a[4]]||0) + (pts5[a[5]]||0);
+    if (sc >= 18) return { icon:'🎯', lbl:'Wichtige Einordnung', hl:'Ihre Beschwerden haben sich bereits deutlich gefestigt.', body:'Das bedeutet: es braucht etwas mehr Konsequenz, aber die Wirksamkeit gezielter Therapie ist trotzdem sehr gut. Mit dem richtigen Programm lässt sich nachhaltig etwas verändern.' };
+    if (sc >= 9) return { icon:'🎯', lbl:'Wichtige Einordnung', hl:'Ihre Situation ist klar einordenbar.', body:'Was Sie beschreiben, kennen wir gut. Es gibt konkrete Programme, die genau auf Ihre Ausgangssituation abgestimmt sind.' };
+    return { icon:'🌿', lbl:'Wichtige Einordnung', hl:'Gut, dass Sie früh handeln.', body:'In einem frühen Stadium ist die Wirkung am stärksten. Noch zwei Fragen, dann bekommen Sie Ihre Empfehlung.' };
+  }
+};
+
+const R_LEVELS = [
+  { max: 10, name: 'Leicht', sub: 'Erste Signale', rec: '10 Einheiten · 1× pro Woche · über 10–12 Wochen', desc: 'Ihr Rücken zeigt erste Signale, die sich gut frühzeitig angehen lassen. Ein gezieltes Aufbauprogramm über 10 Wochen schafft eine stabile Basis – und verhindert, dass sich Beschwerden weiter festigen.' },
+  { max: 22, name: 'Mäßig', sub: 'Gefestigt, aber gut behandelbar', rec: '20 Einheiten · erst 2×, dann 1× pro Woche · über 20–22 Wochen', desc: 'Ihre Beschwerden sind spürbar, aber sehr gut behandelbar. Mit einem intensiveren Einstieg und anschließender Erhaltungsphase lässt sich eine deutliche Verbesserung erreichen.' },
+  { max: 35, name: 'Deutlich', sub: 'Ausgeprägt – intensivere Begleitung empfohlen', rec: '30 Einheiten · 2× pro Woche · über 20–25 Wochen', desc: 'Ihre Situation ist ausgeprägt und erfordert eine konsequente Herangehensweise. Mit einem intensiven Programm über mehrere Monate sind deutliche Fortschritte sehr realistisch.' },
+  { max: Infinity, name: 'Intensiv', sub: 'Chronisch – intensive Begleitung sinnvoll', rec: '40 Einheiten · 2× pro Woche · über 30–35 Wochen', desc: 'Ihre Beschwerden haben sich über längere Zeit festgesetzt. Das erfordert Ausdauer – aber mit einem konsequenten Programm lassen sich auch in diesem Stadium bedeutende Verbesserungen erzielen.' }
+];
+
+/* ══════════════════════════════════════════════════════
+   BB QUIZ
+══════════════════════════════════════════════════════ */
+let bbGender = 'w', bbStep = 0, bbAnswers = {}, bbTimer = null, bbNudgeTimer = null;
+let bbFlow = [{t:'q', qi:0}]; // Frauen: wird nach Q0 dynamisch aufgebaut
+const BB_Q_TOTAL = 11; // Männer
+
+const BB = {
+  open(g) {
+    bbGender = g;
+    bbStep = 0;
+    bbAnswers = {};
+    bbFlow = [{t:'q', qi:0}];
+    if (bbTimer) { clearTimeout(bbTimer); bbTimer = null; }
+    const wrap = document.getElementById('bb-wrap');
+    wrap.className = 'q-wrap ' + (g === 'rl' ? 'r' : g);
+    document.getElementById('bb-modal').classList.add('on');
+    document.getElementById('overlay').classList.add('on');
+    document.body.style.overflow = 'hidden';
+    this._render();
+  },
+  close() {
+    document.getElementById('bb-modal').classList.remove('on');
+    document.getElementById('overlay').classList.remove('on');
+    document.body.style.overflow = '';
+    if (bbTimer) { clearTimeout(bbTimer); bbTimer = null; }
+    if (bbNudgeTimer) { clearTimeout(bbNudgeTimer); bbNudgeTimer = null; }
+  },
+  back() {
+    if (bbTimer) { clearTimeout(bbTimer); bbTimer = null; }
+    if (bbNudgeTimer) { clearTimeout(bbNudgeTimer); bbNudgeTimer = null; }
+    if (bbStep > 0) { bbStep--; this._render(); }
+  },
+  next() {
+    const step = bbFlow[bbStep];
+    // Nach Q0: Flow neu aufbauen, Unterantworten zurücksetzen
+    if (step && step.t === 'q' && step.qi === 0) {
+      const q0ans = bbAnswers[0];
+      const topics = q0ans ? [...q0ans] : [];
+      bbAnswers = {0: q0ans};
+      bbFlow = bbGender === 'w' ? buildWFlow(topics) : bbGender === 'm' ? buildMFlow(topics) : buildRLFlow(topics);
+    }
+    // Nach Q0-Recap: Flow mit Extra-Topics rebuilden
+    if (step && step.t === 'q0recap') {
+      const orig = bbAnswers[0] ? [...bbAnswers[0]] : [];
+      const extra = bbAnswers['recap'] ? [...bbAnswers['recap']] : [];
+      bbFlow = bbGender === 'w' ? buildWFlow(orig, extra) : bbGender === 'm' ? buildMFlow(orig, extra) : buildRLFlow(orig, extra);
+    }
+    bbStep++;
+    this._render();
+  },
+  // Männer: single-select mit Auto-Advance
+  _pick(qi, ai) {
+    if (bbTimer) return;
+    bbAnswers[qi] = ai;
+    document.querySelectorAll('#bb-body .q-opt').forEach((el, i) => el.classList.toggle('sel', i === ai));
+    bbTimer = setTimeout(() => { bbTimer = null; bbStep++; BB._render(); }, 380);
+  },
+  // Frauen: multi-select toggle
+  _toggle(qi, ai) {
+    if (!bbAnswers[qi]) bbAnswers[qi] = new Set();
+    const s = bbAnswers[qi];
+    s.has(ai) ? s.delete(ai) : s.add(ai);
+    document.querySelectorAll('#bb-body .q-opt').forEach((el, i) => el.classList.toggle('sel', s.has(i)));
+    const nxt = document.getElementById('bb-nxt');
+    if (nxt) nxt.disabled = s.size === 0;
+  },
+  // Frauen: Skala 1–10 (single value)
+  _pickScale(qi, val) {
+    bbAnswers[qi] = new Set([val]);
+    document.querySelectorAll('#bb-body .q-scale-btn').forEach((el, i) => el.classList.toggle('sel', i + 1 === val));
+    const nxt = document.getElementById('bb-nxt');
+    if (nxt) nxt.disabled = false;
+  },
+  // Frauen: Kontaktformular abschicken
+  submitContact() {
+    const nameEl = document.getElementById('bb-name');
+    const emailEl = document.getElementById('bb-email');
+    const name = nameEl?.value?.trim() || '';
+    const email = emailEl?.value?.trim() || '';
+    nameEl?.classList.remove('err');
+    emailEl?.classList.remove('err');
+    if (!name) { nameEl?.classList.add('err'); nameEl?.focus(); return; }
+    if (!email || !email.includes('@')) { emailEl?.classList.add('err'); emailEl?.focus(); return; }
+    bbAnswers._contact = { name, email, tel: document.getElementById('bb-tel')?.value?.trim() || '' };
+    bbStep++;
+    this._render();
+  },
+  _render() {
+    const map = bbFlow;
+    const step = map[bbStep];
+    const body = document.getElementById('bb-body');
+    const foot = document.getElementById('bb-foot');
+    const back = document.getElementById('bb-back');
+
+    const qTotal = map.filter(s => s.t === 'q').length;
+    const qDone = map.slice(0, bbStep + 1).filter(s => s.t === 'q').length;
+    const prog = qTotal > 0 ? Math.min(100, (Math.max(0, qDone - 1) / qTotal) * 100) : 0;
+    document.getElementById('bb-bar').style.width = prog + '%';
+
+    if (!step) return;
+
+    const NUDGES = bbGender === 'w' ? W_NUDGES : bbGender === 'm' ? M_NUDGES : RL_NUDGES;
+    const SECTIONS = bbGender === 'w' ? W_SECTIONS : bbGender === 'm' ? M_SECTIONS : RL_SECTIONS;
+
+    if (step.t === 'q') {
+      const qNum = map.slice(0, bbStep + 1).filter(s => s.t === 'q').length;
+      document.getElementById('bb-lbl').textContent = `Frage ${qNum} von ${qTotal}`;
+      body.innerHTML = this._renderQW(step.qi);
+      foot.classList.remove('hide');
+      const hasSel = bbAnswers[step.qi] && bbAnswers[step.qi].size > 0;
+      document.getElementById('bb-nxt').disabled = !hasSel;
+    } else if (step.t === 'nudge') {
+      document.getElementById('bb-lbl').textContent = '';
+      body.innerHTML = this._renderNudge(NUDGES[step.id]);
+      foot.classList.add('hide');
+      back.disabled = true;
+      bbNudgeTimer = setTimeout(() => { bbNudgeTimer = null; bbStep++; BB._render(); }, 3000);
+    } else if (step.t === 'q0recap') {
+      document.getElementById('bb-lbl').textContent = 'Möchten Sie ergänzen?';
+      body.innerHTML = this._renderQ0Recap();
+      foot.classList.remove('hide');
+      document.getElementById('bb-nxt').disabled = false;
+    } else if (step.t === 'section') {
+      const sec = SECTIONS[step.n];
+      document.getElementById('bb-lbl').textContent = sec.n;
+      body.innerHTML = this._renderSection(sec);
+      foot.classList.remove('hide');
+      document.getElementById('bb-nxt').disabled = false;
+    } else if (step.t === 'fb') {
+      document.getElementById('bb-lbl').textContent = 'Einschätzung';
+      const fbProg = step.fi === 1 ? 33 : step.fi === 2 ? 60 : 82;
+      document.getElementById('bb-bar').style.width = fbProg + '%';
+      body.innerHTML = this._renderFB(BB_FEED[bbGender][step.fi](bbAnswers));
+      foot.classList.remove('hide');
+      document.getElementById('bb-nxt').disabled = false;
+    } else if (step.t === 'contact') {
+      document.getElementById('bb-lbl').textContent = 'Fast fertig';
+      document.getElementById('bb-bar').style.width = '92%';
+      body.innerHTML = this._renderContact();
+      foot.classList.add('hide');
+    } else if (step.t === 'loading') {
+      document.getElementById('bb-lbl').textContent = 'Analyse wird erstellt';
+      document.getElementById('bb-bar').style.width = '96%';
+      body.innerHTML = this._renderLoading();
+      foot.classList.add('hide');
+      setTimeout(() => { bbStep++; BB._render(); }, 2800);
+    } else {
+      document.getElementById('bb-lbl').textContent = 'Ihre persönliche Einschätzung';
+      document.getElementById('bb-bar').style.width = '100%';
+      body.innerHTML = bbGender === 'w' ? this._renderResW() : bbGender === 'm' ? this._renderResM() : this._renderResRL();
+      foot.classList.add('hide');
+    }
+    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge');
+
+    body.scrollTop = 0;
+  },
+
+  // ── Frage rendern (multi-select / Skala) ──
+  _renderQW(qi) {
+    const q = (bbGender === 'w' ? BB_QS.w : bbGender === 'm' ? BB_QS.m : BB_QS.rl)[qi];
+    if (!q) return '';
+    if (q.special === 'scale') {
+      const cur = bbAnswers[qi] ? [...bbAnswers[qi]][0] : -1;
+      const btns = Array.from({length:10}, (_,i) => i+1).map(n =>
+        `<button class="q-scale-btn${cur===n?' sel':''}" onclick="BB._pickScale(${qi},${n})">${n}</button>`
+      ).join('');
+      return `<div class="step-card">
+        <div class="q-text">${q.text}</div>
+        <div class="q-scale">${btns}</div>
+        <div class="q-scale-desc"><span>Kein Problem</span><span>Sehr belastend</span></div>
+      </div>`;
+    }
+    const sel = bbAnswers[qi] || new Set();
+    const opts = q.opts.map((o, i) => `
+      <button class="q-opt${sel.has(i) ? ' sel' : ''}" onclick="BB._toggle(${qi},${i})">
+        <span>${o}</span>
+        <span class="opt-check"></span>
+      </button>`).join('');
+    const map = bbFlow;
+    const qNum = map.slice(0, bbStep + 1).filter(s => s.t === 'q').length;
+    const qTotal = map.filter(s => s.t === 'q').length;
+    return `<div class="step-card">
+      <div class="q-num">Frage ${qNum} von ${qTotal}</div>
+      <div class="q-text">${q.text}</div>
+      ${q.context ? `<div class="q-context">${q.context}</div>` : ''}
+      <div class="q-multi-hint">Mehrfachauswahl möglich</div>
+      <div class="q-opts">${opts}</div>
+    </div>`;
+  },
+
+  // ── Männer: Frage rendern (single-select, auto-advance) ──
+  _renderQ(qi) {
+    const q = BB_QS.m[qi];
+    const num = BB_MAP.slice(0, BB_MAP.findIndex(s => s.t === 'q' && s.qi === qi) + 1).filter(s => s.t === 'q').length;
+    const opts = q.opts.map((o, i) => `
+      <button class="q-opt" onclick="BB._pick(${qi},${i})">
+        <span>${o}</span>
+        <span class="opt-check"></span>
+      </button>`).join('');
+    return `<div class="step-card">
+      <div class="q-num">Frage ${num}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-opts">${opts}</div>
+    </div>`;
+  },
+
+  // Q0-Recap: Thema ergänzen (topic-Index, nicht Opt-Index)
+  _toggleRecap(topicIdx) {
+    if (!bbAnswers['recap']) bbAnswers['recap'] = new Set();
+    const s = bbAnswers['recap'];
+    s.has(topicIdx) ? s.delete(topicIdx) : s.add(topicIdx);
+    document.querySelectorAll('#bb-body .q-opt.new')
+      .forEach(el => el.classList.toggle('sel', s.has(+el.dataset.t)));
+  },
+  _renderQ0Recap() {
+    const done  = bbAnswers[0]       || new Set();
+    const extra = bbAnswers['recap'] || new Set();
+    const q = (bbGender === 'w' ? BB_QS.w : bbGender === 'm' ? BB_QS.m : BB_QS.rl)[0];
+    const opts = q.opts.map((o, i) => {
+      if (done.has(i)) {
+        return `<button class="q-opt done" disabled>
+          <span>${o}</span><span class="opt-check sel"></span>
+        </button>`;
+      }
+      return `<button class="q-opt new${extra.has(i) ? ' sel' : ''}" data-t="${i}" onclick="BB._toggleRecap(${i})">
+        <span>${o}</span><span class="opt-check"></span>
+      </button>`;
+    }).join('');
+    return `<div class="step-card">
+      <div class="q-text">Möchten Sie noch etwas ergänzen?</div>
+      <div class="q-context">Die markierten Themen wurden bereits erfasst. Sie können bei Bedarf weitere hinzufügen – oder direkt weitermachen.</div>
+      <div class="q-opts">${opts}</div>
+    </div>`;
+  },
+
+  _renderNudge(n) {
+    return `<div class="nudge-card" onclick="BB._skipNudge()">
+      <span class="nudge-icon">${n.icon}</span>
+      <div class="nudge-text">${n.text}</div>
+      <div class="nudge-hint">Tippen zum Weiter</div>
+    </div>`;
+  },
+  _skipNudge() {
+    if (bbNudgeTimer) { clearTimeout(bbNudgeTimer); bbNudgeTimer = null; }
+    bbStep++;
+    BB._render();
+  },
+  _renderSection(sec) {
+    return `<div class="section-card">
+      <span class="section-badge">${sec.n}</span>
+      <div class="section-title">${sec.title}</div>
+      <div class="section-body">${sec.body}</div>
+    </div>`;
+  },
+
+  _renderFB(fb) {
+    return `<div class="step-card fb-card">
+      <div class="fb-icon">${fb.icon}</div>
+      <div class="fb-lbl">${fb.lbl}</div>
+      <div class="fb-hl">${fb.hl}</div>
+      <div class="fb-body">${fb.body}</div>
+    </div>`;
+  },
+
+  _renderContact() {
+    return `<div class="step-card contact-card">
+      <div class="fb-icon">📊</div>
+      <div class="fb-lbl">Ihre Analyse ist bereit</div>
+      <div class="fb-hl">Im nächsten Schritt sehen Sie alles – direkt hier auf dem Bildschirm.</div>
+      <div class="fb-body">Geben Sie Ihre E-Mail ein, damit wir Ihnen die Einschätzung zusätzlich zusenden und bei Fragen erreichbar sind.</div>
+      <div class="contact-form">
+        <input type="text" class="contact-input" id="bb-name" placeholder="Ihr Name *">
+        <input type="email" class="contact-input" id="bb-email" placeholder="E-Mail Adresse *">
+        <input type="tel" class="contact-input" id="bb-tel" placeholder="Telefonnummer (optional)">
+        <button class="btn-res-cta" style="margin-top:6px" onclick="BB.submitContact()">Analyse erstellen →</button>
+      </div>
+    </div>`;
+  },
+
+  _renderLoading() {
+    return `<div class="step-card loading-card">
+      <div class="loading-dots"><span></span><span></span><span></span></div>
+      <div class="loading-text">Ihre persönliche Analyse<br>wird erstellt …</div>
+    </div>`;
+  },
+
+  // ── Frauen: Ergebnisseite (umfangreich, pro Thema) ──
+  _renderResW() {
+    const a = bbAnswers;
+    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+    const scale = a[15] ? [...a[15]][0] : null;
+    const wishes = a[14] ? [...a[14]] : [];
+    const name = a._contact?.name ? a._contact.name.split(' ')[0] : '';
+
+    let introHl;
+    if (wishes.includes(0)) introHl = 'Mehr Leichtigkeit und Unbeschwertheit im Alltag – das ist erreichbar.';
+    else if (wishes.includes(1)) introHl = 'Die Angst vor Verschlimmerung lässt sich stoppen – mit dem richtigen Ansatz.';
+    else if (wishes.includes(2)) introHl = 'Sich wieder wohl im eigenen Körper zu fühlen – daran arbeiten wir gemeinsam.';
+    else if (wishes.includes(3)) introHl = 'Mehr Sicherheit und Intimität – ein wichtiges Ziel, das wir ernst nehmen.';
+    else introHl = 'Basierend auf Ihren Angaben haben wir ein klares Bild – und passende Ansätze für Sie.';
+
+    const TOPIC_DATA = {
+      0: {
+        icon:'💧', title:'Häufiger Harndrang',
+        intro:'Ein häufiger oder dringender Harndrang ist ein Zeichen, dass der Blasenmuskel überaktiv reagiert – eine häufige und gut behandelbare Erscheinung.',
+        body(a) {
+          let t = '';
+          const str = a[2] ? [...a[2]] : [];
+          const trg = a[1] ? [...a[1]] : [];
+          if (trg.includes(3)) t += 'Dass Sie auch nachts betroffen sind, weist auf eine stärkere Überaktivität hin – das verdient besondere Aufmerksamkeit. ';
+          if (str.includes(1)) t += 'Der kaum aufschiebbare Drang ist belastend und schränkt die Lebensqualität ein. ';
+          if (str.includes(2)) t += 'Der Übergang zu Harnverlust zeigt, dass der Blasenmuskel gezielt beruhigt werden sollte. ';
+          t += 'Gezieltes Beckenbodentraining kombiniert mit Blasentraining kann die Überaktivität nachhaltig regulieren – oft sind schon nach wenigen Wochen Verbesserungen spürbar.';
+          return t;
+        }
+      },
+      1: {
+        icon:'💦', title:'Harnverlust',
+        intro:'Ungewollter Urinverlust ist eines der häufigsten Beckenboden-Themen bei Frauen – und in den meisten Fällen ohne Operation gut behandelbar.',
+        body(a) {
+          let t = '';
+          const situ = a[3] ? [...a[3]] : [];
+          const freq = a[4] ? [...a[4]] : [];
+          if (situ.includes(0) || situ.includes(1)) t += 'Was Sie beschreiben, klingt nach einer Belastungsinkontinenz – der Druck bei körperlicher Aktivität überfordert den Beckenbodenmuskel kurz. ';
+          if (situ.includes(2)) t += 'Der Verlust beim starken Harndrang deutet auf eine Mischform hin – das kennen wir gut und gehen gezielt darauf ein. ';
+          if (freq.includes(2)) t += 'Tägliche Episoden sind ein klares Signal, dass gezieltes Handeln wichtig ist. ';
+          else if (freq.includes(1)) t += 'Mehrmals pro Woche ist häufig genug, um den Alltag zu beeinflussen – hier lässt sich viel verändern. ';
+          t += 'Gezieltes Beckenbodentraining zeigt bei Harnverlust besonders schnelle Ergebnisse.';
+          return t;
+        }
+      },
+      2: {
+        icon:'🌿', title:'Rückenschmerzen',
+        intro:'Rücken und Beckenboden sind durch die tiefe Rumpfmuskulatur direkt miteinander verbunden. Training stärkt immer auch die Rückenstabilität.',
+        body(a) {
+          let t = '';
+          const loc = a[5] ? [...a[5]] : [];
+          const dur = a[6] ? [...a[6]] : [];
+          if (loc.includes(1)) t += 'Schmerzen im Steißbein- oder Beckenbereich stehen besonders oft in direktem Zusammenhang mit dem Beckenboden. ';
+          if (dur.includes(2)) t += 'Sehr lang anhaltende Beschwerden brauchen einen konsequenten, ganzheitlichen Ansatz – aber bedeutende Verbesserungen sind realistisch. ';
+          else if (dur.includes(1)) t += 'Über ein Jahr anhaltende Beschwerden haben sich gefestigt und sprechen gut auf gezieltes Training an. ';
+          t += 'Ein kombiniertes Beckenboden- und Rückenprogramm adressiert beide Themen gleichzeitig.';
+          return t;
+        }
+      },
+      3: {
+        icon:'🌸', title:'Sexualität & Körpergefühl',
+        intro:'Veränderungen in der Sexualität sind ein häufiges, aber selten offen besprochenes Thema. Der Beckenboden spielt dabei eine zentrale Rolle.',
+        body(a) {
+          let t = '';
+          const was = a[7] ? [...a[7]] : [];
+          const bel = a[8] ? [...a[8]] : [];
+          if (was.includes(1)) t += 'Schmerzen beim Intimverkehr können auf eine erhöhte Beckenbodenspannung hinweisen – das ist gut angehbar, wenn es behutsam begleitet wird. ';
+          if (was.includes(2)) t += 'Innere Anspannung und Unsicherheit hängen oft mit unbewusster Schutzspannung des Beckenbodens zusammen. ';
+          if (bel.includes(2)) t += 'Dass Sie es als stark belastend erleben – das nehmen wir ernst und gehen einfühlsam und gezielt vor. ';
+          t += 'Mit dem richtigen Training lässt sich hier in vielen Fällen eine deutliche Verbesserung erzielen.';
+          return t;
+        }
+      },
+      4: {
+        icon:'🔴', title:'Druckgefühl / Organsenkung',
+        intro:'Ein Druckgefühl nach unten oder eine Organsenkung ist eines der eindrucksvollsten Zeichen einer Beckenbodenbelastung – und häufig lange nicht richtig eingeordnet.',
+        body(a) {
+          let t = '';
+          const feel = a[9] ? [...a[9]] : [];
+          const chg = a[10] ? [...a[10]] : [];
+          if (feel.includes(2)) t += 'Dass eine Senkung bereits ärztlich festgestellt wurde, gibt uns eine klare Grundlage. Gezieltes Training ist eine der wirksamsten konservativen Maßnahmen. ';
+          else if (feel.includes(1)) t += 'Ein regelmäßiges Fremdkörpergefühl ist ein eindeutiges Signal – frühzeitiges Handeln bringt die besten Ergebnisse. ';
+          if (chg.includes(1)) t += 'Dass es sich verschlimmert, unterstreicht, wie wichtig jetzt gezielte Maßnahmen sind. ';
+          t += 'Beckenbodentraining kann Senkungsbeschwerden in vielen Fällen deutlich lindern und weiteres Fortschreiten bremsen.';
+          return t;
+        }
+      },
+      5: {
+        icon:'✨', title:'Prävention & Vorsorge',
+        intro:'Wer vorsorgt, bevor Beschwerden entstehen, hat den besten Ausgangspunkt. Der Beckenboden profitiert enorm von frühzeitigem gezieltem Training.',
+        body(a) {
+          const mot = a[11] ? [...a[11]] : [];
+          let t = '';
+          if (mot.includes(1)) t += 'Gerade nach einer Schwangerschaft verändert sich das Beckenbodengefüge – gezielte Übungen helfen, es nachhaltig zu stärken. ';
+          t += 'Vorsorge zum richtigen Zeitpunkt ist die effektivste Form der Gesundheitsförderung. Wir freuen uns, Sie dabei zu begleiten.';
+          return t;
+        }
+      }
+    };
+
+    let topicCards = '';
+    topics.forEach(t => {
+      const td = TOPIC_DATA[t];
+      if (!td) return;
+      topicCards += `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">${td.icon}</span><span class="res-card-title">${td.title}</span></div>
+        <div class="res-card-intro">${td.intro}</div>
+        <div class="res-card-body">${td.body(a)}</div>
+      </div>`;
+    });
+    if (!topicCards) {
+      topicCards = `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">✨</span><span class="res-card-title">Ihr Beckenboden</span></div>
+        <div class="res-card-intro">Gut, dass Sie vorsorgen. Der Beckenboden ist ein zentrales Fundament Ihrer Gesundheit.</div>
+        <div class="res-card-body">Gezieltes Training lässt sich ideal aufbauen, bevor Beschwerden entstehen.</div>
+      </div>`;
+    }
+
+    let scaleHtml = '';
+    if (scale) {
+      const scaleLabel = scale <= 3 ? 'Wenig belastend' : scale <= 6 ? 'Spürbar belastend' : 'Stark belastend';
+      const scaleColor = scale <= 3 ? 'var(--sc)' : scale <= 6 ? 'var(--ac)' : '#C44';
+      scaleHtml = `<div class="res-scale">
+        <div class="res-scale-lbl">Ihre aktuelle Belastungssituation</div>
+        <div class="res-scale-bar-wrap"><div class="res-scale-bar" style="width:${scale*10}%;background:${scaleColor}"></div></div>
+        <div class="res-scale-val" style="color:${scaleColor}">${scale} / 10 – ${scaleLabel}</div>
+      </div>`;
+    }
+
+    // Alltags-Karte (aus Q17/Q18/Q19)
+    const q17 = a[17] ? [...a[17]] : [];
+    const q18 = a[18] ? [...a[18]] : [];
+    const q19 = a[19] ? [...a[19]] : [];
+    let alltag = '';
+    if (q17.includes(4)) alltag += 'Schmerzen beim Intimverkehr deuten auf eine erhöhte Muskelspannung im Beckenboden hin – das lässt sich gezielt und behutsam angehen. ';
+    else if (q17.includes(3)) alltag += 'Schmerzen ohne klaren Auslöser sind ein Hinweis auf eine muskuläre Dauerbelastung – ein häufiges, gut behandelbares Muster. ';
+    if (q18.filter(i => i !== 4).length >= 2) alltag += 'Dass mehrere Lebensbereiche eingeschränkt sind, zeigt, wie weit das Thema reicht – und wie viel sich durch gezieltes Handeln zurückgewinnen lässt. ';
+    if (q19.includes(3)) alltag += 'Erschöpfung und Energieverlust sind oft ein Zeichen, wie viel Kraft die Gesamtsituation kostet. Das nehmen wir ernst.';
+    else if (q19.includes(2)) alltag += 'Stress verstärkt Beckenbodensymptome spürbar – beides lässt sich gemeinsam regulieren.';
+    if (!alltag) alltag = 'Ihre Beschwerden zeigen sich noch in einem frühen Stadium – der beste Zeitpunkt, um gezielt zu handeln.';
+    const alltakCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🗓️</span><span class="res-card-title">Ihr Alltag</span></div>
+      <div class="res-card-body">${alltag}</div>
+    </div>`;
+
+    // Kontext-Karte (aus Q20/Q21/Q12)
+    const q20 = a[20] ? [...a[20]] : [];
+    const q21 = a[21] ? [...a[21]] : [];
+    const q12 = a[12] ? [...a[12]] : [];
+    let kontext = '';
+    if (q21.includes(3)) kontext += 'Endometriose verändert das gesamte Becken-Milieu. Unser Ansatz berücksichtigt das – behutsam und spezialisiert. ';
+    if (q20.includes(3)) kontext += 'In der Postmenopause reagiert der Beckenboden auf gezielte Reize besonders gut – strukturiertes Training zeigt hier deutliche Effekte. ';
+    else if (q20.includes(2)) kontext += 'In der Perimenopause verändert sich das Bindegewebe. Gezieltes Training kann diesen Prozess spürbar abfedern. ';
+    if (q12.includes(2)) kontext += 'Nach einer Vaginalgeburt mit merklichen Veränderungen ist gezieltes Aufbautraining besonders wirksam. ';
+    if (q21.includes(4)) kontext += 'Eine chronische Erkrankung erfordert einen besonders behutsamen, angepassten Ansatz – das berücksichtigen wir. ';
+    if (!kontext) kontext = 'Ihre persönliche Geschichte fließt vollständig in Ihre Einschätzung ein – für einen Ansatz, der wirklich auf Sie passt.';
+    const kontextCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🔍</span><span class="res-card-title">Ihre Situation</span></div>
+      <div class="res-card-body">${kontext}</div>
+    </div>`;
+
+    const greeting = name ? `${name}, wir haben` : 'Wir haben';
+
+    return `<div class="step-card">
+      <span class="res-tag">Ihre persönliche Einschätzung</span>
+      <div class="res-hl">${introHl}</div>
+      <div class="res-sub">${greeting} auf Basis Ihrer Antworten eine erste Einschätzung für Sie erstellt.</div>
+      ${scaleHtml}
+      <div class="res-cards">${topicCards}${alltakCard}${kontextCard}</div>
+      <button class="btn-res-cta" onclick="BB.close()">Kostenloses Erstgespräch vereinbaren →</button>
+      <div class="res-disclaimer">Diese Einschätzung ersetzt keine medizinische Diagnose. Für eine genaue Abklärung empfehlen wir ein persönliches Gespräch.</div>
+    </div>`;
+  },
+
+  // ── reLounge: Ergebnisseite (Score + Programm-Empfehlung + topic-spezifisch) ──
+  _renderResRL() {
+    const a = bbAnswers;
+    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+    const scale = a[15] ? [...a[15]][0] : 0;
+    const wishes = a[14] ? [...a[14]] : [];
+    const name = a._contact?.name ? a._contact.name.split(' ')[0] : '';
+
+    // Score berechnen
+    let score = 0;
+    BB_QS.rl.forEach((q, i) => {
+      if (!q.pts) return;
+      const ans = a[i];
+      if (!ans) return;
+      if (ans instanceof Set) {
+        [...ans].forEach(ai => { if (q.pts[ai] !== undefined) score += q.pts[ai]; });
+      }
+    });
+    score += (scale || 0);
+    score = Math.min(100, score);
+    const level = R_LEVELS.find(l => score <= l.max) || R_LEVELS[R_LEVELS.length - 1];
+
+    let introHl;
+    if (wishes.includes(0)) introHl = 'Wieder unbeschwert durch den Alltag – ohne Rückengedanken. Das ist erreichbar.';
+    else if (wishes.includes(1)) introHl = 'Sport und Bewegung ohne Einschränkungen – daran arbeiten wir gemeinsam.';
+    else if (wishes.includes(2)) introHl = 'Besser schlafen und ausgeruht aufwachen – ein erreichbares Ziel.';
+    else if (wishes.includes(3)) introHl = 'Ohne Schmerzmittel durch den Alltag – mit dem richtigen Ansatz ist das realistisch.';
+    else introHl = 'Basierend auf Ihren Angaben haben wir ein klares Bild – und eine passende Empfehlung für Sie.';
+
+    const TOPIC_DATA = {
+      0: {
+        icon:'🌿', title:'Lendenwirbelsäule',
+        intro:'Der untere Rücken ist die häufigste Problemzone – und gleichzeitig die, auf die die reLounge am wirkungsvollsten einwirken kann.',
+        body(a) {
+          let t = '';
+          const char = a[1] ? [...a[1]] : [];
+          const aus = a[2] ? [...a[2]] : [];
+          if (char.includes(3)) t += 'Die Ausstrahlung in Gesäß oder Bein zeigt, dass Nervenstrukturen beteiligt sein könnten – die reLounge entlastet tief und gezielt. ';
+          if (aus.includes(3)) t += 'Schmerzen ohne klaren Auslöser sind ein Zeichen, dass die Muskulatur dauerhaft unter Spannung steht. ';
+          if (aus.includes(1)) t += 'Schmerzen durch langes Sitzen sind ein klassisches Zeichen muskulärer Dysbalance – genau das, was die reLounge ausbalanciert. ';
+          t += 'Gezielte Impulse tief in der Lendenmuskulatur setzen genau dort an, wo Massage und Übungen oft nicht ausreichen.';
+          return t;
+        }
+      },
+      1: {
+        icon:'🌿', title:'Halswirbelsäule & Nacken',
+        intro:'Spannungen im Nacken haben fast immer eine tiefere Ursache in der Wirbelsäule. Wer dort ansetzt, löst oft das, was oben sichtbar ist.',
+        body(a) {
+          let t = '';
+          const beg = a[3] ? [...a[3]] : [];
+          const wan = a[4] ? [...a[4]] : [];
+          if (beg.includes(1)) t += 'Kribbeln oder Taubheit in Arm oder Hand ist ein Zeichen, dass Nerven betroffen sind – das erfordert einen behutsamen, gezielten Ansatz. ';
+          if (beg.includes(0)) t += 'Spannungskopfschmerzen und Nackenbeschwerden hängen oft direkt zusammen – gezieltes Training an der HWS kann beide lindern. ';
+          if (wan.includes(3)) t += 'Kaum beschwerdefreie Phasen zeigen, wie sehr sich die Spannung festgesetzt hat – strukturierte Therapie ist hier besonders wichtig. ';
+          t += 'Die reLounge arbeitet systematisch von unten nach oben – und schafft so echte Entlastung im Nacken.';
+          return t;
+        }
+      },
+      2: {
+        icon:'🌿', title:'Brustwirbelsäule',
+        intro:'Die mittlere Wirbelsäule ist das Bindeglied zwischen oben und unten. Was sich hier festsetzt, beeinflusst fast alles andere.',
+        body(a) {
+          let t = '';
+          const char = a[5] ? [...a[5]] : [];
+          const wan = a[6] ? [...a[6]] : [];
+          if (char.includes(2)) t += 'Taubheitsgefühle oder Kribbeln in der Rückenmitte können auf eine Nervenbeteiligung hinweisen – das berücksichtigen wir in der Behandlungsplanung. ';
+          if (wan.includes(3)) t += 'Dauerhafte Schmerzen ohne klaren Auslöser zeigen, dass die Muskulatur strukturell aus dem Gleichgewicht geraten ist. ';
+          t += 'Gezieltes Training der Brustwirbelsäule verbessert die Gesamthaltung und entlastet so Nacken und Lendenwirbelsäule gleichzeitig.';
+          return t;
+        }
+      },
+      3: {
+        icon:'⚡', title:'Hüfte, Gesäß & Ausstrahlung',
+        intro:'Wenn Schmerzen in Hüfte, Gesäß oder Bein ausstrahlen, hat das seinen Ursprung fast immer in der Wirbelsäule.',
+        body(a) {
+          let t = '';
+          const aus = a[7] ? [...a[7]] : [];
+          const wan = a[8] ? [...a[8]] : [];
+          if (aus.includes(2) || aus.includes(3)) t += 'Kribbeln, Taubheit oder Schwäche im Bein sind klare Zeichen einer Nervenbeteiligung – je früher gezielt behandelt wird, desto besser. ';
+          if (wan.includes(2)) t += 'Schmerzen auch in Ruhe oder nachts zeigen, dass der Körper keine Erholungspause mehr bekommt – das erfordert strukturierte Therapie. ';
+          t += 'Die reLounge entlastet die Wirbelsäule von innen heraus – und kann so den Druck auf Nervenwurzeln gezielt reduzieren.';
+          return t;
+        }
+      },
+      4: {
+        icon:'🌿', title:'Schultern',
+        intro:'Schulterverspannungen haben fast immer eine Ursache weiter unten in der Wirbelsäule. Wer dort ansetzt, löst, was oben zu spüren ist.',
+        body(a) {
+          let t = '';
+          const char = a[9] ? [...a[9]] : [];
+          const woher = a[10] ? [...a[10]] : [];
+          if (char.includes(3)) t += 'Kribbeln oder Taubheit im Arm kann auf eine Beteiligung von Nervenwurzeln hinweisen – das nehmen wir in die Behandlungsplanung mit auf. ';
+          if (woher.includes(1)) t += 'Stress und Anspannung sind häufige Verstärker von Schulterbeschwerden – die reLounge wirkt auch gezielt auf das Nervensystem. ';
+          t += 'Schulterfreiheit beginnt in der Wirbelsäule. Die reLounge schafft die Grundlage dafür – systematisch und langfristig.';
+          return t;
+        }
+      },
+      5: {
+        icon:'🔍', title:'Ganzer Rücken',
+        intro:'Wenn der gesamte Rücken betroffen ist, ist das Muskelsystem als Ganzes aus dem Gleichgewicht geraten.',
+        body(a) {
+          let t = '';
+          const ber = a[11] ? [...a[11]] : [];
+          if (ber.includes(2)) t += 'Wenn kein spezifischer Bereich benannt werden kann, ist meist das gesamte Rückensystem betroffen – ein ganzheitlicher Ansatz ist hier besonders wichtig. ';
+          t += 'Die reLounge arbeitet systematisch von unten nach oben und balanciert dabei alle Bereiche der Wirbelsäule gemeinsam aus.';
+          return t;
+        }
+      }
+    };
+
+    let topicCards = '';
+    topics.forEach(t => {
+      const td = TOPIC_DATA[t];
+      if (!td) return;
+      topicCards += `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">${td.icon}</span><span class="res-card-title">${td.title}</span></div>
+        <div class="res-card-intro">${td.intro}</div>
+        <div class="res-card-body">${td.body(a)}</div>
+      </div>`;
+    });
+    if (!topicCards) {
+      topicCards = `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">🌿</span><span class="res-card-title">Ihr Rücken</span></div>
+        <div class="res-card-intro">Gut, dass Sie vorsorgen. Der Rücken profitiert enorm von frühzeitigem, gezieltem Training.</div>
+        <div class="res-card-body">Die reLounge setzt genau dort an, wo Beschwerden entstehen – tiefer als Dehnen oder Massage allein.</div>
+      </div>`;
+    }
+
+    // Score-Balken
+    const scaleLabel = scale <= 3 ? 'Wenig belastend' : scale <= 6 ? 'Spürbar belastend' : 'Stark belastend';
+    const scaleColor = scale <= 3 ? 'var(--sc)' : scale <= 6 ? 'var(--ac)' : '#C44';
+    const scaleHtml = scale ? `<div class="res-scale">
+      <div class="res-scale-lbl">Ihre aktuelle Einschränkung</div>
+      <div class="res-scale-bar-wrap"><div class="res-scale-bar" style="width:${scale*10}%;background:${scaleColor}"></div></div>
+      <div class="res-scale-val" style="color:${scaleColor}">${scale} / 10 – ${scaleLabel}</div>
+    </div>` : '';
+
+    // Alltags-Karte
+    const q17 = a[17] ? [...a[17]] : [];
+    const q18 = a[18] ? [...a[18]] : [];
+    const q19 = a[19] ? [...a[19]] : [];
+    let alltag = '';
+    if (q19.includes(3)) alltag += 'Nächtliche Schmerzen rauben die Erholung – das beeinflusst alles andere. Mit strukturierter Therapie reguliert sich auch der Schlaf. ';
+    else if (q19.includes(2)) alltag += 'Mehrmals wöchentlich aufzuwachen ist ein klares Signal, dass der Rücken mehr Unterstützung braucht. ';
+    if (q17.includes(4)) alltag += 'Dass Stress die Beschwerden verstärkt, zeigt eine Beteiligung des Nervensystems – die reLounge wirkt auch hier. ';
+    if (q18[0] !== undefined && a[18] && [...a[18]].includes(2)) alltag += 'Körperlich belastende Arbeit beansprucht den Rücken dauerhaft. Gezieltes Training ist hier besonders wichtig als Schutzfunktion. ';
+    if (!alltag) alltag = 'Ihre Beschwerden im Alltag haben wir vollständig erfasst – die Programm-Empfehlung berücksichtigt das direkt.';
+    const alltakCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🗓️</span><span class="res-card-title">Ihr Alltag</span></div>
+      <div class="res-card-body">${alltag}</div>
+    </div>`;
+
+    // Kontext-Karte
+    const q20 = a[20] ? [...a[20]] : [];
+    const q21 = a[21] ? [...a[21]] : [];
+    const q13 = a[13] ? [...a[13]] : [];
+    let kontext = '';
+    if (q21.includes(1)) kontext += 'Bei bekannten Bandscheibenproblemen wird das Programm von Anfang an speziell angepasst – sicher, behutsam und trotzdem wirksam. ';
+    if (q20.includes(3)) kontext += 'Mehrjährige Beschwerden erfordern Konsequenz – aber mit dem richtigen strukturierten Programm sind deutliche Verbesserungen sehr realistisch. ';
+    else if (q20.includes(2)) kontext += 'Über ein Jahr anhaltende Beschwerden haben sich gefestigt – hier ist strukturierte Therapie wichtiger als gelegentliche Maßnahmen. ';
+    if (q13.includes(4)) kontext += 'Dass bisherige Maßnahmen keine dauerhafte Lösung gebracht haben, liegt oft nicht an fehlendem Einsatz – sondern am fehlenden richtigen Ansatz. ';
+    if (!kontext) kontext = 'Ihre Vorgeschichte und bisherigen Maßnahmen fließen vollständig in Ihre persönliche Programm-Empfehlung ein.';
+    const kontextCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🔍</span><span class="res-card-title">Ihre Situation</span></div>
+      <div class="res-card-body">${kontext}</div>
+    </div>`;
+
+    const greeting = name ? `${name}, wir haben` : 'Wir haben';
+
+    return `<div class="step-card">
+      <span class="res-tag">Ihre persönliche Einschätzung</span>
+      <div class="res-hl">${introHl}</div>
+      <div class="res-sub">${greeting} auf Basis Ihrer Antworten eine erste Einschätzung und Empfehlung erstellt.</div>
+      ${scaleHtml}
+      <div class="score-wrap">
+        <div class="score-level-badge">
+          <span class="score-lvl-name">${level.name}</span>
+          <span class="score-lvl-sub">${level.sub}</span>
+        </div>
+        <div class="score-rec">
+          <div class="score-rec-lbl">Empfohlenes Programm</div>
+          <div class="score-rec-txt">${level.rec}</div>
+        </div>
+        <div class="score-desc">${level.desc}</div>
+      </div>
+      <div class="res-cards">${topicCards}${alltakCard}${kontextCard}</div>
+      <button class="btn-res-cta" onclick="BB.close()">Kostenloses Erstgespräch vereinbaren →</button>
+      <div class="res-disclaimer">Diese Einschätzung ersetzt keine medizinische Diagnose. Bei akuten oder starken Beschwerden empfehlen wir vorab eine ärztliche Abklärung.</div>
+    </div>`;
+  },
+
+  // ── Männer: Ergebnisseite (vollständig, topic-basiert) ──
+  _renderResM() {
+    const a = bbAnswers;
+    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
+    const scale = a[15] ? [...a[15]][0] : null;
+    const wishes = a[14] ? [...a[14]] : [];
+    const name = a._contact?.name ? a._contact.name.split(' ')[0] : '';
+
+    let introHl;
+    if (wishes.includes(0)) introHl = 'Wieder unbeschwert aktiv – ohne Gedanken an Blase oder Kontrolle. Das ist erreichbar.';
+    else if (wishes.includes(1)) introHl = 'Mehr Kraft, Stabilität und Vitalität im Körper – daran arbeiten wir gemeinsam.';
+    else if (wishes.includes(2)) introHl = 'Mehr Zuversicht und Freude in Partnerschaft und Sexualität – ein Ziel, das wir ernst nehmen.';
+    else if (wishes.includes(3)) introHl = 'Kontinenz und Vitalität zurückgewinnen – mit dem richtigen Ansatz ist das realistisch.';
+    else introHl = 'Basierend auf Ihren Angaben haben wir ein klares Bild – und passende Ansätze für Sie.';
+
+    const TOPIC_DATA = {
+      0: {
+        icon:'💧', title:'Harnverlust & Kontinenz',
+        intro:'Harnverlust bei Männern ist häufiger als gedacht – und in den meisten Fällen ohne Operation deutlich verbesserbar.',
+        body(a) {
+          let t = '';
+          const situ = a[1] ? [...a[1]] : [];
+          const freq = a[2] ? [...a[2]] : [];
+          if (situ.includes(2)) t += 'Nachtröpfeln nach dem Wasserlassen ist das häufigste Muster bei Männern – gezieltes Training der Beckenboden- und Schließmuskulatur hilft hier sehr direkt. ';
+          if (situ.includes(0)) t += 'Verlust bei körperlicher Belastung deutet auf eine Belastungsinkontinenz hin – der Beckenbodenmuskel gibt kurz nach. Das ist gut trainierbar. ';
+          if (situ.includes(1)) t += 'Verlust bei starkem Harndrang kann auf eine überaktive Blase hinweisen – ein bekanntes, gut regulierbares Muster. ';
+          if (freq.includes(2)) t += 'Tägliche Episoden sind ein klares Signal, dass gezieltes Handeln jetzt sinnvoll ist. ';
+          else if (freq.includes(1)) t += 'Mehrmals pro Woche ist häufig genug, um den Alltag spürbar zu beeinflussen. ';
+          t += 'Gezieltes Beckenbodentraining zeigt bei Männern schnelle Ergebnisse – oft nach wenigen Wochen spürbar.';
+          return t;
+        }
+      },
+      1: {
+        icon:'⏱️', title:'Harndrang & Blasenkontrolle',
+        intro:'Ein überaktiver Blasenmuskel entsteht nicht durch Willensschwäche – sondern durch ein gut trainierbares Muster.',
+        body(a) {
+          let t = '';
+          const hd = a[3] ? [...a[3]] : [];
+          const ctrl = a[4] ? [...a[4]] : [];
+          if (hd.includes(2)) t += 'Nächtlicher Harndrang belastet Schlaf und Erholung – das verdient besondere Aufmerksamkeit. ';
+          if (hd.includes(1)) t += 'Der kaum aufschiebbare Drang ist belastend und schränkt die Lebensqualität ein. ';
+          if (ctrl.includes(2)) t += 'Der Übergang zu Harnverlust zeigt, dass der Blasenmuskel gezielt beruhigt werden sollte. ';
+          t += 'Gezieltes Beckenbodentraining kombiniert mit Blasentraining reguliert die Überaktivität nachhaltig – oft bereits nach wenigen Wochen sichtbar.';
+          return t;
+        }
+      },
+      2: {
+        icon:'💪', title:'Prostata & Beckenboden',
+        intro:'Prostata und Beckenboden sind direkt verbunden. Was dem einen hilft, unterstützt fast immer auch den anderen.',
+        body(a) {
+          let t = '';
+          const was = a[5] ? [...a[5]] : [];
+          const arzt = a[6] ? [...a[6]] : [];
+          if (arzt.includes(3)) t += 'Nach einem Prostataeingriff ist Beckenbodentraining einer der wirksamsten Ansätze zur Wiederherstellung von Kontinenz und Erektionsfähigkeit – je früher begonnen, desto besser. ';
+          else if (arzt.includes(2)) t += 'Bei einer bekannten Prostatavergrößerung kann gezieltes Training die Blasensymptome deutlich lindern und das Fortschreiten bremsen. ';
+          else if (arzt.includes(1) || was.includes(1)) t += 'Beschwerden wie schwacher Strahl oder Restgefühl hängen häufig direkt mit der Beckenbodenmuskulatur zusammen. ';
+          if (was.includes(0)) t += 'Vorsorge ab 45 ist klug – Beckenboden und Prostata profitieren enorm von frühem gezielten Training. ';
+          t += 'Ein regelmäßiges Programm schafft die beste Grundlage für langfristige Gesundheit und Funktion.';
+          return t;
+        }
+      },
+      3: {
+        icon:'🔵', title:'Sexualität & Erektion',
+        intro:'Erektionsfähigkeit und Beckenboden hängen enger zusammen als die meisten wissen. Das ist kein Tabuthema – sondern ein trainierbares Muster.',
+        body(a) {
+          let t = '';
+          const was = a[7] ? [...a[7]] : [];
+          const bel = a[8] ? [...a[8]] : [];
+          if (was.includes(0)) t += 'Erektion und Beckenboden teilen dieselbe Muskelgruppe. Gezieltes Training kann die Erektionsfähigkeit direkt unterstützen. ';
+          if (was.includes(2)) t += 'Vorzeitige Ejakulation hängt in vielen Fällen mit einer mangelnden Kontrolle der Beckenbodenmuskulatur zusammen – das lässt sich gezielt verbessern. ';
+          if (was.includes(1) || was.includes(3)) t += 'Veränderte Empfindung und Libido sind ein Hinweis, dass das gesamte Beckenbodensystem mehr Aufmerksamkeit braucht. ';
+          if (bel.includes(2)) t += 'Dass Sie es als belastend erleben – das nehmen wir sehr ernst. Mit dem richtigen, diskreten Ansatz lässt sich hier viel zurückgewinnen. ';
+          t += 'Viele Männer sehen deutliche Verbesserungen – und sind überrascht, wie schnell.';
+          return t;
+        }
+      },
+      4: {
+        icon:'🌿', title:'Rücken & Stabilität',
+        intro:'Rücken und Beckenboden teilen die tiefe Rumpfmuskulatur. Training stärkt immer auch die Rückenstabilität – und umgekehrt.',
+        body(a) {
+          let t = '';
+          const loc = a[9] ? [...a[9]] : [];
+          const dur = a[10] ? [...a[10]] : [];
+          if (loc.includes(1)) t += 'Schmerzen im Becken-, Steißbein- oder Gesäßbereich stehen besonders oft in direktem Zusammenhang mit dem Beckenboden. ';
+          if (loc.includes(2)) t += 'Ausstrahlende Schmerzen können auf eine Nervenbeteiligung hinweisen – ein behutsamer, gezielter Ansatz ist hier wichtig. ';
+          if (dur.includes(2)) t += 'Sehr lang anhaltende Beschwerden brauchen einen konsequenten, ganzheitlichen Ansatz – aber bedeutende Verbesserungen sind realistisch. ';
+          else if (dur.includes(1)) t += 'Über ein Jahr anhaltende Beschwerden haben sich gefestigt und sprechen gut auf gezieltes Training an. ';
+          t += 'Ein kombiniertes Beckenboden- und Rückenprogramm adressiert beide Themen gleichzeitig.';
+          return t;
+        }
+      },
+      5: {
+        icon:'✨', title:'Prävention & Vorsorge',
+        intro:'Wer vorsorgt, bevor Beschwerden entstehen, hat den besten Ausgangspunkt. Der Beckenboden profitiert enorm von frühzeitigem Training.',
+        body(a) {
+          const mot = a[11] ? [...a[11]] : [];
+          let t = '';
+          if (mot.includes(1)) t += 'Dass Ihr Arzt das Thema angesprochen hat, ist ein guter Ausgangspunkt – gezieltes Training schafft jetzt die stärkste Basis. ';
+          if (mot.includes(2)) t += 'Erste Veränderungen früh anzugehen ist die wirksamste Form der Prävention. ';
+          t += 'Vorsorge zum richtigen Zeitpunkt ist bei Männern besonders wirkungsvoll – gerade in Verbindung mit der Prostata. Wir freuen uns, Sie dabei zu begleiten.';
+          return t;
+        }
+      }
+    };
+
+    let topicCards = '';
+    topics.forEach(t => {
+      const td = TOPIC_DATA[t];
+      if (!td) return;
+      topicCards += `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">${td.icon}</span><span class="res-card-title">${td.title}</span></div>
+        <div class="res-card-intro">${td.intro}</div>
+        <div class="res-card-body">${td.body(a)}</div>
+      </div>`;
+    });
+    if (!topicCards) {
+      topicCards = `<div class="res-card">
+        <div class="res-card-top"><span class="res-card-icon">💪</span><span class="res-card-title">Ihr Beckenboden</span></div>
+        <div class="res-card-intro">Gut, dass Sie vorsorgen. Der Beckenboden ist ein zentrales Fundament Ihrer Gesundheit und Vitalität.</div>
+        <div class="res-card-body">Gezieltes Training lässt sich ideal aufbauen, bevor Beschwerden entstehen.</div>
+      </div>`;
+    }
+
+    let scaleHtml = '';
+    if (scale) {
+      const scaleLabel = scale <= 3 ? 'Wenig belastend' : scale <= 6 ? 'Spürbar belastend' : 'Stark belastend';
+      const scaleColor = scale <= 3 ? 'var(--sc)' : scale <= 6 ? 'var(--ac)' : '#C44';
+      scaleHtml = `<div class="res-scale">
+        <div class="res-scale-lbl">Ihre aktuelle Belastungssituation</div>
+        <div class="res-scale-bar-wrap"><div class="res-scale-bar" style="width:${scale*10}%;background:${scaleColor}"></div></div>
+        <div class="res-scale-val" style="color:${scaleColor}">${scale} / 10 – ${scaleLabel}</div>
+      </div>`;
+    }
+
+    const q17 = a[17] ? [...a[17]] : [];
+    const q18 = a[18] ? [...a[18]] : [];
+    const q19 = a[19] ? [...a[19]] : [];
+    let alltag = '';
+    if (q17.includes(4)) alltag += 'Schmerzen beim Geschlechtsverkehr deuten auf eine erhöhte Beckenbodenspannung hin – das lässt sich gezielt und diskret angehen. ';
+    else if (q17.includes(3)) alltag += 'Schmerzen ohne klaren Auslöser sind ein Hinweis auf muskuläre Dauerbelastung – ein häufiges, gut behandelbares Muster. ';
+    if (q18.filter(i => i !== 4).length >= 2) alltag += 'Dass mehrere Lebensbereiche eingeschränkt sind, zeigt, wie weit das Thema reicht – und wie viel sich durch gezieltes Handeln zurückgewinnen lässt. ';
+    if (q19.includes(3)) alltag += 'Erschöpfung und Energieverlust sind oft ein Zeichen, wie viel Kraft die Gesamtsituation kostet. Das nehmen wir ernst.';
+    else if (q19.includes(1)) alltag += 'Schlechter Schlaf durch nächtlichen Harndrang ist belastend und beeinflusst alles andere – das lässt sich mit dem richtigen Training spürbar verbessern.';
+    else if (q19.includes(2)) alltag += 'Stress verstärkt Beckenbodensymptome spürbar – beides lässt sich gemeinsam regulieren.';
+    if (!alltag) alltag = 'Ihre Beschwerden zeigen sich noch in einem frühen Stadium – der beste Zeitpunkt, um gezielt zu handeln.';
+    const alltakCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🗓️</span><span class="res-card-title">Ihr Alltag</span></div>
+      <div class="res-card-body">${alltag}</div>
+    </div>`;
+
+    const q20 = a[20] ? [...a[20]] : [];
+    const q21 = a[21] ? [...a[21]] : [];
+    const q12 = a[12] ? [...a[12]] : [];
+    let kontext = '';
+    if (q21.includes(1)) kontext += 'Nach einer Prostata-OP ist Beckenbodentraining einer der wirksamsten Wege zurück zu Kontinenz und Vitalität – strukturiert, gezielt und realistisch. ';
+    else if (q21.includes(3)) kontext += 'Diabetes oder neurologische Erkrankungen erfordern einen besonders abgestimmten Ansatz – das berücksichtigen wir vollständig. ';
+    if (q20.includes(2)) kontext += 'Über 60 ist kein Hindernis – gezieltes Training zeigt in jedem Alter Wirkung. Mit dem richtigen Programm sind bedeutende Verbesserungen realistisch. ';
+    else if (q20.includes(1)) kontext += 'Die Phase ab 45 ist ideal, um jetzt aktiv zu werden – bevor Prostata oder Beckenboden größere Aufmerksamkeit fordern. ';
+    if (q12.includes(2)) kontext += 'Körperlich anspruchsvolle Arbeit belastet den Beckenboden dauerhaft. Gezieltes Training schafft hier die notwendige Stabilität und Schutzfunktion. ';
+    if (!kontext) kontext = 'Ihre persönliche Geschichte fließt vollständig in Ihre Einschätzung ein – für einen Ansatz, der wirklich auf Sie passt.';
+    const kontextCard = `<div class="res-card">
+      <div class="res-card-top"><span class="res-card-icon">🔍</span><span class="res-card-title">Ihre Situation</span></div>
+      <div class="res-card-body">${kontext}</div>
+    </div>`;
+
+    const greeting = name ? `${name}, wir haben` : 'Wir haben';
+
+    return `<div class="step-card">
+      <span class="res-tag">Ihre persönliche Einschätzung</span>
+      <div class="res-hl">${introHl}</div>
+      <div class="res-sub">${greeting} auf Basis Ihrer Antworten eine erste Einschätzung für Sie erstellt.</div>
+      ${scaleHtml}
+      <div class="res-cards">${topicCards}${alltakCard}${kontextCard}</div>
+      <button class="btn-res-cta" onclick="BB.close()">Kostenloses Erstgespräch vereinbaren →</button>
+      <div class="res-disclaimer">Diese Einschätzung ersetzt keine medizinische Diagnose. Für eine genaue Abklärung empfehlen wir ein persönliches Gespräch.</div>
+    </div>`;
+  }
+};
+
+/* ══════════════════════════════════════════════════════
+   RÜCKEN QUIZ
+══════════════════════════════════════════════════════ */
+let rStep = 0, rAnswers = {}, rTimer = null;
+const R_Q_TOTAL = 8;
+
+const RQ = {
+  open() {
+    rStep = 0;
+    rAnswers = {};
+    if (rTimer) { clearTimeout(rTimer); rTimer = null; }
+    document.getElementById('r-modal').classList.add('on');
+    document.getElementById('overlay').classList.add('on');
+    document.body.style.overflow = 'hidden';
+    this._render();
+  },
+  close() {
+    document.getElementById('r-modal').classList.remove('on');
+    document.getElementById('overlay').classList.remove('on');
+    document.body.style.overflow = '';
+    if (rTimer) { clearTimeout(rTimer); rTimer = null; }
+  },
+  back() {
+    if (rTimer) { clearTimeout(rTimer); rTimer = null; }
+    if (rStep > 0) { rStep--; this._render(); }
+  },
+  next() { rStep++; this._render(); },
+  _pick(qi, ai) {
+    if (rTimer) return;
+    rAnswers[qi] = ai;
+    document.querySelectorAll('#r-body .q-opt').forEach((el, i) => el.classList.toggle('sel', i === ai));
+    rTimer = setTimeout(() => { rTimer = null; rStep++; RQ._render(); }, 380);
+  },
+  _score() {
+    let s = 0;
+    R_QS.forEach((q, i) => { if (rAnswers[i] !== undefined) s += q.pts[rAnswers[i]]; });
+    return s;
+  },
+  _render() {
+    const step = R_MAP[rStep];
+    const body = document.getElementById('r-body');
+    const foot = document.getElementById('r-foot');
+    const back = document.getElementById('r-back');
+
+    const qDone = R_MAP.slice(0, rStep + 1).filter(s => s.t === 'q').length;
+    const prog = Math.min(100, (Math.max(0, qDone - 1) / R_Q_TOTAL) * 100);
+    document.getElementById('r-bar').style.width = prog + '%';
+
+    if (step.t === 'q') {
+      const qNum = R_MAP.slice(0, rStep + 1).filter(s => s.t === 'q').length;
+      document.getElementById('r-lbl').textContent = 'Frage ' + qNum + ' von ' + R_Q_TOTAL;
+      body.innerHTML = this._renderQ(step.qi, qNum);
+      foot.classList.add('hide');
+      const prev = rAnswers[step.qi];
+      if (prev !== undefined) document.querySelectorAll('#r-body .q-opt')[prev]?.classList.add('sel');
+    } else if (step.t === 'fb') {
+      document.getElementById('r-lbl').textContent = 'Zwischeneinschätzung';
+      const fb = R_FEED[step.fi](rAnswers);
+      body.innerHTML = this._renderFB(fb);
+      foot.classList.remove('hide');
+      back.disabled = false;
+    } else {
+      document.getElementById('r-lbl').textContent = 'Ihre Empfehlung';
+      document.getElementById('r-bar').style.width = '100%';
+      body.innerHTML = this._renderRes();
+      foot.classList.add('hide');
+    }
+
+    back.disabled = (rStep === 0);
+    body.scrollTop = 0;
+  },
+  _renderQ(qi, qNum) {
+    const q = R_QS[qi];
+    const opts = q.opts.map((o, i) => `
+      <button class="q-opt" onclick="RQ._pick(${qi},${i})">
+        <span>${o}</span>
+        <span class="opt-check"></span>
+      </button>`).join('');
+    return `<div class="step-card">
+      <div class="q-num">Frage ${qNum}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-opts">${opts}</div>
+    </div>`;
+  },
+  _renderFB(fb) {
+    return `<div class="step-card fb-card">
+      <div class="fb-icon">${fb.icon}</div>
+      <div class="fb-lbl">${fb.lbl}</div>
+      <div class="fb-hl">${fb.hl}</div>
+      <div class="fb-body">${fb.body}</div>
+    </div>`;
+  },
+  _renderRes() {
+    const score = this._score();
+    const level = R_LEVELS.find(l => score <= l.max);
+
+    // Warning: Ausstrahlung (Q3, opt 2) AND akut (Q5, opt 0)
+    const showWarn = rAnswers[2] === 2 && rAnswers[4] === 0;
+
+    return `<div class="step-card">
+      <span class="res-tag">Ihre Einschätzung</span>
+      <div class="res-hl">Wir haben ein klares Bild – und eine passende Empfehlung.</div>
+      <div class="score-wrap">
+        <div class="score-level-badge">
+          <span class="score-lvl-name">${level.name}</span>
+          <span class="score-lvl-sub">${level.sub}</span>
+        </div>
+        <div class="score-rec">
+          <div class="score-rec-lbl">Empfohlenes Programm</div>
+          <div class="score-rec-txt">${level.rec}</div>
+        </div>
+        <div class="score-desc">${level.desc}</div>
+        <div class="warn-banner${showWarn?' on':''}">
+          <strong>Hinweis:</strong> Bei Taubheitsgefühlen oder Ausstrahlungen, die erst seit Kurzem bestehen, empfehlen wir vorab eine ärztliche Abklärung – insbesondere um einen akuten Bandscheibenvorfall auszuschließen.
+        </div>
+      </div>
+      <button class="btn-res-cta" onclick="RQ.close()">Kostenlose Probesitzung buchen →</button>
+    </div>`;
+  }
+};
+
+function closeAll() {
+  BB.close();
+}
+
+</script>
+</body>
+</html>
