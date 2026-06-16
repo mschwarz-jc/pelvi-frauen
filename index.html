@@ -391,10 +391,23 @@
     .res-disclaimer { font-size: 11px; color: var(--txl); margin-top: 14px; text-align: center; font-style: italic; line-height: 1.55; padding: 0 4px; }
 
     /* ── NUDGE KARTE ── */
-    .nudge-card { background: var(--acxl); border: 1.5px solid var(--acl); border-radius: 16px; padding: 28px 22px; text-align: center; cursor: pointer; animation: fadeUp 0.24s ease; }
-    .nudge-icon { font-size: 28px; display: block; margin-bottom: 12px; }
-    .nudge-text { font-size: 15px; color: var(--tx); line-height: 1.65; font-weight: 500; }
-    .nudge-hint { font-size: 11px; color: var(--txl); margin-top: 14px; }
+    .nudge-card { background: var(--acxl); border: 1.5px solid var(--acl); border-radius: 20px; padding: 40px 26px; text-align: center; cursor: pointer; animation: fadeUp 0.24s ease; }
+    .nudge-icon { font-size: 42px; display: block; margin-bottom: 16px; }
+    .nudge-text { font-size: 17px; color: var(--tx); line-height: 1.7; font-weight: 500; }
+    .nudge-hint { font-size: 12px; color: var(--txl); margin-top: 18px; letter-spacing: 0.02em; }
+
+    /* ── LP DISCLAIMER ── */
+    .lp-disclaimer { font-size: 11px; color: var(--txl); margin-top: 10px; opacity: 0.7; }
+
+    /* ── PELVIPOWER SECTION ── */
+    .pp-why-list { display: flex; flex-direction: column; gap: 16px; margin: 18px 0; }
+    .pp-why-item { display: flex; gap: 14px; align-items: flex-start; background: var(--acxl); border: 1px solid var(--acl); border-radius: 14px; padding: 16px 18px; }
+    .pp-why-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+    .pp-why-title { font-size: 14px; font-weight: 600; color: var(--tx); margin-bottom: 4px; }
+    .pp-why-body { font-size: 13px; color: var(--txl); line-height: 1.6; }
+    .pp-promise { display: flex; gap: 12px; align-items: flex-start; background: var(--scl); border-radius: 14px; padding: 16px 18px; margin-bottom: 18px; }
+    .pp-promise-icon { font-size: 22px; flex-shrink: 0; }
+    .pp-promise-text { font-size: 13px; color: var(--tx); line-height: 1.6; font-weight: 500; }
 
     /* ── SECTION TRANSITION KARTE ── */
     .section-card { background: var(--bg2); border: 1.5px solid var(--br); border-radius: 16px; padding: 28px 22px; text-align: center; animation: fadeUp 0.24s ease; }
@@ -449,7 +462,7 @@
       <div class="hero-content">
         <span class="h-badge">Beckenboden-Checkup für Frauen</span>
         <h1 class="h1">Wie geht es<br>Ihrem Beckenboden?</h1>
-        <p class="h-sub">Ein kurzer, geführter Checkup – diskret, unverbindlich und ohne medizinische Diagnose. Für ein erstes Gefühl, welche Themen für Sie persönlich relevant sein könnten.</p>
+        <p class="h-sub">Ein kurzer, geführter Checkup – diskret, unverbindlich und auf Sie zugeschnitten. Für ein erstes Gefühl, welche Themen für Sie persönlich relevant sein könnten.*</p>
         <div class="trust-pills">
           <span class="tpill"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M5.5 8.5l2 2 3-4"/></svg>5 Minuten</span>
           <span class="tpill"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="10" height="8" rx="1"/><path d="M5 5V4a3 3 0 016 0v1"/></svg>Anonym</span>
@@ -459,6 +472,7 @@
           Checkup starten
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </button>
+        <p class="lp-disclaimer">* Kein Ersatz für eine medizinische Diagnose.</p>
       </div>
     </div>
   </section>
@@ -490,71 +504,71 @@
 
 const BB_QS = {
   w: [
-    // Q0 – Soft Intro (topic selector, multi-select)
+    // Q0 – topic selector (multi-select)
     { text: 'Der Beckenboden beeinflusst viele unserer Körperfunktionen – wo bemerken Sie Veränderungen?',
-      opts: ['Häufiger und/oder dringender Harndrang', 'Harnverlust (ungewollter Urinverlust)', 'Rückenschmerzen', 'Veränderte Sexualität', 'Druckgefühl nach unten / Organsenkung', 'Noch keine Beschwerden – ich möchte vorsorgen'], multi: true },
-    // Q1–2 Harndrang-Unterfragen
+      opts: ['Häufiger und/oder dringender Harndrang', 'Harnverlust (ungewollter Urinverlust)', 'Rücken- & Hüftschmerzen', 'Veränderte Sexualität', 'Druckgefühl nach unten / Organsenkung', 'Noch keine Beschwerden – ich möchte vorsorgen'], multi: true },
+    // Q1–Q4 Harndrang
     { text: 'Wann tritt der Harndrang typischerweise auf?',
       context: 'Der Auslöser verrät uns viel über die Ursache – und hilft, das richtige Training zu empfehlen.',
       opts: ['Bei Stress oder Aufregung', 'Bei Kälte oder wenn Wasser läuft', 'Oft ohne erkennbaren Auslöser', 'Auch nachts – ich wache davon auf'], multi: true },
     { text: 'Wie stark ist das Dranggefühl in der Regel?',
       opts: ['Manchmal dringend, aber noch kontrollierbar', 'Oft kaum aufschiebbar – muss sofort reagieren', 'Ich verliere dabei manchmal Urin'], multi: true },
-    // Q3–4 Harnverlust-Unterfragen
+    { text: 'Wie viele Male pro Tag oder Nacht müssen Sie zur Toilette?',
+      opts: ['3–5 Mal pro Tag – noch im normalen Bereich', '6–9 Mal pro Tag – häufiger als früher', 'Mehr als 10 Mal – sehr oft, auch nachts', 'Es schwankt stark von Tag zu Tag'], multi: true },
+    { text: 'Seit wann bemerken Sie den verstärkten Harndrang?',
+      opts: ['Erst seit wenigen Monaten', 'Seit ein bis zwei Jahren', 'Schon sehr lange – das ist seit Jahren so', 'Ich kann es nicht genau sagen'], multi: true },
+    // Q5–Q8 Harnverlust
     { text: 'In welchen Situationen kommt es zu Harnverlust?',
       opts: ['Springen, Laufen oder Heben (körperliche Belastung)', 'Husten, Niesen oder Lachen', 'Bei dringendem oder starkem Harndrang'], multi: true },
     { text: 'Wie häufig passiert das?',
       opts: ['Selten – wenige Male im Monat', 'Regelmäßig – mehrmals pro Woche', 'Fast täglich'], multi: true },
-    // Q5–6 Rücken-Unterfragen
-    { text: 'Wo sitzen die Rückenschmerzen hauptsächlich?',
-      opts: ['Unterer Rücken oder Lendenwirbelsäule', 'Steißbein oder Beckenregion', 'Diffus – schwer zu lokalisieren'], multi: true },
+    { text: 'Wie viel Urin geht in etwa verloren?',
+      opts: ['Wenige Tropfen – kaum merklich', 'Ein spürbarer kleiner Verlust', 'Eine deutliche Menge – ich brauche Einlagen', 'Sehr viel – das ist sehr belastend'], multi: true },
+    { text: 'Hat sich das in letzter Zeit verändert?',
+      opts: ['Gleichbleibend seit Langem', 'Es wird eher schlimmer', 'Es schwankt – mal besser, mal schlechter', 'Erst seit Kurzem – gerade neu entstanden'], multi: true },
+    // Q9–Q12 Rücken & Hüfte
+    { text: 'Wo sitzen die Beschwerden hauptsächlich?',
+      opts: ['Unterer Rücken oder Lendenwirbelsäule', 'Hüfte oder Gesäß', 'Steißbein oder Beckenregion', 'Mehrere Bereiche – schwer zu lokalisieren'], multi: true },
+    { text: 'Wann treten die Beschwerden typischerweise auf?',
+      opts: ['Nach längerem Sitzen oder Stehen', 'Bei Bewegung oder körperlicher Belastung', 'Fast immer – auch in Ruhe', 'Hauptsächlich morgens nach dem Aufstehen'], multi: true },
+    { text: 'Wie stark sind die Beschwerden im Durchschnitt?',
+      opts: ['Leicht – im Hintergrund, stört kaum', 'Mittel – ich merke sie deutlich im Alltag', 'Stark – schränkt mich regelmäßig ein', 'Sehr stark – beeinflusst fast alles'], multi: true },
     { text: 'Seit wann haben Sie diese Beschwerden?',
-      opts: ['Erst seit Kurzem – wenige Monate', 'Schon länger als ein Jahr', 'Schon sehr lange – oder schon immer'], multi: true },
-    // Q7–8 Sexualität-Unterfragen
+      opts: ['Erst seit Kurzem – wenige Monate', 'Schon länger als ein Jahr', 'Schon sehr lange – oder schon immer', 'Nach einem bestimmten Ereignis (Geburt, Unfall, OP)'], multi: true },
+    // Q13–Q16 Sexualität
     { text: 'Was genau hat sich verändert?',
       context: 'Diese Frage fällt vielen schwer. Jede Antwort hilft uns, den richtigen und einfühlsamen Ansatz zu finden.',
       opts: ['Weniger Empfindung oder Intensität', 'Schmerzen beim Intimverkehr', 'Innere Anspannung oder Unsicherheit'], multi: true },
+    { text: 'Seit wann bemerken Sie diese Veränderungen?',
+      opts: ['Erst seit wenigen Monaten', 'Seit ein bis zwei Jahren', 'Schon länger als zwei Jahre', 'Es ist schwankend – mal besser, mal schlechter'], multi: true },
     { text: 'Wie sehr belastet Sie das?',
       opts: ['Ich bemerke es, es stört mich aber kaum', 'Es beschäftigt mich – ich spreche nicht offen darüber', 'Es belastet mich stark und beeinflusst meine Beziehung'], multi: true },
-    // Q9–10 Organsenkung-Unterfragen
+    { text: 'Was haben Sie bisher unternommen?',
+      opts: ['Noch nichts versucht', 'Offene Gespräche – aber keine weiteren Schritte', 'Ärztin oder Therapeutin aufgesucht', 'Verschiedenes versucht – bisher wenig dauerhafter Erfolg'], multi: true },
+    // Q17–Q20 Organsenkung
     { text: 'Wie würden Sie das Gefühl beschreiben?',
       opts: ['Gelegentlicher Druck oder Schwere nach einem langen Tag', 'Regelmäßiges Fremdkörpergefühl', 'Eine Senkung wurde bereits ärztlich festgestellt'], multi: true },
-    { text: 'Hat das Gefühl sich verändert?',
-      opts: ['Gleichbleibend', 'In letzter Zeit eher schlimmer', 'Schwankend – mal besser, mal schlechter'], multi: true },
-    // Q11 Vorsorge-Unterfrage (nur 1)
+    { text: 'Wann tritt das Gefühl auf?',
+      opts: ['Vor allem abends oder nach längerem Stehen', 'Nach Sport oder körperlicher Belastung', 'Fast den ganzen Tag', 'Es schwankt – kein klares Muster'], multi: true },
+    { text: 'Haben Sie begleitende Beschwerden?',
+      opts: ['Nein – nur das Druckgefühl', 'Erschwertes Wasserlassen', 'Rückenschmerzen im Zusammenhang', 'Ja – mehrere Beschwerden gleichzeitig'], multi: true },
+    { text: 'Hat das Gefühl sich im Laufe der Zeit verändert?',
+      opts: ['Gleichbleibend', 'In letzter Zeit eher schlimmer', 'Schwankend – mal besser, mal schlechter', 'Eher besser geworden'], multi: true },
+    // Q21–Q24 Vorsorge
     { text: 'Was motiviert Sie zu diesem Checkup?',
       opts: ['Langfristig gesund und beschwerdefrei bleiben', 'Nach einer Schwangerschaft gezielt vorsorgen', 'Ich möchte einfach wissen, wo ich stehe'], multi: true },
-    // Q12 Allgemein – Geburt
     { text: 'Haben Sie Kinder geboren?',
-      opts: ['Keine Kinder oder Kaiserschnitt', 'Vaginalgeburt – kaum spürbare Veränderungen', 'Vaginalgeburt – mit merklichen Veränderungen danach'], multi: true },
-    // Q13 Allgemein – Maßnahmen
-    { text: 'Haben Sie bereits etwas gegen Ihre Beschwerden unternommen?',
-      opts: ['Noch nichts probiert', 'Gezielte Übungen oder Physiotherapie', 'Mehreres versucht – bisher wenig dauerhafter Erfolg'], multi: true },
-    // Q14 Emotional – Wunsch
-    { text: 'Was würde sich für Sie am meisten verändern, wenn das Thema gelöst wäre?',
-      opts: ['Dann wäre ich viel entspannter und unbekümmerter', 'Keine Angst mehr vor weiterer Verschlimmerung', 'Ich würde mich wieder wohl und sicher in meinem Körper fühlen', 'Mehr Freude und Sicherheit in meiner Beziehung und Intimität'], multi: true },
-    // Q15 Skala 1–10
-    { text: 'Auf einer Skala von 1–10: Wie sehr belastet Sie die Situation gerade?', special: 'scale' },
-    // Q16 Bereich 2 – Darmfunktion
-    { text: 'Wie ist Ihre Verdauung und Darmkontrolle?',
-      context: 'Darm und Beckenboden teilen dieselben Muskeln und Nerven – beides hängt enger zusammen als die meisten denken.',
-      opts: ['Keine Probleme', 'Häufige Verstopfung oder starkes Pressen', 'Manchmal plötzlicher, kaum aufschiebbarer Stuhldrang', 'Gelegentlicher unkontrollierter Stuhlverlust'], multi: true },
-    // Q17 Bereich 2 – Schmerzen
-    { text: 'Haben Sie Schmerzen oder Druckgefühle im Becken- oder Unterbauchbereich?',
-      context: 'Schmerzen im Beckenbereich haben häufig eine muskuläre Ursache – und sind gut angehbar.',
-      opts: ['Keine', 'Beim langen Sitzen oder Stehen', 'Nach Sport oder körperlicher Belastung', 'Im Alltag ohne klaren Auslöser', 'Beim Intimverkehr oder bei gynäkologischen Untersuchungen'], multi: true },
-    // Q18 Bereich 2 – Alltagseinschränkung
-    { text: 'Was schränkt Sie durch Ihre Beschwerden ein?',
-      opts: ['Sport und körperliche Aktivitäten', 'Spontane soziale Situationen', 'Reisen oder längere Unternehmungen', 'Intimität und Partnerschaft', 'Ich lasse mich (noch) nicht einschränken'], multi: true },
-    // Q19 Bereich 2 – Schlaf & Wohlbefinden
-    { text: 'Wie wirken sich Ihre Beschwerden auf Schlaf und Wohlbefinden aus?',
-      opts: ['Kaum – ich schlafe gut und erhole mich', 'Manchmal schlechter Schlaf durch Harndrang nachts', 'Stress und Anspannung verstärken die Beschwerden', 'Erschöpfung und Energieverlust durch die Gesamtsituation'], multi: true },
-    // Q20 Bereich 3 – Lebensphase
+      opts: ['Keine Kinder oder Kaiserschnitt', 'Vaginalgeburt – kaum spürbare Veränderungen danach', 'Vaginalgeburt – mit merklichen Veränderungen danach', 'Ich bin schwanger oder bis 1 Jahr nach der Geburt'], multi: true },
     { text: 'In welcher Lebensphase befinden Sie sich gerade?',
       context: 'Hormonstatus und Lebensphase beeinflussen den Beckenboden stark – diese Information ist entscheidend für eine wirklich persönliche Einschätzung.',
       opts: ['Reproduktionsphase (Menstruation, Verhütung)', 'Schwanger oder bis 1 Jahr nach der Geburt', 'Perimenopause (40+, Zyklusveränderungen spürbar)', 'Postmenopause'], multi: true },
-    // Q21 Bereich 3 – OPs / Erkrankungen
-    { text: 'Gab es Operationen im Beckenbereich oder relevante Vorerkrankungen?',
-      opts: ['Keine', 'Gebärmutter-OP (Hysterektomie o.ä.)', 'Blasen- oder Nieren-OP', 'Endometriose', 'Chronische Erkrankung (Fibromyalgie, Rheuma, Autoimmun)'], multi: true }
+    { text: 'Haben Sie bereits gezieltes Beckenbodentraining gemacht?',
+      opts: ['Noch nie', 'Gelegentlich – aber nicht konsequent', 'Ja, regelmäßig – möchte aber mehr', 'Ich brauche professionelle Begleitung'], multi: true },
+    // Q25 – Skala
+    { text: 'Auf einer Skala von 1–10: Wie sehr belastet Sie die Situation gerade?', special: 'scale' },
+    // Q26 – Wunsch
+    { text: 'Was würde sich für Sie am meisten verändern, wenn das Thema gelöst wäre?',
+      opts: ['Dann wäre ich viel entspannter und unbekümmerter', 'Keine Angst mehr vor weiterer Verschlimmerung', 'Ich würde mich wieder wohl und sicher in meinem Körper fühlen', 'Mehr Freude und Sicherheit in meiner Beziehung und Intimität'], multi: true },
   ],
   m: [
     // Q0 – Soft Intro (topic selector, multi-select)
@@ -744,14 +758,14 @@ const M_SECTIONS = {
   3: { n:'Abschnitt 3 von 3', title:'Ihre Vorgeschichte', body:'Beruf, Lebensphase und Vorerkrankungen prägen den Beckenboden stark. Diese Informationen machen den Unterschied für eine wirklich persönliche Einschätzung.' },
 };
 
-// Frauen: Thema → Sub-Fragen-Indizes
+// Frauen: Thema → Sub-Fragen-Indizes (4 Fragen je Thema)
 const W_TOPIC_QS = {
-  0: [1, 2],   // Harndrang
-  1: [3, 4],   // Harnverlust
-  2: [5, 6],   // Rücken
-  3: [7, 8],   // Sexualität
-  4: [9, 10],  // Organsenkung
-  5: [11],     // Vorsorge (nur 1 Frage)
+  0: [1,2,3,4],     // Harndrang
+  1: [5,6,7,8],     // Harnverlust
+  2: [9,10,11,12],  // Rücken & Hüfte
+  3: [13,14,15,16], // Sexualität
+  4: [17,18,19,20], // Organsenkung
+  5: [21,22,23,24], // Vorsorge
 };
 
 // Nudge nach jedem Thema-Block
@@ -849,45 +863,30 @@ function buildMFlow(topics, extraTopics = []) {
   return steps;
 }
 
-function buildWFlow(topics, extraTopics = []) {
+function buildWFlow(topics) {
+  // Adaptive depth: 1 topic → 4 Fragen, 2 Themen → 3, 3+ → 2
+  const n = (topics || []).length;
+  const depth = n <= 1 ? 4 : n === 2 ? 3 : 2;
   const steps = [{t:'q', qi:0}];
-  // Bereich 1: Themen-Unterfragen + Nudge je Thema
   (topics || []).forEach(t => {
-    (W_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
+    (W_TOPIC_QS[t] || []).slice(0, depth).forEach(qi => steps.push({t:'q', qi}));
     if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
   });
-  steps.push({t:'fb', fi:1});
-  // Q0-Recap: Ergänzung möglich
-  steps.push({t:'q0recap'});
-  // Extra-Themen aus Recap (leer wenn nichts ergänzt)
-  (extraTopics || []).forEach(t => {
-    (W_TOPIC_QS[t] || []).forEach(qi => steps.push({t:'q', qi}));
-    if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
-  });
-  // Bereich 2
-  steps.push({t:'section', n:2});
-  steps.push({t:'q',qi:16},{t:'nudge',id:'b2a'},{t:'q',qi:17},{t:'q',qi:18},{t:'nudge',id:'b2b'},{t:'q',qi:19});
-  steps.push({t:'fb', fi:2});
-  // Bereich 3
-  steps.push({t:'section', n:3});
-  steps.push({t:'q',qi:12},{t:'q',qi:20},{t:'nudge',id:'b3a'},{t:'q',qi:21},{t:'q',qi:13});
-  steps.push({t:'fb', fi:3});
-  // Abschluss
-  steps.push({t:'q',qi:15},{t:'q',qi:14});
-  steps.push({t:'contact'},{t:'loading'},{t:'res'});
+  steps.push({t:'q', qi:25},{t:'q', qi:26});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'});
   return steps;
 }
 
 const BB_FEED = {
   w: {
     1: function(a) {
-      const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
-      const q3 = a[3] ? [...a[3]] : [];
+      const topics = [...new Set([...(a[0] ? [...a[0]] : [])])];
+      const q5 = a[5] ? [...a[5]] : [];
       // Harnverlust hat Vorrang
       if (topics.includes(1)) {
-        if (q3.includes(0) || q3.includes(1))
+        if (q5.includes(0) || q5.includes(1))
           return { icon:'💧', lbl:'Erste Einschätzung', hl:'Das klingt nach einer Belastungsinkontinenz.', body:'Was Sie beschreiben, ist das häufigste Beckenbodenmuster bei Frauen – besonders nach Schwangerschaften oder in den Wechseljahren. Der Beckenbodenmuskel gibt kurz nach, wenn der Druck von außen kommt. Das ist sehr gut trainierbar. Wir sind auf einem guten Weg.' };
-        if (q3.includes(2))
+        if (q5.includes(2))
           return { icon:'💧', lbl:'Erste Einschätzung', hl:'Das hört sich nach einem überaktiven Blasenmuskel an.', body:'Der Drang, sofort reagieren zu müssen, und dabei auch etwas zu verlieren – das ist belastend und schränkt ein. Die gute Nachricht: Der Blasenmuskel lässt sich trainieren und beruhigen. Mit dem richtigen Ansatz merken viele Frauen schon nach wenigen Wochen eine Veränderung.' };
         return { icon:'💧', lbl:'Erste Einschätzung', hl:'Harnverlust ist häufiger als gedacht – und gut behandelbar.', body:'Was Sie beschreiben, betrifft viele Frauen. Gezieltes Beckenbodentraining zeigt hier in den meisten Fällen schnelle Wirkung – oft innerhalb weniger Wochen sichtbare Verbesserungen.' };
       }
@@ -1125,11 +1124,11 @@ const BB = {
       bbAnswers = {0: q0ans};
       bbFlow = bbGender === 'w' ? buildWFlow(topics) : bbGender === 'm' ? buildMFlow(topics) : buildRLFlow(topics);
     }
-    // Nach Q0-Recap: Flow mit Extra-Topics rebuilden
+    // Nach Q0-Recap: Flow mit Extra-Topics rebuilden (nur m/rl)
     if (step && step.t === 'q0recap') {
       const orig = bbAnswers[0] ? [...bbAnswers[0]] : [];
       const extra = bbAnswers['recap'] ? [...bbAnswers['recap']] : [];
-      bbFlow = bbGender === 'w' ? buildWFlow(orig, extra) : bbGender === 'm' ? buildMFlow(orig, extra) : buildRLFlow(orig, extra);
+      bbFlow = bbGender === 'm' ? buildMFlow(orig, extra) : buildRLFlow(orig, extra);
     }
     bbStep++;
     this._render();
@@ -1200,7 +1199,7 @@ const BB = {
       body.innerHTML = this._renderNudge(NUDGES[step.id]);
       foot.classList.add('hide');
       back.disabled = true;
-      bbNudgeTimer = setTimeout(() => { bbNudgeTimer = null; bbStep++; BB._render(); }, 3000);
+      if (bbGender !== 'w') bbNudgeTimer = setTimeout(() => { bbNudgeTimer = null; bbStep++; BB._render(); }, 3000);
     } else if (step.t === 'q0recap') {
       document.getElementById('bb-lbl').textContent = 'Möchten Sie ergänzen?';
       body.innerHTML = this._renderQ0Recap();
@@ -1230,13 +1229,18 @@ const BB = {
       body.innerHTML = this._renderLoading();
       foot.classList.add('hide');
       setTimeout(() => { bbStep++; BB._render(); }, 2800);
+    } else if (step.t === 'pelvipower') {
+      document.getElementById('bb-lbl').textContent = 'Warum PelviPower?';
+      document.getElementById('bb-bar').style.width = '100%';
+      body.innerHTML = this._renderPelvipower();
+      foot.classList.add('hide');
     } else {
       document.getElementById('bb-lbl').textContent = 'Ihre persönliche Einschätzung';
       document.getElementById('bb-bar').style.width = '100%';
       body.innerHTML = bbGender === 'w' ? this._renderResW() : bbGender === 'm' ? this._renderResM() : this._renderResRL();
       foot.classList.add('hide');
     }
-    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge');
+    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge' || step.t === 'res' || step.t === 'pelvipower');
 
     body.scrollTop = 0;
   },
@@ -1373,9 +1377,9 @@ const BB = {
   // ── Frauen: Ergebnisseite (umfangreich, pro Thema) ──
   _renderResW() {
     const a = bbAnswers;
-    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['recap'] ? [...a['recap']] : [])])];
-    const scale = a[15] ? [...a[15]][0] : null;
-    const wishes = a[14] ? [...a[14]] : [];
+    const topics = [...new Set([...(a[0] ? [...a[0]] : [])])];
+    const scale = a[25] ? [...a[25]][0] : null;
+    const wishes = a[26] ? [...a[26]] : [];
     const name = a._contact?.name ? a._contact.name.split(' ')[0] : '';
 
     let introHl;
@@ -1393,9 +1397,11 @@ const BB = {
           let t = '';
           const str = a[2] ? [...a[2]] : [];
           const trg = a[1] ? [...a[1]] : [];
+          const freq = a[3] ? [...a[3]] : [];
           if (trg.includes(3)) t += 'Dass Sie auch nachts betroffen sind, weist auf eine stärkere Überaktivität hin – das verdient besondere Aufmerksamkeit. ';
           if (str.includes(1)) t += 'Der kaum aufschiebbare Drang ist belastend und schränkt die Lebensqualität ein. ';
           if (str.includes(2)) t += 'Der Übergang zu Harnverlust zeigt, dass der Blasenmuskel gezielt beruhigt werden sollte. ';
+          if (freq.includes(2)) t += 'Mehr als 10 Mal täglich – das ist deutlich erhöht und zeigt, wie sehr der Alltag betroffen ist. ';
           t += 'Gezieltes Beckenbodentraining kombiniert mit Blasentraining kann die Überaktivität nachhaltig regulieren – oft sind schon nach wenigen Wochen Verbesserungen spürbar.';
           return t;
         }
@@ -1405,25 +1411,31 @@ const BB = {
         intro:'Ungewollter Urinverlust ist eines der häufigsten Beckenboden-Themen bei Frauen – und in den meisten Fällen ohne Operation gut behandelbar.',
         body(a) {
           let t = '';
-          const situ = a[3] ? [...a[3]] : [];
-          const freq = a[4] ? [...a[4]] : [];
+          const situ = a[5] ? [...a[5]] : [];
+          const freq = a[6] ? [...a[6]] : [];
+          const menge = a[7] ? [...a[7]] : [];
           if (situ.includes(0) || situ.includes(1)) t += 'Was Sie beschreiben, klingt nach einer Belastungsinkontinenz – der Druck bei körperlicher Aktivität überfordert den Beckenbodenmuskel kurz. ';
           if (situ.includes(2)) t += 'Der Verlust beim starken Harndrang deutet auf eine Mischform hin – das kennen wir gut und gehen gezielt darauf ein. ';
           if (freq.includes(2)) t += 'Tägliche Episoden sind ein klares Signal, dass gezieltes Handeln wichtig ist. ';
           else if (freq.includes(1)) t += 'Mehrmals pro Woche ist häufig genug, um den Alltag zu beeinflussen – hier lässt sich viel verändern. ';
+          if (menge.includes(2) || menge.includes(3)) t += 'Die Menge, die verloren geht, zeigt wie wichtig jetzt gezieltes Handeln ist. ';
           t += 'Gezieltes Beckenbodentraining zeigt bei Harnverlust besonders schnelle Ergebnisse.';
           return t;
         }
       },
       2: {
-        icon:'🌿', title:'Rückenschmerzen',
-        intro:'Rücken und Beckenboden sind durch die tiefe Rumpfmuskulatur direkt miteinander verbunden. Training stärkt immer auch die Rückenstabilität.',
+        icon:'🌿', title:'Rücken- & Hüftschmerzen',
+        intro:'Rücken, Hüfte und Beckenboden sind durch die tiefe Rumpfmuskulatur direkt miteinander verbunden. Training stärkt immer auch die Rücken- und Hüftstabilität.',
         body(a) {
           let t = '';
-          const loc = a[5] ? [...a[5]] : [];
-          const dur = a[6] ? [...a[6]] : [];
-          if (loc.includes(1)) t += 'Schmerzen im Steißbein- oder Beckenbereich stehen besonders oft in direktem Zusammenhang mit dem Beckenboden. ';
-          if (dur.includes(2)) t += 'Sehr lang anhaltende Beschwerden brauchen einen konsequenten, ganzheitlichen Ansatz – aber bedeutende Verbesserungen sind realistisch. ';
+          const loc = a[9] ? [...a[9]] : [];
+          const dur = a[12] ? [...a[12]] : [];
+          const sta = a[11] ? [...a[11]] : [];
+          if (loc.includes(2)) t += 'Schmerzen im Steißbein- oder Beckenbereich stehen besonders oft in direktem Zusammenhang mit dem Beckenboden. ';
+          if (loc.includes(1)) t += 'Schmerzen in Hüfte oder Gesäß können eng mit dem Beckenboden verbunden sein – Training stärkt beides. ';
+          if (sta.includes(3)) t += 'Sehr starke Beschwerden, die fast alles beeinflussen, verdienen einen konsequenten, ganzheitlichen Ansatz. ';
+          else if (sta.includes(2)) t += 'Wenn Beschwerden den Alltag regelmäßig einschränken, ist jetzt der richtige Zeitpunkt, gezielt zu handeln. ';
+          if (dur.includes(2) || dur.includes(3)) t += 'Lang anhaltende oder ereignisbezogene Beschwerden brauchen einen strukturierten Ansatz – aber bedeutende Verbesserungen sind sehr realistisch. ';
           else if (dur.includes(1)) t += 'Über ein Jahr anhaltende Beschwerden haben sich gefestigt und sprechen gut auf gezieltes Training an. ';
           t += 'Ein kombiniertes Beckenboden- und Rückenprogramm adressiert beide Themen gleichzeitig.';
           return t;
@@ -1434,8 +1446,8 @@ const BB = {
         intro:'Veränderungen in der Sexualität sind ein häufiges, aber selten offen besprochenes Thema. Der Beckenboden spielt dabei eine zentrale Rolle.',
         body(a) {
           let t = '';
-          const was = a[7] ? [...a[7]] : [];
-          const bel = a[8] ? [...a[8]] : [];
+          const was = a[13] ? [...a[13]] : [];
+          const bel = a[15] ? [...a[15]] : [];
           if (was.includes(1)) t += 'Schmerzen beim Intimverkehr können auf eine erhöhte Beckenbodenspannung hinweisen – das ist gut angehbar, wenn es behutsam begleitet wird. ';
           if (was.includes(2)) t += 'Innere Anspannung und Unsicherheit hängen oft mit unbewusster Schutzspannung des Beckenbodens zusammen. ';
           if (bel.includes(2)) t += 'Dass Sie es als stark belastend erleben – das nehmen wir ernst und gehen einfühlsam und gezielt vor. ';
@@ -1448,11 +1460,13 @@ const BB = {
         intro:'Ein Druckgefühl nach unten oder eine Organsenkung ist eines der eindrucksvollsten Zeichen einer Beckenbodenbelastung – und häufig lange nicht richtig eingeordnet.',
         body(a) {
           let t = '';
-          const feel = a[9] ? [...a[9]] : [];
-          const chg = a[10] ? [...a[10]] : [];
+          const feel = a[17] ? [...a[17]] : [];
+          const chg = a[20] ? [...a[20]] : [];
+          const begl = a[19] ? [...a[19]] : [];
           if (feel.includes(2)) t += 'Dass eine Senkung bereits ärztlich festgestellt wurde, gibt uns eine klare Grundlage. Gezieltes Training ist eine der wirksamsten konservativen Maßnahmen. ';
           else if (feel.includes(1)) t += 'Ein regelmäßiges Fremdkörpergefühl ist ein eindeutiges Signal – frühzeitiges Handeln bringt die besten Ergebnisse. ';
           if (chg.includes(1)) t += 'Dass es sich verschlimmert, unterstreicht, wie wichtig jetzt gezielte Maßnahmen sind. ';
+          if (begl.includes(3)) t += 'Mehrere gleichzeitige Beschwerden zeigen, dass das gesamte Beckenbodensystem Unterstützung braucht. ';
           t += 'Beckenbodentraining kann Senkungsbeschwerden in vielen Fällen deutlich lindern und weiteres Fortschreiten bremsen.';
           return t;
         }
@@ -1461,9 +1475,14 @@ const BB = {
         icon:'✨', title:'Prävention & Vorsorge',
         intro:'Wer vorsorgt, bevor Beschwerden entstehen, hat den besten Ausgangspunkt. Der Beckenboden profitiert enorm von frühzeitigem gezieltem Training.',
         body(a) {
-          const mot = a[11] ? [...a[11]] : [];
+          const mot = a[21] ? [...a[21]] : [];
+          const kinder = a[22] ? [...a[22]] : [];
+          const phase = a[23] ? [...a[23]] : [];
           let t = '';
           if (mot.includes(1)) t += 'Gerade nach einer Schwangerschaft verändert sich das Beckenbodengefüge – gezielte Übungen helfen, es nachhaltig zu stärken. ';
+          if (kinder.includes(2)) t += 'Eine Vaginalgeburt mit merklichen Veränderungen ist der häufigste Auslöser für Beckenbodenbeschwerden – und gleichzeitig der, bei dem Training am besten anschlägt. ';
+          if (phase.includes(3)) t += 'In der Postmenopause reagiert der Beckenboden auf gezielte Reize besonders gut – strukturiertes Training zeigt hier deutliche Effekte. ';
+          else if (phase.includes(2)) t += 'In der Perimenopause verändert sich das Bindegewebe. Gezieltes Training kann diesen Prozess spürbar abfedern. ';
           t += 'Vorsorge zum richtigen Zeitpunkt ist die effektivste Form der Gesundheitsförderung. Wir freuen uns, Sie dabei zu begleiten.';
           return t;
         }
@@ -1499,38 +1518,6 @@ const BB = {
       </div>`;
     }
 
-    // Alltags-Karte (aus Q17/Q18/Q19)
-    const q17 = a[17] ? [...a[17]] : [];
-    const q18 = a[18] ? [...a[18]] : [];
-    const q19 = a[19] ? [...a[19]] : [];
-    let alltag = '';
-    if (q17.includes(4)) alltag += 'Schmerzen beim Intimverkehr deuten auf eine erhöhte Muskelspannung im Beckenboden hin – das lässt sich gezielt und behutsam angehen. ';
-    else if (q17.includes(3)) alltag += 'Schmerzen ohne klaren Auslöser sind ein Hinweis auf eine muskuläre Dauerbelastung – ein häufiges, gut behandelbares Muster. ';
-    if (q18.filter(i => i !== 4).length >= 2) alltag += 'Dass mehrere Lebensbereiche eingeschränkt sind, zeigt, wie weit das Thema reicht – und wie viel sich durch gezieltes Handeln zurückgewinnen lässt. ';
-    if (q19.includes(3)) alltag += 'Erschöpfung und Energieverlust sind oft ein Zeichen, wie viel Kraft die Gesamtsituation kostet. Das nehmen wir ernst.';
-    else if (q19.includes(2)) alltag += 'Stress verstärkt Beckenbodensymptome spürbar – beides lässt sich gemeinsam regulieren.';
-    if (!alltag) alltag = 'Ihre Beschwerden zeigen sich noch in einem frühen Stadium – der beste Zeitpunkt, um gezielt zu handeln.';
-    const alltakCard = `<div class="res-card">
-      <div class="res-card-top"><span class="res-card-icon">🗓️</span><span class="res-card-title">Ihr Alltag</span></div>
-      <div class="res-card-body">${alltag}</div>
-    </div>`;
-
-    // Kontext-Karte (aus Q20/Q21/Q12)
-    const q20 = a[20] ? [...a[20]] : [];
-    const q21 = a[21] ? [...a[21]] : [];
-    const q12 = a[12] ? [...a[12]] : [];
-    let kontext = '';
-    if (q21.includes(3)) kontext += 'Endometriose verändert das gesamte Becken-Milieu. Unser Ansatz berücksichtigt das – behutsam und spezialisiert. ';
-    if (q20.includes(3)) kontext += 'In der Postmenopause reagiert der Beckenboden auf gezielte Reize besonders gut – strukturiertes Training zeigt hier deutliche Effekte. ';
-    else if (q20.includes(2)) kontext += 'In der Perimenopause verändert sich das Bindegewebe. Gezieltes Training kann diesen Prozess spürbar abfedern. ';
-    if (q12.includes(2)) kontext += 'Nach einer Vaginalgeburt mit merklichen Veränderungen ist gezieltes Aufbautraining besonders wirksam. ';
-    if (q21.includes(4)) kontext += 'Eine chronische Erkrankung erfordert einen besonders behutsamen, angepassten Ansatz – das berücksichtigen wir. ';
-    if (!kontext) kontext = 'Ihre persönliche Geschichte fließt vollständig in Ihre Einschätzung ein – für einen Ansatz, der wirklich auf Sie passt.';
-    const kontextCard = `<div class="res-card">
-      <div class="res-card-top"><span class="res-card-icon">🔍</span><span class="res-card-title">Ihre Situation</span></div>
-      <div class="res-card-body">${kontext}</div>
-    </div>`;
-
     const greeting = name ? `${name}, wir haben` : 'Wir haben';
 
     return `<div class="step-card">
@@ -1538,9 +1525,42 @@ const BB = {
       <div class="res-hl">${introHl}</div>
       <div class="res-sub">${greeting} auf Basis Ihrer Antworten eine erste Einschätzung für Sie erstellt.</div>
       ${scaleHtml}
-      <div class="res-cards">${topicCards}${alltakCard}${kontextCard}</div>
-      <button class="btn-res-cta" onclick="BB.close()">Kostenloses Erstgespräch vereinbaren →</button>
+      <div class="res-cards">${topicCards}</div>
+      <button class="btn-res-cta" onclick="BB.next()">Warum PelviPower helfen kann →</button>
       <div class="res-disclaimer">Diese Einschätzung ersetzt keine medizinische Diagnose. Für eine genaue Abklärung empfehlen wir ein persönliches Gespräch.</div>
+    </div>`;
+  },
+
+  // ── Frauen: PelviPower Sektion ──
+  _renderPelvipower() {
+    const a = bbAnswers;
+    const topics = [...new Set([...(a[0] ? [...a[0]] : [])])];
+    const PP_WHY = {
+      0: { icon:'💧', title:'Bei häufigem Harndrang', body:'PelviPower kombiniert gezieltes Blasentraining mit Beckenbodenaufbau – genau das, was den überaktiven Blasenmuskel langfristig beruhigt.' },
+      1: { icon:'💦', title:'Bei Harnverlust', body:'Gezielte Beckenbodenübungen stärken exakt die Muskeln, die bei körperlicher Belastung versagen. 8 von 10 Frauen berichten von deutlichen Verbesserungen.' },
+      2: { icon:'🌿', title:'Bei Rücken- & Hüftschmerzen', body:'Beckenboden und tiefe Rumpfmuskulatur bilden eine Einheit. Was den Beckenboden stärkt, stabilisiert gleichzeitig Rücken und Hüfte – beides in einem Programm.' },
+      3: { icon:'🌸', title:'Bei Veränderungen in der Sexualität', body:'PelviPower arbeitet einfühlsam und gezielt an Spannung, Durchblutung und Körperwahrnehmung im Becken – Grundlagen für mehr Wohlgefühl und Intimität.' },
+      4: { icon:'🔴', title:'Bei Druckgefühl & Organsenkung', body:'Beckenbodentraining ist die wirksamste konservative Maßnahme bei Organsenkungen. Gezielter Aufbau kann Symptome deutlich lindern und weiteres Fortschreiten bremsen.' },
+      5: { icon:'✨', title:'Für Prävention & Vorsorge', body:'Wer früh beginnt, hat die besten Karten. PelviPower schafft eine stabile Basis – bevor Beschwerden entstehen oder sich weiter entwickeln.' },
+    };
+    let whyItems = '';
+    if (topics.length > 0) {
+      topics.forEach(t => {
+        const w = PP_WHY[t];
+        if (!w) return;
+        whyItems += `<div class="pp-why-item"><span class="pp-why-icon">${w.icon}</span><div><div class="pp-why-title">${w.title}</div><div class="pp-why-body">${w.body}</div></div></div>`;
+      });
+    } else {
+      whyItems = `<div class="pp-why-item"><span class="pp-why-icon">💪</span><div><div class="pp-why-title">Ihr Beckenboden</div><div class="pp-why-body">PelviPower verbindet modernste Trainingswissenschaft mit einfühlsamer Begleitung – für nachhaltige Ergebnisse, die im Alltag ankommen.</div></div></div>`;
+    }
+    return `<div class="step-card">
+      <span class="res-tag">Warum PelviPower?</span>
+      <div class="res-hl">Gezielt. Persönlich. Nachhaltig.</div>
+      <div class="res-sub">Basierend auf Ihren Themen – das macht PelviPower für Sie konkret:</div>
+      <div class="pp-why-list">${whyItems}</div>
+      <div class="pp-promise"><div class="pp-promise-icon">🎯</div><div class="pp-promise-text">Ihr persönlicher PelviPower-Plan wird gemeinsam mit Ihnen entwickelt – im kostenfreien Erstgespräch, ohne Verpflichtung.</div></div>
+      <button class="btn-res-cta" onclick="BB.close()">Termin vereinbaren →</button>
+      <div class="res-disclaimer">* Kein Ersatz für eine medizinische Diagnose. Bei akuten Beschwerden empfehlen wir vorab eine ärztliche Abklärung.</div>
     </div>`;
   },
 
