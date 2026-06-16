@@ -1467,7 +1467,7 @@ const BB = {
   // ── Frauen: Ergebnisseite (umfangreich, pro Thema) ──
   _renderResW() {
     const a = bbAnswers;
-    const topics = [...new Set([...(a[0] ? [...a[0]] : [])])];
+    const topics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['sympitch'] ? [...a['sympitch']] : [])])];
     const scale = a[25] ? [...a[25]][0] : null;
     const wishes = a[26] ? [...a[26]] : [];
     const name = a._contact?.name ? a._contact.name.split(' ')[0] : '';
