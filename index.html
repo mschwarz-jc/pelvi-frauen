@@ -396,6 +396,28 @@
     .nudge-text { font-size: 17px; color: var(--tx); line-height: 1.7; font-weight: 500; }
     .nudge-hint { font-size: 12px; color: var(--txl); margin-top: 18px; letter-spacing: 0.02em; }
 
+    /* ── KALENDER DEMO ── */
+    .cal-days { display: flex; gap: 8px; margin: 18px 0 6px; overflow-x: auto; padding-bottom: 4px; }
+    .cal-day { display: flex; flex-direction: column; align-items: center; gap: 2px; border: 1.5px solid var(--br); border-radius: 12px; padding: 10px 12px; background: var(--card); cursor: pointer; min-width: 54px; transition: border-color 0.15s, background 0.15s; }
+    .cal-day:hover { border-color: var(--ac); background: var(--acxl); }
+    .cal-day.sel { border-color: var(--ac); background: var(--ac); color: #fff; }
+    .cal-day-name { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.7; }
+    .cal-day.sel .cal-day-name { opacity: 0.85; }
+    .cal-day-num { font-size: 20px; font-weight: 700; line-height: 1; }
+    .cal-day-mon { font-size: 11px; opacity: 0.65; }
+    .cal-time-label { font-size: 12px; font-weight: 600; color: var(--txl); margin: 14px 0 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .cal-times { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 6px; }
+    .cal-time { border: 1.5px solid var(--br); border-radius: 10px; padding: 10px 0; font-size: 14px; font-weight: 600; background: var(--card); cursor: pointer; transition: border-color 0.15s, background 0.15s; color: var(--tx); }
+    .cal-time:hover:not(:disabled) { border-color: var(--ac); background: var(--acxl); }
+    .cal-time.sel { border-color: var(--ac); background: var(--ac); color: #fff; }
+    .cal-time.busy { opacity: 0.32; cursor: default; text-decoration: line-through; }
+    .cal-hint { font-size: 13px; color: var(--txl); text-align: center; margin: 20px 0; font-style: italic; }
+    .cal-confirm { background: var(--scl); border: 1.5px solid var(--sc); border-radius: 16px; padding: 22px 20px; text-align: center; margin-top: 18px; animation: fadeUp 0.22s ease; }
+    .cal-confirm-check { font-size: 28px; color: var(--sc); margin-bottom: 8px; }
+    .cal-confirm-title { font-size: 16px; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
+    .cal-confirm-when { font-size: 15px; font-weight: 600; color: var(--ac); margin-bottom: 6px; }
+    .cal-confirm-note { font-size: 12px; color: var(--txl); }
+
     /* ── LP DISCLAIMER ── */
     .lp-disclaimer { font-size: 11px; color: var(--txl); margin-top: 10px; opacity: 0.7; }
 
@@ -873,7 +895,7 @@ function buildWFlow(topics) {
     if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
   });
   steps.push({t:'q', qi:25},{t:'q', qi:26});
-  steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'booking'});
   return steps;
 }
 
@@ -1087,6 +1109,7 @@ const R_LEVELS = [
 ══════════════════════════════════════════════════════ */
 let bbGender = 'w', bbStep = 0, bbAnswers = {}, bbTimer = null, bbNudgeTimer = null;
 let bbFlow = [{t:'q', qi:0}]; // Frauen: wird nach Q0 dynamisch aufgebaut
+let bbBookingDay = null, bbBookingTime = null;
 const BB_Q_TOTAL = 11; // Männer
 
 const BB = {
@@ -1095,6 +1118,7 @@ const BB = {
     bbStep = 0;
     bbAnswers = {};
     bbFlow = [{t:'q', qi:0}];
+    bbBookingDay = null; bbBookingTime = null;
     if (bbTimer) { clearTimeout(bbTimer); bbTimer = null; }
     const wrap = document.getElementById('bb-wrap');
     wrap.className = 'q-wrap ' + (g === 'rl' ? 'r' : g);
@@ -1234,13 +1258,18 @@ const BB = {
       document.getElementById('bb-bar').style.width = '100%';
       body.innerHTML = this._renderPelvipower();
       foot.classList.add('hide');
+    } else if (step.t === 'booking') {
+      document.getElementById('bb-lbl').textContent = 'Termin buchen';
+      document.getElementById('bb-bar').style.width = '100%';
+      body.innerHTML = this._renderBooking();
+      foot.classList.add('hide');
     } else {
       document.getElementById('bb-lbl').textContent = 'Ihre persönliche Einschätzung';
       document.getElementById('bb-bar').style.width = '100%';
       body.innerHTML = bbGender === 'w' ? this._renderResW() : bbGender === 'm' ? this._renderResM() : this._renderResRL();
       foot.classList.add('hide');
     }
-    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge' || step.t === 'res' || step.t === 'pelvipower');
+    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge' || step.t === 'res' || step.t === 'pelvipower' || step.t === 'booking');
 
     body.scrollTop = 0;
   },
@@ -1559,9 +1588,77 @@ const BB = {
       <div class="res-sub">Basierend auf Ihren Themen – das macht PelviPower für Sie konkret:</div>
       <div class="pp-why-list">${whyItems}</div>
       <div class="pp-promise"><div class="pp-promise-icon">🎯</div><div class="pp-promise-text">Ihr persönlicher PelviPower-Plan wird gemeinsam mit Ihnen entwickelt – im kostenfreien Erstgespräch, ohne Verpflichtung.</div></div>
-      <button class="btn-res-cta" onclick="BB.close()">Termin vereinbaren →</button>
+      <button class="btn-res-cta" onclick="BB.next()">Termin vereinbaren →</button>
       <div class="res-disclaimer">* Kein Ersatz für eine medizinische Diagnose. Bei akuten Beschwerden empfehlen wir vorab eine ärztliche Abklärung.</div>
     </div>`;
+  },
+
+  // ── Kalender-Demo ──
+  _renderBooking() {
+    const DAY_NAMES = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+    const MONTH_NAMES = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+    const TIMES = ['09:00','10:00','11:00','14:00','15:00','16:00'];
+    // Pseudo-belegte Slots je Tag (variiert für Realismus)
+    const TAKEN = [[0,2,4],[1,3],[0,1,5],[2,4],[1,3,4]];
+
+    // Nächste 5 Werktage
+    const days = [];
+    const cursor = new Date();
+    while (days.length < 5) {
+      cursor.setDate(cursor.getDate() + 1);
+      if (cursor.getDay() !== 0 && cursor.getDay() !== 6) days.push(new Date(cursor));
+    }
+
+    const sd = bbBookingDay, st = bbBookingTime;
+
+    const dayBtns = days.map((d, i) => `
+      <button class="cal-day${sd===i?' sel':''}" onclick="BB._pickBookingDay(${i})">
+        <span class="cal-day-name">${DAY_NAMES[d.getDay()]}</span>
+        <span class="cal-day-num">${d.getDate()}</span>
+        <span class="cal-day-mon">${MONTH_NAMES[d.getMonth()]}</span>
+      </button>`).join('');
+
+    let timesHtml = '';
+    if (sd !== null) {
+      const taken = TAKEN[sd] || [];
+      timesHtml = `<div class="cal-time-label">Verfügbare Zeiten</div>
+        <div class="cal-times">${TIMES.map((t, i) => {
+          const busy = taken.includes(i);
+          const sel = st === i;
+          return `<button class="cal-time${busy?' busy':''}${sel?' sel':''}" ${busy?'disabled':`onclick="BB._pickBookingTime(${i})"`}>${t}</button>`;
+        }).join('')}</div>`;
+    }
+
+    let confirmHtml = '';
+    if (sd !== null && st !== null) {
+      const d = days[sd];
+      confirmHtml = `<div class="cal-confirm">
+        <div class="cal-confirm-check">✓</div>
+        <div class="cal-confirm-title">Termin vorgemerkt</div>
+        <div class="cal-confirm-when">${DAY_NAMES[d.getDay()]}, ${d.getDate()}. ${MONTH_NAMES[d.getMonth()]} · ${TIMES[st]} Uhr</div>
+        <div class="cal-confirm-note">Kostenfreies Erstgespräch · 20 Min. · Video oder Telefon</div>
+        <button class="btn-res-cta" onclick="BB.close()" style="margin-top:18px">Termin bestätigen →</button>
+      </div>`;
+    }
+
+    return `<div class="step-card">
+      <span class="res-tag">Kostenfreies Erstgespräch</span>
+      <div class="res-hl">Wann passt es Ihnen?</div>
+      <div class="res-sub">20 Minuten · Video oder Telefon · unverbindlich</div>
+      <div class="cal-days">${dayBtns}</div>
+      ${sd === null ? '<div class="cal-hint">Wählen Sie einen Tag aus</div>' : timesHtml}
+      ${confirmHtml}
+    </div>`;
+  },
+  _pickBookingDay(i) {
+    bbBookingDay = i; bbBookingTime = null;
+    document.getElementById('bb-body').innerHTML = this._renderBooking();
+  },
+  _pickBookingTime(i) {
+    bbBookingTime = i;
+    const body = document.getElementById('bb-body');
+    body.innerHTML = this._renderBooking();
+    setTimeout(() => body.scrollTop = body.scrollHeight, 60);
   },
 
   // ── reLounge: Ergebnisseite (Score + Programm-Empfehlung + topic-spezifisch) ──
