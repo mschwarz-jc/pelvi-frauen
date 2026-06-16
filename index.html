@@ -394,7 +394,8 @@
     .nudge-card { background: var(--acxl); border: 1.5px solid var(--acl); border-radius: 20px; padding: 40px 26px; text-align: center; cursor: pointer; animation: fadeUp 0.24s ease; }
     .nudge-icon { font-size: 42px; display: block; margin-bottom: 16px; }
     .nudge-text { font-size: 17px; color: var(--tx); line-height: 1.7; font-weight: 500; }
-    .nudge-hint { font-size: 12px; color: var(--txl); margin-top: 18px; letter-spacing: 0.02em; }
+    .nudge-btn { margin-top: 22px; padding: 13px 32px; border-radius: 10px; border: none; background: var(--ac); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.18s; font-family: inherit; }
+    .nudge-btn:hover { background: var(--ach); }
 
     /* ── KALENDER DEMO ── */
     .cal-days { display: flex; gap: 8px; margin: 18px 0 6px; overflow-x: auto; padding-bottom: 4px; }
@@ -417,6 +418,44 @@
     .cal-confirm-title { font-size: 16px; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
     .cal-confirm-when { font-size: 15px; font-weight: 600; color: var(--ac); margin-bottom: 6px; }
     .cal-confirm-note { font-size: 12px; color: var(--txl); }
+
+    /* ── SYMPTOM-PITCH ── */
+    .sp-icon { font-size: 36px; text-align: center; margin-bottom: 10px; }
+    .sp-opt { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 13px 16px; border: 1.5px solid var(--br); border-radius: 12px; background: var(--card); cursor: pointer; font-size: 14px; font-family: inherit; color: var(--tx); text-align: left; margin-bottom: 8px; transition: border-color 0.15s, background 0.15s; }
+    .sp-opt:hover { border-color: var(--ac); background: var(--acxl); }
+    .sp-opt.sel { border-color: var(--ac); background: var(--acxl); }
+    .sp-skip { display: block; width: 100%; margin-top: 18px; padding: 14px 20px; border-radius: 10px; border: none; background: var(--ac); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.18s; }
+    .sp-skip:hover { background: var(--ach); }
+
+    /* ── LOCATION KARTE ── */
+    .loc-banner { background: linear-gradient(135deg, var(--ac) 0%, var(--sc) 100%); border-radius: 14px 14px 0 0; padding: 28px 20px 22px; margin: -2px -2px 0; text-align: center; }
+    .loc-banner-text { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; text-transform: uppercase; }
+    .loc-body { padding: 20px 4px 4px; }
+    .loc-trainer-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .loc-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--ac); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .loc-trainer-name { font-size: 16px; font-weight: 700; color: var(--tx); margin-bottom: 3px; }
+    .loc-trainer-role { font-size: 12px; color: var(--ac); font-weight: 600; }
+    .loc-trainer-bio { font-size: 13px; color: var(--txl); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
+    .loc-studio { display: flex; gap: 10px; align-items: flex-start; background: var(--bg2); border-radius: 10px; padding: 12px 14px; margin-bottom: 14px; }
+    .loc-studio-icon { font-size: 18px; flex-shrink: 0; }
+    .loc-studio-name { font-size: 14px; font-weight: 600; color: var(--tx); margin-bottom: 2px; }
+    .loc-studio-addr { font-size: 12px; color: var(--txl); }
+    .loc-facts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .loc-fact { display: flex; gap: 10px; align-items: center; font-size: 13px; color: var(--txl); }
+    .loc-fact-icon { font-size: 16px; flex-shrink: 0; }
+
+    /* ── PELVIPOWER TECH + SCHRITTE ── */
+    .pp-tech { display: flex; gap: 14px; align-items: flex-start; background: var(--bg2); border: 1px solid var(--br); border-radius: 14px; padding: 16px 18px; margin: 16px 0; }
+    .pp-tech-icon { font-size: 28px; flex-shrink: 0; }
+    .pp-tech-title { font-size: 13px; font-weight: 700; color: var(--tx); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .pp-tech-body { font-size: 13px; color: var(--txl); line-height: 1.65; }
+    .pp-why-item--detail { align-items: flex-start; }
+    .pp-steps { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 20px 0 18px; padding: 16px 12px; background: var(--acxl); border-radius: 14px; }
+    .pp-step { text-align: center; flex: 1; }
+    .pp-step-icon { font-size: 24px; margin-bottom: 4px; }
+    .pp-step-label { font-size: 12px; font-weight: 700; color: var(--tx); }
+    .pp-step-sub { font-size: 11px; color: var(--txl); margin-top: 2px; }
+    .pp-step-arrow { font-size: 16px; color: var(--ac); flex-shrink: 0; }
 
     /* ── LP DISCLAIMER ── */
     .lp-disclaimer { font-size: 11px; color: var(--txl); margin-top: 10px; opacity: 0.7; }
@@ -536,7 +575,7 @@ const BB_QS = {
     { text: 'Wie stark ist das Dranggefühl in der Regel?',
       opts: ['Manchmal dringend, aber noch kontrollierbar', 'Oft kaum aufschiebbar – muss sofort reagieren', 'Ich verliere dabei manchmal Urin'], multi: true },
     { text: 'Wie viele Male pro Tag oder Nacht müssen Sie zur Toilette?',
-      opts: ['3–5 Mal pro Tag – noch im normalen Bereich', '6–9 Mal pro Tag – häufiger als früher', 'Mehr als 10 Mal – sehr oft, auch nachts', 'Es schwankt stark von Tag zu Tag'], multi: true },
+      opts: ['3–5 Mal pro Tag', '6–9 Mal pro Tag', 'Mehr als 10 Mal – auch nachts', 'Es schwankt stark'], multi: true },
     { text: 'Seit wann bemerken Sie den verstärkten Harndrang?',
       opts: ['Erst seit wenigen Monaten', 'Seit ein bis zwei Jahren', 'Schon sehr lange – das ist seit Jahren so', 'Ich kann es nicht genau sagen'], multi: true },
     // Q5–Q8 Harnverlust
@@ -894,8 +933,9 @@ function buildWFlow(topics) {
     (W_TOPIC_QS[t] || []).slice(0, depth).forEach(qi => steps.push({t:'q', qi}));
     if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
   });
+  steps.push({t:'sympitch'});
   steps.push({t:'q', qi:25},{t:'q', qi:26});
-  steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'booking'});
+  steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'location'},{t:'booking'});
   return steps;
 }
 
@@ -1109,7 +1149,7 @@ const R_LEVELS = [
 ══════════════════════════════════════════════════════ */
 let bbGender = 'w', bbStep = 0, bbAnswers = {}, bbTimer = null, bbNudgeTimer = null;
 let bbFlow = [{t:'q', qi:0}]; // Frauen: wird nach Q0 dynamisch aufgebaut
-let bbBookingDay = null, bbBookingTime = null;
+let bbBookingDay = null, bbBookingTime = null, bbSympitchExtra = null;
 const BB_Q_TOTAL = 11; // Männer
 
 const BB = {
@@ -1118,7 +1158,7 @@ const BB = {
     bbStep = 0;
     bbAnswers = {};
     bbFlow = [{t:'q', qi:0}];
-    bbBookingDay = null; bbBookingTime = null;
+    bbBookingDay = null; bbBookingTime = null; bbSympitchExtra = null;
     if (bbTimer) { clearTimeout(bbTimer); bbTimer = null; }
     const wrap = document.getElementById('bb-wrap');
     wrap.className = 'q-wrap ' + (g === 'rl' ? 'r' : g);
@@ -1147,6 +1187,17 @@ const BB = {
       const topics = q0ans ? [...q0ans] : [];
       bbAnswers = {0: q0ans};
       bbFlow = bbGender === 'w' ? buildWFlow(topics) : bbGender === 'm' ? buildMFlow(topics) : buildRLFlow(topics);
+    }
+    // Nach Sympitch: extra Topics mit depth=2 einbauen
+    if (step && step.t === 'sympitch') {
+      const extra = bbAnswers['sympitch'] ? [...bbAnswers['sympitch']] : [];
+      const remaining = [];
+      extra.forEach(t => {
+        (W_TOPIC_QS[t] || []).slice(0, 2).forEach(qi => remaining.push({t:'q', qi}));
+        if (W_NUDGE_MAP[t] !== undefined) remaining.push({t:'nudge', id: W_NUDGE_MAP[t]});
+      });
+      remaining.push({t:'q',qi:25},{t:'q',qi:26},{t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'location'},{t:'booking'});
+      bbFlow = bbFlow.slice(0, bbStep + 1).concat(remaining);
     }
     // Nach Q0-Recap: Flow mit Extra-Topics rebuilden (nur m/rl)
     if (step && step.t === 'q0recap') {
@@ -1253,6 +1304,16 @@ const BB = {
       body.innerHTML = this._renderLoading();
       foot.classList.add('hide');
       setTimeout(() => { bbStep++; BB._render(); }, 2800);
+    } else if (step.t === 'sympitch') {
+      document.getElementById('bb-lbl').textContent = 'Noch etwas?';
+      document.getElementById('bb-bar').style.width = '78%';
+      body.innerHTML = this._renderSympitch();
+      foot.classList.add('hide');
+    } else if (step.t === 'location') {
+      document.getElementById('bb-lbl').textContent = 'Ihre Anlaufstelle';
+      document.getElementById('bb-bar').style.width = '100%';
+      body.innerHTML = this._renderLocation();
+      foot.classList.add('hide');
     } else if (step.t === 'pelvipower') {
       document.getElementById('bb-lbl').textContent = 'Warum PelviPower?';
       document.getElementById('bb-bar').style.width = '100%';
@@ -1269,7 +1330,7 @@ const BB = {
       body.innerHTML = bbGender === 'w' ? this._renderResW() : bbGender === 'm' ? this._renderResM() : this._renderResRL();
       foot.classList.add('hide');
     }
-    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge' || step.t === 'res' || step.t === 'pelvipower' || step.t === 'booking');
+    back.disabled = (bbStep === 0 || step.t === 'loading' || step.t === 'nudge' || step.t === 'res' || step.t === 'pelvipower' || step.t === 'location' || step.t === 'booking' || step.t === 'sympitch');
 
     body.scrollTop = 0;
   },
@@ -1356,7 +1417,7 @@ const BB = {
     return `<div class="nudge-card" onclick="BB._skipNudge()">
       <span class="nudge-icon">${n.icon}</span>
       <div class="nudge-text">${n.text}</div>
-      <div class="nudge-hint">Tippen zum Weiter</div>
+      <button class="nudge-btn" onclick="event.stopPropagation();BB._skipNudge()">Weiter →</button>
     </div>`;
   },
   _skipNudge() {
@@ -1563,33 +1624,184 @@ const BB = {
   // ── Frauen: PelviPower Sektion ──
   _renderPelvipower() {
     const a = bbAnswers;
-    const topics = [...new Set([...(a[0] ? [...a[0]] : [])])];
-    const PP_WHY = {
-      0: { icon:'💧', title:'Bei häufigem Harndrang', body:'PelviPower kombiniert gezieltes Blasentraining mit Beckenbodenaufbau – genau das, was den überaktiven Blasenmuskel langfristig beruhigt.' },
-      1: { icon:'💦', title:'Bei Harnverlust', body:'Gezielte Beckenbodenübungen stärken exakt die Muskeln, die bei körperlicher Belastung versagen. 8 von 10 Frauen berichten von deutlichen Verbesserungen.' },
-      2: { icon:'🌿', title:'Bei Rücken- & Hüftschmerzen', body:'Beckenboden und tiefe Rumpfmuskulatur bilden eine Einheit. Was den Beckenboden stärkt, stabilisiert gleichzeitig Rücken und Hüfte – beides in einem Programm.' },
-      3: { icon:'🌸', title:'Bei Veränderungen in der Sexualität', body:'PelviPower arbeitet einfühlsam und gezielt an Spannung, Durchblutung und Körperwahrnehmung im Becken – Grundlagen für mehr Wohlgefühl und Intimität.' },
-      4: { icon:'🔴', title:'Bei Druckgefühl & Organsenkung', body:'Beckenbodentraining ist die wirksamste konservative Maßnahme bei Organsenkungen. Gezielter Aufbau kann Symptome deutlich lindern und weiteres Fortschreiten bremsen.' },
-      5: { icon:'✨', title:'Für Prävention & Vorsorge', body:'Wer früh beginnt, hat die besten Karten. PelviPower schafft eine stabile Basis – bevor Beschwerden entstehen oder sich weiter entwickeln.' },
+    const allTopics = [...new Set([...(a[0] ? [...a[0]] : []), ...(a['sympitch'] ? [...a['sympitch']] : [])])];
+
+    // Technologie-Block (immer)
+    const techBlock = `<div class="pp-tech">
+      <div class="pp-tech-icon">⚡</div>
+      <div class="pp-tech-content">
+        <div class="pp-tech-title">Die PelviPower-Technologie</div>
+        <div class="pp-tech-body">PelviPower nutzt hochfokussierte elektromagnetische Impulse (HIFEM), die tief in die Beckenbodenmuskulatur eindringen – bis in Schichten, die mit willentlichem Training nicht erreichbar sind. Eine einzige 28-Minuten-Sitzung löst über 11.000 Muskelkontraktionen aus. Das entspricht dem Trainingseffekt von Tausenden gezielter Übungen – ohne Anstrengung, ohne Risiko, klinisch validiert.</div>
+      </div>
+    </div>`;
+
+    // Themen-spezifische Karten
+    const PP_DETAIL = {
+      0: {
+        icon:'💧', title:'Warum PelviPower bei Ihrem Harndrang wirkt',
+        body(a) {
+          const str = a[2] ? [...a[2]] : [];
+          let t = 'Der überaktive Blasenmuskel (Detrusor) reagiert auf Reize schneller als er sollte – das Ergebnis ist ein Harndrang, der kaum aufzuschieben ist. ';
+          t += 'Die HIFEM-Impulse von PelviPower trainieren gezielt die Beckenbodenmuskulatur, die den Blasenauslass stabilisiert und dem Detrusor entgegenwirkt. ';
+          if (str.includes(1)) t += 'Bei kaum aufschiebbarem Drang zeigen strukturierte Programme in klinischen Studien eine Reduktion der Drangepisoden um bis zu 70 % innerhalb von 8 Wochen. ';
+          t += 'Das Besondere: Die Muskulatur wird auf einem neuromuskulären Niveau trainiert, das Biofeedback oder klassische Übungen allein nicht erreichen können.';
+          return t;
+        }
+      },
+      1: {
+        icon:'💦', title:'Warum PelviPower bei Ihrem Harnverlust wirkt',
+        body(a) {
+          const situ = a[5] ? [...a[5]] : [];
+          const freq = a[6] ? [...a[6]] : [];
+          let t = 'Harnverlust entsteht, wenn der Beckenbodenschließmuskel dem Druckanstieg – beim Husten, Niesen oder Laufen – nicht schnell genug entgegenwirken kann. ';
+          if (situ.includes(0) || situ.includes(1)) t += 'Bei Ihrer Form der Belastungsinkontinenz sind es vor allem die schnellen Typ-II-Muskelfasern, die versagen. PelviPower trainiert gezielt diese schnellen Fasern durch hochfrequente Impulssequenzen – etwas, das mit bewusstem Kneifen nicht möglich ist. ';
+          if (freq.includes(2)) t += 'Bei täglichen Episoden ist ein intensiveres Programm empfohlen – die Ergebnisse zeigen sich typischerweise ab der 4. Sitzung. ';
+          t += 'In klinischen Studien berichten über 80 % der Teilnehmerinnen von deutlicher Verbesserung nach einem vollständigen PelviPower-Programm.';
+          return t;
+        }
+      },
+      2: {
+        icon:'🌿', title:'Warum PelviPower bei Ihren Rücken- & Hüftschmerzen wirkt',
+        body(a) {
+          const loc = a[9] ? [...a[9]] : [];
+          let t = 'Der Beckenboden ist der untere Abschluss der tiefen Rumpfmuskulatur – gemeinsam mit dem M. transversus abdominis, den Multifidi und dem Zwerchfell bildet er das stabilisierende Korsett der Wirbelsäule. ';
+          t += 'Wenn diese Einheit geschwächt ist, übernehmen oberflächliche Muskeln kompensatorisch die Arbeit – und werden dauerhaft überlastet. Das ist eine der häufigsten Ursachen für chronische Rücken- und Hüftschmerzen. ';
+          if (loc.includes(1)) t += 'Schmerzen in Hüfte oder Gesäß entstehen oft durch diese muskuläre Dysbalance – nicht durch strukturelle Schäden. ';
+          t += 'PelviPower aktiviert genau die tiefen Stabilisatoren, die mit klassischem Training kaum erreichbar sind. Viele Teilnehmerinnen berichten von Rückenentlastung bereits nach den ersten Sitzungen.';
+          return t;
+        }
+      },
+      3: {
+        icon:'🌸', title:'Warum PelviPower bei Ihrer Sexualität wirkt',
+        body(a) {
+          const was = a[13] ? [...a[13]] : [];
+          let t = 'Empfindung, Durchblutung und Muskeltonus im Becken hängen direkt zusammen. ';
+          if (was.includes(1)) t += 'Schmerzen beim Intimverkehr entstehen häufig durch eine unbewusste Schutzspannung des Beckenbodens (Vaginismus oder Hypertonie). PelviPower arbeitet in diesen Fällen mit gezielten Entspannungssequenzen, die die Muskulatur auf ein gesundes Gleichgewicht aus Spannung und Loslassen trainieren. ';
+          if (was.includes(0)) t += 'Weniger Empfindung ist oft ein Zeichen zu geringer Durchblutung im Becken. Die Magnetfeldimpulse regen die lokale Durchblutung an und reaktivieren Nervenenden – viele Frauen berichten von gesteigerter Empfindungsfähigkeit. ';
+          t += 'PelviPower behandelt dieses Thema immer einfühlsam und individuell – im Erstgespräch wird Ihr Ansatz genau auf Sie abgestimmt.';
+          return t;
+        }
+      },
+      4: {
+        icon:'🔴', title:'Warum PelviPower bei Ihrer Organsenkung wirkt',
+        body(a) {
+          const feel = a[17] ? [...a[17]] : [];
+          let t = 'Eine Organsenkung entsteht, wenn die Haltestrukturen des Beckens – Muskeln, Faszien und Bänder – nicht mehr ausreichend Unterstützung bieten. ';
+          if (feel.includes(2)) t += 'Bei bereits ärztlich festgestellter Senkung ist konservatives Training die erste und wirksamste Therapieform – weit vor operativen Eingriffen. ';
+          t += 'PelviPower stärkt die gesamte Beckenbodenmuskulatur mit einer Intensität, die die Haltestrukturen aktiv entlastet. Klinische Daten zeigen, dass regelmäßiges Training das Fortschreiten der Senkung aufhalten und Symptome deutlich lindern kann. ';
+          t += 'Kein Risiko, keine Ausfallzeit – und die Ergebnisse sind nachhaltig, solange das Training fortgesetzt wird.';
+          return t;
+        }
+      },
+      5: {
+        icon:'✨', title:'Warum PelviPower für Ihre Vorsorge ideal ist',
+        body(a) {
+          const phase = a[23] ? [...a[23]] : [];
+          let t = 'Beckenbodenschwäche ist keine Frage des Alters – sie beginnt schleichend und wird oft erst bemerkt, wenn Beschwerden da sind. Wer früh trainiert, baut eine Reserve auf, die in späteren Lebensphasen den Unterschied macht. ';
+          if (phase.includes(2) || phase.includes(3)) t += 'In der Peri- und Postmenopause verändert sich das Bindegewebe durch sinkende Östrogenspiegel – die Beckenbodenmuskulatur verliert an Stabilität. PelviPower ist in dieser Phase besonders wirksam, weil die Magnetfeldstimulation auch das Bindegewebe anregt. ';
+          t += 'Präventives Training mit PelviPower bedeutet: keine Einschränkungen im Alter, kein Verlust an Lebensqualität – sondern Investition in Ihre Gesundheit, bevor sie gefordert wird.';
+          return t;
+        }
+      }
     };
-    let whyItems = '';
-    if (topics.length > 0) {
-      topics.forEach(t => {
-        const w = PP_WHY[t];
-        if (!w) return;
-        whyItems += `<div class="pp-why-item"><span class="pp-why-icon">${w.icon}</span><div><div class="pp-why-title">${w.title}</div><div class="pp-why-body">${w.body}</div></div></div>`;
+
+    let topicCards = '';
+    if (allTopics.length > 0) {
+      allTopics.forEach(t => {
+        const d = PP_DETAIL[t];
+        if (!d) return;
+        topicCards += `<div class="pp-why-item pp-why-item--detail">
+          <span class="pp-why-icon">${d.icon}</span>
+          <div>
+            <div class="pp-why-title">${d.title}</div>
+            <div class="pp-why-body">${d.body(a)}</div>
+          </div>
+        </div>`;
       });
     } else {
-      whyItems = `<div class="pp-why-item"><span class="pp-why-icon">💪</span><div><div class="pp-why-title">Ihr Beckenboden</div><div class="pp-why-body">PelviPower verbindet modernste Trainingswissenschaft mit einfühlsamer Begleitung – für nachhaltige Ergebnisse, die im Alltag ankommen.</div></div></div>`;
+      topicCards = `<div class="pp-why-item"><span class="pp-why-icon">💪</span><div>
+        <div class="pp-why-title">PelviPower für Ihren Beckenboden</div>
+        <div class="pp-why-body">HIFEM-Technologie aktiviert über 11.000 Muskelkontraktionen pro Sitzung – tiefer und effektiver als jedes manuelle Training. Klinisch validiert, ohne Nebenwirkungen.</div>
+      </div></div>`;
     }
+
+    // 3-Schritte-Prozess
+    const steps3 = `<div class="pp-steps">
+      <div class="pp-step"><div class="pp-step-icon">💬</div><div class="pp-step-label">Erstgespräch</div><div class="pp-step-sub">Kostenlos, 20 Min.</div></div>
+      <div class="pp-step-arrow">→</div>
+      <div class="pp-step"><div class="pp-step-icon">📋</div><div class="pp-step-label">Ihr Plan</div><div class="pp-step-sub">Individuell abgestimmt</div></div>
+      <div class="pp-step-arrow">→</div>
+      <div class="pp-step"><div class="pp-step-icon">⚡</div><div class="pp-step-label">Training</div><div class="pp-step-sub">28 Min. pro Sitzung</div></div>
+    </div>`;
+
     return `<div class="step-card">
       <span class="res-tag">Warum PelviPower?</span>
-      <div class="res-hl">Gezielt. Persönlich. Nachhaltig.</div>
-      <div class="res-sub">Basierend auf Ihren Themen – das macht PelviPower für Sie konkret:</div>
-      <div class="pp-why-list">${whyItems}</div>
-      <div class="pp-promise"><div class="pp-promise-icon">🎯</div><div class="pp-promise-text">Ihr persönlicher PelviPower-Plan wird gemeinsam mit Ihnen entwickelt – im kostenfreien Erstgespräch, ohne Verpflichtung.</div></div>
-      <button class="btn-res-cta" onclick="BB.next()">Termin vereinbaren →</button>
+      <div class="res-hl">Wie PelviPower konkret hilft</div>
+      <div class="res-sub">Auf Basis Ihrer Angaben – was die Technologie für Sie tut:</div>
+      ${techBlock}
+      <div class="pp-why-list">${topicCards}</div>
+      ${steps3}
+      <button class="btn-res-cta" onclick="BB.next()">Ihre Expertin kennenlernen →</button>
       <div class="res-disclaimer">* Kein Ersatz für eine medizinische Diagnose. Bei akuten Beschwerden empfehlen wir vorab eine ärztliche Abklärung.</div>
+    </div>`;
+  },
+
+  // ── Symptom-Pitch ──
+  _toggleSympitch(i) {
+    if (!bbAnswers['sympitch']) bbAnswers['sympitch'] = new Set();
+    const s = bbAnswers['sympitch'];
+    s.has(i) ? s.delete(i) : s.add(i);
+    document.querySelectorAll('#bb-body .sp-opt').forEach(el => el.classList.toggle('sel', s.has(+el.dataset.t)));
+  },
+  _renderSympitch() {
+    const done = bbAnswers[0] || new Set();
+    const extra = bbAnswers['sympitch'] || new Set();
+    const q0 = BB_QS.w[0];
+    const remaining = q0.opts.map((o, i) => ({ o, i })).filter(({i}) => !done.has(i));
+    const opts = remaining.map(({o, i}) =>
+      `<button class="sp-opt${extra.has(i)?' sel':''}" data-t="${i}" onclick="BB._toggleSympitch(${i})">
+        <span>${o}</span><span class="opt-check"></span>
+      </button>`).join('');
+    return `<div class="step-card">
+      <div class="sp-icon">💬</div>
+      <div class="q-text">Haben Sie noch weitere Beschwerden?</div>
+      <div class="q-context">Manchmal bemerkt man erst im Nachhinein, dass noch ein weiteres Thema passt. Sie können es jetzt noch ergänzen.</div>
+      <div class="q-opts" style="margin-top:14px">${opts}</div>
+      <button class="sp-skip" onclick="BB.next()">Keine weiteren Beschwerden →</button>
+    </div>`;
+  },
+
+  // ── Location/Trainer-Karte ──
+  _renderLocation() {
+    return `<div class="step-card">
+      <div class="loc-banner">
+        <div class="loc-banner-text">Ihr MyPelvi Studio</div>
+      </div>
+      <div class="loc-body">
+        <div class="loc-trainer-row">
+          <div class="loc-avatar">SP</div>
+          <div>
+            <div class="loc-trainer-name">Sandra Pellegrini</div>
+            <div class="loc-trainer-role">Zertifizierte PelviPower-Therapeutin</div>
+          </div>
+        </div>
+        <div class="loc-trainer-bio">
+          Ich begleite Frauen seit über 8 Jahren auf ihrem Weg zu einem starken, beschwerdefreien Beckenboden – einfühlsam, individuell und mit nachweisbaren Ergebnissen.
+        </div>
+        <div class="loc-studio">
+          <div class="loc-studio-icon">📍</div>
+          <div>
+            <div class="loc-studio-name">MyPelvi Studio München-Schwabing</div>
+            <div class="loc-studio-addr">Leopoldstraße 48 · 80802 München</div>
+          </div>
+        </div>
+        <div class="loc-facts">
+          <div class="loc-fact"><span class="loc-fact-icon">⏱️</span><span>Erstgespräch kostenlos · 20 Min.</span></div>
+          <div class="loc-fact"><span class="loc-fact-icon">📅</span><span>Termine Mo–Sa, auch abends</span></div>
+          <div class="loc-fact"><span class="loc-fact-icon">✓</span><span>Kassen &amp; Privat möglich</span></div>
+        </div>
+        <button class="btn-res-cta" onclick="BB.next()">Termin bei Sandra vereinbaren →</button>
+      </div>
     </div>`;
   },
 
