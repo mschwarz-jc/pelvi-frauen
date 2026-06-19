@@ -76,8 +76,13 @@
       display: block; pointer-events: none; user-select: none;
       z-index: 1;
     }
-    /* PelviPower: radial mask fades grey edges to transparent — no colour shift */
-    .lp-w .hero-device,
+    /* PelviPower Frauen: Bild fast mittig ausgerichtet */
+    .lp-w .hero-device {
+      right: auto; left: 50%; transform: translateX(-38%);
+      width: 72%; max-width: 280px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 78% at 50% 56%, black 28%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 78% at 50% 56%, black 28%, transparent 100%);
+    }
     .lp-m .hero-device {
       -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
       mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
