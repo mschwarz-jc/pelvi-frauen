@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: 'PelviPower Quiz <noreply@figuranalyse.com>',
+      from: 'PelviPower Quiz <onboarding@resend.dev>',
       to: ['leads.johne.consulting@gmail.com', 'sportclub.aspern@gmail.com'],
       subject: `Neuer Lead: ${name}`,
       html
