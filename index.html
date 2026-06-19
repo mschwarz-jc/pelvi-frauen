@@ -76,12 +76,10 @@
       display: block; pointer-events: none; user-select: none;
       z-index: 1;
     }
-    /* PelviPower Frauen: Bild fast mittig ausgerichtet */
-    .lp-w .hero-device {
-      right: auto; left: 50%; transform: translateX(-38%);
-      width: 72%; max-width: 280px;
-      -webkit-mask-image: radial-gradient(ellipse 80% 78% at 50% 56%, black 28%, transparent 100%);
-      mask-image: radial-gradient(ellipse 80% 78% at 50% 56%, black 28%, transparent 100%);
+    /* Frauen: Fade-Mask (body.w, da lp-div kein lp-w hat) */
+    body.w .hero-device {
+      -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
     }
     .lp-m .hero-device {
       -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
@@ -515,8 +513,11 @@
       .hero { flex: 1; padding: 60px 8% 0; }
       .hero-in { max-width: 560px; }
       .btn-p { width: auto; display: inline-flex; }
-    }
-      .hero-in { max-width: 560px; }
+      body.w .hero-device {
+        left: auto; right: 8%;
+        width: 36%; max-width: 380px;
+        bottom: 0; transform: none;
+      }
     }
 
   </style>
