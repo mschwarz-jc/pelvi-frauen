@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <script type="module" src="https://mystudio-jc.com/static/embeddings/jc-calender-widget.js"></script>
   <style>
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -432,7 +433,8 @@
     .loc-banner-text { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.08em; text-transform: uppercase; }
     .loc-body { padding: 20px 4px 4px; }
     .loc-trainer-row { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
-    .loc-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--ac); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .loc-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--ac); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .loc-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
     .loc-trainer-name { font-size: 16px; font-weight: 700; color: var(--tx); margin-bottom: 3px; }
     .loc-trainer-role { font-size: 12px; color: var(--ac); font-weight: 600; }
     .loc-trainer-bio { font-size: 13px; color: var(--txl); line-height: 1.65; margin-bottom: 16px; font-style: italic; }
@@ -630,6 +632,10 @@ const BB_QS = {
     // Q26 – Wunsch
     { text: 'Was würde sich für Sie am meisten verändern, wenn das Thema gelöst wäre?',
       opts: ['Dann wäre ich viel entspannter und unbekümmerter', 'Keine Angst mehr vor weiterer Verschlimmerung', 'Ich würde mich wieder wohl und sicher in meinem Körper fühlen', 'Mehr Freude und Sicherheit in meiner Beziehung und Intimität'], multi: true },
+    // Q27 – Bisherige Maßnahmen (Anamnesebogen)
+    { text: 'Was haben Sie bisher gegen Ihre Beschwerden unternommen?',
+      context: 'Diese Information hilft uns, Ihren Weg bisher zu verstehen und die passende Empfehlung zu geben.',
+      opts: ['Noch nichts versucht', 'Eigenübungen – Rückbildung, Beckenbodengymnastik oder Pilates', 'Physiotherapie', 'Gerät oder Sonde – EMS, TENS oder Vaginalsonde', 'Medikamente oder Operation'], multi: true },
   ],
   m: [
     // Q0 – Soft Intro (topic selector, multi-select)
@@ -833,12 +839,12 @@ const W_TOPIC_QS = {
 const W_NUDGE_MAP = { 0:'hd', 1:'hv', 2:'ru', 3:'sx', 4:'og', 5:'vs' };
 
 const W_NUDGES = {
-  hd: { icon:'💧', text:'Harndrang-Beschwerden betreffen viele Frauen – aber kaum jemand spricht darüber. Mit dem richtigen Training lässt sich das Thema in den meisten Fällen deutlich verbessern.' },
-  hv: { icon:'💦', text:'Harnverlust ist das häufigste Beckenboden-Thema bei Frauen überhaupt. Und: In den meisten Fällen lässt er sich ohne Operation deutlich verbessern oder ganz beheben.' },
-  ru: { icon:'🌿', text:'Rücken und Beckenboden teilen dieselbe tiefe Muskelgruppe. Was für den Beckenboden gut ist, hilft fast immer auch dem Rücken – beides lässt sich gemeinsam angehen.' },
-  sx: { icon:'🌸', text:'Das ist nicht selbstverständlich – danke für Ihre Offenheit. Viele Frauen berichten von genau diesen Veränderungen, sprechen aber nicht darüber. Sie sind damit nicht allein.' },
-  og: { icon:'💪', text:'Organsenkung klingt beängstigend – ist es aber nicht. Gezieltes Beckenbodentraining ist hier eine der wirksamsten Maßnahmen, die es gibt. Viele Frauen spüren Verbesserungen schon nach wenigen Wochen.' },
-  vs: { icon:'✨', text:'Wer vorsorgt, bevor Beschwerden entstehen, hat die allerbesten Voraussetzungen. Das machen wenige – Sie gehören dazu.' },
+  hd: { icon:'💧', bg:'nudge-bg-1.png', text:'Harndrang-Beschwerden betreffen viele Frauen – aber kaum jemand spricht darüber. Mit dem richtigen Training lässt sich das Thema in den meisten Fällen deutlich verbessern.' },
+  hv: { icon:'💦', bg:'nudge-bg-2.png', text:'Harnverlust ist das häufigste Beckenboden-Thema bei Frauen überhaupt. Und: In den meisten Fällen lässt er sich ohne Operation deutlich verbessern oder ganz beheben.' },
+  ru: { icon:'🌿', bg:'nudge-bg-1.png', text:'Rücken und Beckenboden teilen dieselbe tiefe Muskelgruppe. Was für den Beckenboden gut ist, hilft fast immer auch dem Rücken – beides lässt sich gemeinsam angehen.' },
+  sx: { icon:'🌸', bg:'nudge-bg-2.png', text:'Das ist nicht selbstverständlich – danke für Ihre Offenheit. Viele Frauen berichten von genau diesen Veränderungen, sprechen aber nicht darüber. Sie sind damit nicht allein.' },
+  og: { icon:'💪', bg:'nudge-bg-1.png', text:'Organsenkung klingt beängstigend – ist es aber nicht. Gezieltes Beckenbodentraining ist hier eine der wirksamsten Maßnahmen, die es gibt. Viele Frauen spüren Verbesserungen schon nach wenigen Wochen.' },
+  vs: { icon:'✨', bg:'nudge-bg-2.png', text:'Wer vorsorgt, bevor Beschwerden entstehen, hat die allerbesten Voraussetzungen. Das machen wenige – Sie gehören dazu.' },
   b2a: { icon:'🌿', text:'Darm, Blase und Beckenboden teilen sich dieselben Muskeln und Nerven. Kein Zufall, dass sie sich gegenseitig beeinflussen – und kein Zufall, dass man alle drei gemeinsam angehen kann.' },
   b2b: { icon:'💙', text:'Wir haben schon viele Frauen in einer sehr ähnlichen Situation begleitet. Was Sie beschreiben, ergibt ein klares, gut bekanntes Muster – gleich sehen Sie, was das für Sie bedeutet.' },
   b3a: { icon:'🔍', text:'Kein Beckenboden ist gleich. Ihre Geschichte – Geburten, Lebensphase, Vorerkrankungen – macht den Unterschied zwischen einer allgemeinen und einer wirklich persönlichen Einschätzung.' },
@@ -934,7 +940,7 @@ function buildWFlow(topics) {
     if (W_NUDGE_MAP[t] !== undefined) steps.push({t:'nudge', id: W_NUDGE_MAP[t]});
   });
   steps.push({t:'sympitch'});
-  steps.push({t:'q', qi:25},{t:'q', qi:26});
+  steps.push({t:'q', qi:25},{t:'q', qi:26},{t:'q', qi:27});
   steps.push({t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'location'},{t:'booking'});
   return steps;
 }
@@ -1196,7 +1202,7 @@ const BB = {
         (W_TOPIC_QS[t] || []).slice(0, 2).forEach(qi => remaining.push({t:'q', qi}));
         if (W_NUDGE_MAP[t] !== undefined) remaining.push({t:'nudge', id: W_NUDGE_MAP[t]});
       });
-      remaining.push({t:'q',qi:25},{t:'q',qi:26},{t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'location'},{t:'booking'});
+      remaining.push({t:'q',qi:25},{t:'q',qi:26},{t:'q',qi:27},{t:'contact'},{t:'loading'},{t:'res'},{t:'pelvipower'},{t:'location'},{t:'booking'});
       bbFlow = bbFlow.slice(0, bbStep + 1).concat(remaining);
     }
     // Nach Q0-Recap: Flow mit Extra-Topics rebuilden (nur m/rl)
@@ -1237,11 +1243,56 @@ const BB = {
     const emailEl = document.getElementById('bb-email');
     const name = nameEl?.value?.trim() || '';
     const email = emailEl?.value?.trim() || '';
+    const telEl = document.getElementById('bb-tel');
+    const tel = telEl?.value?.trim() || '';
     nameEl?.classList.remove('err');
     emailEl?.classList.remove('err');
+    telEl?.classList.remove('err');
     if (!name) { nameEl?.classList.add('err'); nameEl?.focus(); return; }
     if (!email || !email.includes('@')) { emailEl?.classList.add('err'); emailEl?.focus(); return; }
-    bbAnswers._contact = { name, email, tel: document.getElementById('bb-tel')?.value?.trim() || '' };
+    if (!tel) { telEl?.classList.add('err'); telEl?.focus(); return; }
+    bbAnswers._contact = { name, email, tel };
+
+    // Make Webhook: alle gezeigten Fragen in Flow-Reihenfolge mit lesbaren Antworten
+    const qs = BB_QS.w;
+    const answers = [];
+    bbFlow.forEach(step => {
+      if (step.t !== 'q') return;
+      const qi = step.qi;
+      const q = qs[qi];
+      if (!q) return;
+      const v = bbAnswers[qi];
+      const indices = v instanceof Set ? [...v] : (v !== undefined ? [v] : []);
+      let selected;
+      if (q.opts) {
+        selected = indices.map(i => q.opts[i]).filter(Boolean);
+      } else if (q.special === 'scale') {
+        selected = indices;
+      } else {
+        selected = indices;
+      }
+      answers.push({ question: q.text, selected });
+    });
+    // Sympitch: extra Themen falls ausgewählt
+    if (bbAnswers['sympitch'] && bbAnswers['sympitch'].size > 0) {
+      const indices = [...bbAnswers['sympitch']];
+      answers.push({
+        question: 'Haben Sie noch weitere Beschwerden?',
+        selected: indices.map(i => qs[0].opts[i]).filter(Boolean)
+      });
+    }
+    const payload = {
+      name, email,
+      tel: bbAnswers._contact.tel,
+      gender: 'Frau',
+      answers
+    };
+    fetch('https://hook.eu1.make.com/yyb6mkl2oumuxalvd14meak06644zehh', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+
     bbStep++;
     this._render();
   },
@@ -1414,6 +1465,13 @@ const BB = {
   },
 
   _renderNudge(n) {
+    if (n.bg) {
+      return `<div class="nudge-card" onclick="BB._skipNudge()" style="background:linear-gradient(rgba(196,149,106,0.80),rgba(196,149,106,0.80)),url('${n.bg}') center/cover no-repeat;border-color:transparent;">
+        <span class="nudge-icon">${n.icon}</span>
+        <div class="nudge-text" style="color:#fff;">${n.text}</div>
+        <button class="nudge-btn" style="background:rgba(255,255,255,0.22);border:1.5px solid rgba(255,255,255,0.6);color:#fff;" onclick="event.stopPropagation();BB._skipNudge()">Weiter →</button>
+      </div>`;
+    }
     return `<div class="nudge-card" onclick="BB._skipNudge()">
       <span class="nudge-icon">${n.icon}</span>
       <div class="nudge-text">${n.text}</div>
@@ -1451,7 +1509,7 @@ const BB = {
       <div class="contact-form">
         <input type="text" class="contact-input" id="bb-name" placeholder="Ihr Name *">
         <input type="email" class="contact-input" id="bb-email" placeholder="E-Mail Adresse *">
-        <input type="tel" class="contact-input" id="bb-tel" placeholder="Telefonnummer (optional)">
+        <input type="tel" class="contact-input" id="bb-tel" placeholder="Telefonnummer *">
         <button class="btn-res-cta" style="margin-top:6px" onclick="BB.submitContact()">Analyse erstellen →</button>
       </div>
     </div>`;
@@ -1614,6 +1672,7 @@ const BB = {
       <span class="res-tag">Ihre persönliche Einschätzung</span>
       <div class="res-hl">${introHl}</div>
       <div class="res-sub">${greeting} auf Basis Ihrer Antworten eine erste Einschätzung für Sie erstellt.</div>
+      <img src="result-hero.jpeg" alt="" style="width:100%;border-radius:14px;object-fit:cover;aspect-ratio:16/9;margin:14px 0 18px;display:block;">
       ${scaleHtml}
       <div class="res-cards">${topicCards}</div>
       <button class="btn-res-cta" onclick="BB.next()">Warum PelviPower helfen kann →</button>
@@ -1631,7 +1690,7 @@ const BB = {
       <div class="pp-tech-icon">⚡</div>
       <div class="pp-tech-content">
         <div class="pp-tech-title">Die PelviPower-Technologie</div>
-        <div class="pp-tech-body">PelviPower nutzt hochfokussierte elektromagnetische Impulse (HIFEM), die tief in die Beckenbodenmuskulatur eindringen – bis in Schichten, die mit willentlichem Training nicht erreichbar sind. Eine einzige 28-Minuten-Sitzung löst über 11.000 Muskelkontraktionen aus. Das entspricht dem Trainingseffekt von Tausenden gezielter Übungen – ohne Anstrengung, ohne Risiko, klinisch validiert.</div>
+        <div class="pp-tech-body">PelviPower nutzt Funktionelle Magnetstimulation (FMS) mit einer einzigartigen beweglichen Magnetspule, die tief in die Beckenbodenmuskulatur eindringt – bis in Schichten, die mit willentlichem Training nicht erreichbar sind. Eine einzige 15–22-Minuten-Sitzung löst bis zu 25.000 Muskelkontraktionen aus. Das entspricht dem Trainingseffekt von Tausenden gezielter Übungen – ohne Anstrengung, ohne Risiko, klinisch validiert.</div>
       </div>
     </div>`;
 
@@ -1642,7 +1701,7 @@ const BB = {
         body(a) {
           const str = a[2] ? [...a[2]] : [];
           let t = 'Der überaktive Blasenmuskel (Detrusor) reagiert auf Reize schneller als er sollte – das Ergebnis ist ein Harndrang, der kaum aufzuschieben ist. ';
-          t += 'Die HIFEM-Impulse von PelviPower trainieren gezielt die Beckenbodenmuskulatur, die den Blasenauslass stabilisiert und dem Detrusor entgegenwirkt. ';
+          t += 'Die FMS-Impulse von PelviPower trainieren gezielt die Beckenbodenmuskulatur, die den Blasenauslass stabilisiert und dem Detrusor entgegenwirkt. ';
           if (str.includes(1)) t += 'Bei kaum aufschiebbarem Drang zeigen strukturierte Programme in klinischen Studien eine Reduktion der Drangepisoden um bis zu 70 % innerhalb von 8 Wochen. ';
           t += 'Das Besondere: Die Muskulatur wird auf einem neuromuskulären Niveau trainiert, das Biofeedback oder klassische Übungen allein nicht erreichen können.';
           return t;
@@ -1721,7 +1780,7 @@ const BB = {
     } else {
       topicCards = `<div class="pp-why-item"><span class="pp-why-icon">💪</span><div>
         <div class="pp-why-title">PelviPower für Ihren Beckenboden</div>
-        <div class="pp-why-body">HIFEM-Technologie aktiviert über 11.000 Muskelkontraktionen pro Sitzung – tiefer und effektiver als jedes manuelle Training. Klinisch validiert, ohne Nebenwirkungen.</div>
+        <div class="pp-why-body">Funktionelle Magnetstimulation aktiviert bis zu 25.000 Muskelkontraktionen pro Sitzung – tiefer und effektiver als jedes manuelle Training. Klinisch validiert, ohne Nebenwirkungen.</div>
       </div></div>`;
     }
 
@@ -1736,7 +1795,7 @@ const BB = {
 
     return `<div class="step-card">
       <span class="res-tag">Warum PelviPower?</span>
-      <div class="res-hl">Wie PelviPower konkret hilft</div>
+      <div class="res-hl">Wie Magnetfeldtraining konkret hilft</div>
       <div class="res-sub">Auf Basis Ihrer Angaben – was die Technologie für Sie tut:</div>
       ${techBlock}
       <div class="pp-why-list">${topicCards}</div>
@@ -1779,20 +1838,20 @@ const BB = {
       </div>
       <div class="loc-body">
         <div class="loc-trainer-row">
-          <div class="loc-avatar">SP</div>
+          <div class="loc-avatar"><img src="./Expertin.jpeg" alt="Magdalena Johne"></div>
           <div>
-            <div class="loc-trainer-name">Sandra Pellegrini</div>
+            <div class="loc-trainer-name">Magdalena Johne</div>
             <div class="loc-trainer-role">Zertifizierte PelviPower-Therapeutin</div>
           </div>
         </div>
         <div class="loc-trainer-bio">
-          Ich begleite Frauen seit über 8 Jahren auf ihrem Weg zu einem starken, beschwerdefreien Beckenboden – einfühlsam, individuell und mit nachweisbaren Ergebnissen.
+          Ich begleite Frauen auf ihrem Weg zu einem starken, beschwerdefreien Beckenboden – einfühlsam, individuell und mit nachweisbaren Ergebnissen.
         </div>
         <div class="loc-studio">
           <div class="loc-studio-icon">📍</div>
           <div>
-            <div class="loc-studio-name">MyPelvi Studio München-Schwabing</div>
-            <div class="loc-studio-addr">Leopoldstraße 48 · 80802 München</div>
+            <div class="loc-studio-name">MyPelvi Aspern</div>
+            <div class="loc-studio-addr">Bergengasse 3/4/L1 · 1220 Wien</div>
           </div>
         </div>
         <div class="loc-facts">
@@ -1800,77 +1859,21 @@ const BB = {
           <div class="loc-fact"><span class="loc-fact-icon">📅</span><span>Termine Mo–Sa, auch abends</span></div>
           <div class="loc-fact"><span class="loc-fact-icon">✓</span><span>Kassen &amp; Privat möglich</span></div>
         </div>
-        <button class="btn-res-cta" onclick="BB.next()">Termin bei Sandra vereinbaren →</button>
+        <button class="btn-res-cta" onclick="BB.next()">Termin bei Magdalena vereinbaren →</button>
       </div>
     </div>`;
   },
 
   // ── Kalender-Demo ──
   _renderBooking() {
-    const DAY_NAMES = ['So','Mo','Di','Mi','Do','Fr','Sa'];
-    const MONTH_NAMES = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
-    const TIMES = ['09:00','10:00','11:00','14:00','15:00','16:00'];
-    // Pseudo-belegte Slots je Tag (variiert für Realismus)
-    const TAKEN = [[0,2,4],[1,3],[0,1,5],[2,4],[1,3,4]];
-
-    // Nächste 5 Werktage
-    const days = [];
-    const cursor = new Date();
-    while (days.length < 5) {
-      cursor.setDate(cursor.getDate() + 1);
-      if (cursor.getDay() !== 0 && cursor.getDay() !== 6) days.push(new Date(cursor));
-    }
-
-    const sd = bbBookingDay, st = bbBookingTime;
-
-    const dayBtns = days.map((d, i) => `
-      <button class="cal-day${sd===i?' sel':''}" onclick="BB._pickBookingDay(${i})">
-        <span class="cal-day-name">${DAY_NAMES[d.getDay()]}</span>
-        <span class="cal-day-num">${d.getDate()}</span>
-        <span class="cal-day-mon">${MONTH_NAMES[d.getMonth()]}</span>
-      </button>`).join('');
-
-    let timesHtml = '';
-    if (sd !== null) {
-      const taken = TAKEN[sd] || [];
-      timesHtml = `<div class="cal-time-label">Verfügbare Zeiten</div>
-        <div class="cal-times">${TIMES.map((t, i) => {
-          const busy = taken.includes(i);
-          const sel = st === i;
-          return `<button class="cal-time${busy?' busy':''}${sel?' sel':''}" ${busy?'disabled':`onclick="BB._pickBookingTime(${i})"`}>${t}</button>`;
-        }).join('')}</div>`;
-    }
-
-    let confirmHtml = '';
-    if (sd !== null && st !== null) {
-      const d = days[sd];
-      confirmHtml = `<div class="cal-confirm">
-        <div class="cal-confirm-check">✓</div>
-        <div class="cal-confirm-title">Termin vorgemerkt</div>
-        <div class="cal-confirm-when">${DAY_NAMES[d.getDay()]}, ${d.getDate()}. ${MONTH_NAMES[d.getMonth()]} · ${TIMES[st]} Uhr</div>
-        <div class="cal-confirm-note">Kostenfreies Erstgespräch · 20 Min. · Video oder Telefon</div>
-        <button class="btn-res-cta" onclick="BB.close()" style="margin-top:18px">Termin bestätigen →</button>
-      </div>`;
-    }
-
-    return `<div class="step-card">
+    return `<div class="step-card" style="text-align:center;">
       <span class="res-tag">Kostenfreies Erstgespräch</span>
       <div class="res-hl">Wann passt es Ihnen?</div>
       <div class="res-sub">20 Minuten · Video oder Telefon · unverbindlich</div>
-      <div class="cal-days">${dayBtns}</div>
-      ${sd === null ? '<div class="cal-hint">Wählen Sie einen Tag aus</div>' : timesHtml}
-      ${confirmHtml}
+      <div style="margin-top:18px; background:transparent;">
+        <jc-calender-widget style="font-size:1.2vw" make-webhook=""></jc-calender-widget>
+      </div>
     </div>`;
-  },
-  _pickBookingDay(i) {
-    bbBookingDay = i; bbBookingTime = null;
-    document.getElementById('bb-body').innerHTML = this._renderBooking();
-  },
-  _pickBookingTime(i) {
-    bbBookingTime = i;
-    const body = document.getElementById('bb-body');
-    body.innerHTML = this._renderBooking();
-    setTimeout(() => body.scrollTop = body.scrollHeight, 60);
   },
 
   // ── reLounge: Ergebnisseite (Score + Programm-Empfehlung + topic-spezifisch) ──
