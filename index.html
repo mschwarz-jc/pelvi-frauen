@@ -1312,6 +1312,15 @@ const BB = {
 
     if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
 
+    // Email-Versand via Vercel Function
+    fetch('/api/send-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, tel, answers })
+    }).then(r => {
+      if (!r.ok) r.json().then(d => console.error('[send-lead] Fehler:', d.error));
+    }).catch(err => console.error('[send-lead] Netzwerkfehler:', err));
+
     bbStep++;
     this._render();
   },
