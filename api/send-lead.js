@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
     await resend.emails.send({
       from: 'PelviPower Quiz <onboarding@resend.dev>',
       to: ['leads.johne.consulting@gmail.com', 'sportclub.aspern@gmail.com'],
-      subject: `Neuer Lead: ${name}`,
+      subject: `Pelvi-Lead von der Quiz-Landingpage`,
       html
     });
     res.status(200).json({ ok: true });
