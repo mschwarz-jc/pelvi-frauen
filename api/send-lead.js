@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const { ImapFlow } = require('imapflow');
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -43,13 +44,40 @@ module.exports = async (req, res) => {
     }
   });
 
+  const mailOptions = {
+    from: '"PelviPower Quiz" <leads@johne-consulting.com>',
+    to: ['leads.johne.consulting@gmail.com', 'sportclub.aspern@gmail.com'],
+    subject: 'Pelvi-Lead von der Quiz-Landingpage',
+    html
+  };
+
   try {
-    await transporter.sendMail({
-      from: '"PelviPower Quiz" <leads@johne-consulting.com>',
-      to: ['leads.johne.consulting@gmail.com', 'sportclub.aspern@gmail.com'],
-      subject: 'Pelvi-Lead von der Quiz-Landingpage',
-      html
+    const info = await transporter.sendMail(mailOptions);
+
+    // Kopie in Gesendet-Ordner via IMAP
+    const imap = new ImapFlow({
+      host: 'imap.strato.de',
+      port: 993,
+      secure: true,
+      auth: { user: process.env.STRATO_USER, pass: process.env.STRATO_PASS },
+      logger: false
     });
+    try {
+      await imap.connect();
+      const raw = Buffer.from(
+        `From: "PelviPower Quiz" <leads@johne-consulting.com>\r\n` +
+        `To: leads.johne.consulting@gmail.com, sportclub.aspern@gmail.com\r\n` +
+        `Subject: Pelvi-Lead von der Quiz-Landingpage\r\n` +
+        `Date: ${new Date().toUTCString()}\r\n` +
+        `Content-Type: text/html; charset=utf-8\r\n\r\n` +
+        html
+      );
+      await imap.append('Sent', raw, ['\\Seen']);
+      await imap.logout();
+    } catch (imapErr) {
+      console.warn('[send-lead] IMAP Gesendet-Fehler:', imapErr.message);
+    }
+
     res.status(200).json({ ok: true });
   } catch (err) {
     console.error('[send-lead] SMTP Fehler:', err.message);
