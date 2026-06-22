@@ -1,4 +1,4 @@
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -29,17 +29,26 @@ module.exports = async (req, res) => {
     </div>
   `;
 
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.strato.de',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.STRATO_USER,
+      pass: process.env.STRATO_PASS
+    }
+  });
+
   try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from: 'PelviPower Quiz <onboarding@resend.dev>',
+    await transporter.sendMail({
+      from: '"PelviPower Quiz" <leads@johne-consulting.com>',
       to: ['leads.johne.consulting@gmail.com', 'sportclub.aspern@gmail.com'],
-      subject: `Pelvi-Lead von der Quiz-Landingpage`,
+      subject: 'Pelvi-Lead von der Quiz-Landingpage',
       html
     });
     res.status(200).json({ ok: true });
   } catch (err) {
-    console.error('[send-lead] Fehler:', err.message);
+    console.error('[send-lead] SMTP Fehler:', err.message);
     res.status(500).json({ ok: false, error: err.message });
   }
 };
