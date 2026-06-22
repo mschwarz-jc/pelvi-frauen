@@ -382,6 +382,8 @@
     .contact-input:focus { border-color: var(--ac); }
     .contact-input::placeholder { color: var(--txl); }
     .contact-input.err { border-color: #C44; }
+    .contact-field { display: flex; flex-direction: column; }
+    .contact-err { font-size: 12px; color: #C44; min-height: 18px; margin-top: 3px; padding-left: 2px; }
 
     /* ── LOADING ANIMATION ── */
     .loading-card { display: flex; flex-direction: column; align-items: center; padding: 48px 20px; gap: 22px; }
@@ -1261,19 +1263,59 @@ const BB = {
     if (nxt) nxt.disabled = false;
   },
   // Frauen: Kontaktformular abschicken
-  submitContact() {
+  async submitContact() {
     const nameEl = document.getElementById('bb-name');
     const emailEl = document.getElementById('bb-email');
     const name = nameEl?.value?.trim() || '';
     const email = emailEl?.value?.trim() || '';
     const telEl = document.getElementById('bb-tel');
     const tel = telEl?.value?.trim() || '';
-    nameEl?.classList.remove('err');
-    emailEl?.classList.remove('err');
-    telEl?.classList.remove('err');
-    if (!name) { nameEl?.classList.add('err'); nameEl?.focus(); return; }
-    if (!email || !email.includes('@')) { emailEl?.classList.add('err'); emailEl?.focus(); return; }
-    if (!tel) { telEl?.classList.add('err'); telEl?.focus(); return; }
+    // Reset
+    ['name','email','tel'].forEach(f => {
+      document.getElementById('bb-'+f)?.classList.remove('err');
+      document.getElementById('err-'+f).textContent = '';
+    });
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const telRe = /^[\+\d][\d\s\-\/\(\)]{6,20}$/;
+    let valid = true;
+
+    if (!name) {
+      nameEl?.classList.add('err');
+      document.getElementById('err-name').textContent = 'Bitte geben Sie Ihren Namen ein.';
+      valid = false;
+    }
+    if (!email || !emailRe.test(email)) {
+      emailEl?.classList.add('err');
+      document.getElementById('err-email').textContent = !email ? 'Bitte geben Sie Ihre E-Mail ein.' : 'Diese E-Mail-Adresse sieht nicht korrekt aus.';
+      valid = false;
+    }
+    if (!tel || !telRe.test(tel)) {
+      telEl?.classList.add('err');
+      document.getElementById('err-tel').textContent = !tel ? 'Bitte geben Sie Ihre Telefonnummer ein.' : 'Bitte geben Sie eine gültige Telefonnummer ein (z.B. +43 660 1234567).';
+      valid = false;
+    }
+    if (!valid) { if (!name) nameEl?.focus(); else if (!emailRe.test(email)) emailEl?.focus(); else telEl?.focus(); return; }
+
+    // MX-Check: prüft ob Email-Domain einen Mailserver hat
+    const submitBtn = document.getElementById('bb-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird geprüft …';
+    try {
+      const mx = await fetch('/api/check-email?email=' + encodeURIComponent(email));
+      const mxData = await mx.json();
+      if (!mxData.valid) {
+        emailEl?.classList.add('err');
+        document.getElementById('err-email').textContent = 'Diese E-Mail-Domain scheint nicht zu existieren. Bitte prüfen Sie Ihre Eingabe.';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Analyse erstellen →';
+        emailEl?.focus();
+        return;
+      }
+    } catch(e) { /* MX-Check nicht verfügbar – weitermachen */ }
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Analyse erstellen →';
+
     bbAnswers._contact = { name, email, tel };
 
     // Make Webhook: alle gezeigten Fragen in Flow-Reihenfolge mit lesbaren Antworten
@@ -1553,10 +1595,19 @@ const BB = {
       <div class="fb-hl">Im nächsten Schritt sehen Sie alles – direkt hier auf dem Bildschirm.</div>
       <div class="fb-body">Geben Sie Ihre E-Mail ein, damit wir Ihnen die Einschätzung zusätzlich zusenden und bei Fragen erreichbar sind.</div>
       <div class="contact-form">
-        <input type="text" class="contact-input" id="bb-name" placeholder="Ihr Name *">
-        <input type="email" class="contact-input" id="bb-email" placeholder="E-Mail Adresse *">
-        <input type="tel" class="contact-input" id="bb-tel" placeholder="Telefonnummer *">
-        <button class="btn-res-cta" style="margin-top:6px" onclick="BB.submitContact()">Analyse erstellen →</button>
+        <div class="contact-field">
+          <input type="text" class="contact-input" id="bb-name" placeholder="Ihr Name *">
+          <div class="contact-err" id="err-name"></div>
+        </div>
+        <div class="contact-field">
+          <input type="email" class="contact-input" id="bb-email" placeholder="E-Mail Adresse *">
+          <div class="contact-err" id="err-email"></div>
+        </div>
+        <div class="contact-field">
+          <input type="tel" class="contact-input" id="bb-tel" placeholder="Telefonnummer *">
+          <div class="contact-err" id="err-tel"></div>
+        </div>
+        <button class="btn-res-cta" style="margin-top:6px" id="bb-submit" onclick="BB.submitContact()">Analyse erstellen →</button>
       </div>
     </div>`;
   },
