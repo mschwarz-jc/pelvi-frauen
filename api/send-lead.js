@@ -8,7 +8,11 @@ module.exports = async (req, res) => {
   if (!name || !email) return res.status(400).json({ ok: false, error: 'Missing fields' });
 
   const answersText = Array.isArray(answers)
-    ? answers.map(a => `<tr><td style="padding:8px 20px 8px 0;color:#888;vertical-align:top;white-space:nowrap">${a.question}</td><td style="padding:8px 0"><strong>${Array.isArray(a.selected) ? a.selected.join(', ') : a.selected}</strong></td></tr>`).join('')
+    ? answers.map(a => `
+        <div style="padding:10px 0;border-bottom:1px solid #f5f0ea">
+          <div style="font-size:12px;color:#aaa;margin-bottom:4px">${a.question}</div>
+          <div style="font-size:14px;font-weight:600;color:#333">${Array.isArray(a.selected) ? a.selected.join(', ') : a.selected}</div>
+        </div>`).join('')
     : '';
 
   const html = `
@@ -24,7 +28,7 @@ module.exports = async (req, res) => {
         </table>
         <hr style="margin:24px 0;border:none;border-top:1px solid #f0e4d4">
         <h3 style="color:#888;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin:0 0 16px">Quiz-Antworten</h3>
-        <table style="border-collapse:collapse;font-size:14px;width:100%">${answersText}</table>
+        <div>${answersText}</div>
       </div>
     </div>
   `;
