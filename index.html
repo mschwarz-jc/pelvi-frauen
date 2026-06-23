@@ -98,7 +98,9 @@
       display: block; pointer-events: none; user-select: none;
       z-index: 1;
     }
-    /* Frauen: kein CSS-Fade nötig, Bild bereits editiert */
+    body.w .hero-device {
+      mix-blend-mode: multiply;
+    }
     .lp-m .hero-device {
       -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
       mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
