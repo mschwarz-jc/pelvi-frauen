@@ -102,6 +102,7 @@
     body.w .hero-device {
       -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
       mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
+      mix-blend-mode: multiply;
     }
     .lp-m .hero-device {
       -webkit-mask-image: radial-gradient(ellipse 80% 78% at 58% 56%, black 28%, transparent 100%);
@@ -537,6 +538,7 @@
       .hero { flex: 1; padding: 60px 8% 0; }
       .hero-in { max-width: 560px; }
       .btn-p { width: auto; display: inline-flex; }
+      .hero-device { display: none !important; }
     }
 
   </style>
