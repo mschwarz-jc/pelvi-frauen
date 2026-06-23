@@ -1391,10 +1391,14 @@ const BB = {
     if (!step) return;
 
     if (typeof posthog !== 'undefined') {
+      const QS = bbGender === 'w' ? BB_QS.w : bbGender === 'm' ? BB_QS.m : BB_QS.rl;
+      const question_label = step.t === 'q' && QS[step.qi] ? QS[step.qi].text : null;
       posthog.capture('quiz_step_viewed', {
         step_index: bbStep,
         step_type: step.t,
-        step_id: step.qi || step.id || step.n || step.fi || step.t
+        step_id: step.qi ?? step.id ?? step.n ?? step.fi ?? step.t,
+        question_label,
+        gender: bbGender,
       });
     }
 
